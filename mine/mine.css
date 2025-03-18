@@ -1,0 +1,171 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    position: relative;
+    background-image: url('stone.png');
+    background-repeat: repeat;
+    background-size: 80px;
+    overflow-x: hidden; /* Prevent horizontal scrollbars */
+}
+
+.dirt-background {
+    background-image: url('dirt-block.png');
+    background-repeat: repeat;
+    background-size: 200px;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 20px 20px;
+    height: 40px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.logo-image {
+    margin-right: 10px;
+}
+
+.logo-image img {
+    height: 60px;
+}
+
+header nav a {
+    color: white;
+    font-weight: bold;
+    font-size: 1.2em;
+    text-decoration: none;
+    margin-left: 15px;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 20px;
+    padding-bottom: 100px; /* Adjust as needed */
+}
+
+.video-sidebar-container {
+    display: flex;
+}
+
+.video-image {
+    width: 45%;
+    height: auto;
+    border: 1px solid #ddd;
+    margin-right: 20px;
+}
+
+.sidebar {
+    width: 30%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar p {
+    color: white;
+}
+
+.sidebar p a { /* Target links within .sidebar p */
+    color: white;
+}
+
+.text {
+    margin-top: 20px;
+    color: white;
+    text-decoration: none;
+}
+
+.text p {
+    line-height: 1.6;
+    margin-bottom: 25px;
+    font-size: 1.2em;
+}
+
+.steve-image {
+    width: 90%;
+    max-width: 350px;
+    height: auto;
+    margin: 0 auto 20px;
+}
+
+.buy-now {
+    background-color: #f90;
+    color: white;
+    padding: 20px 60px;
+    border: none;
+    cursor: pointer;
+    font-size: 1.6em;
+    margin-bottom: 20px;
+    max-width: 450px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.demo, .classic {
+    color: #007bff;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 20px;
+    font-size: 1.3em;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 5px 0;
+    bottom: 0;
+    width: 100%;
+}
+
+.download-button {
+  background: linear-gradient(to bottom, #FFA500, #FF8C00); /* Gradient background */
+  color: white;
+  margin: 5px auto;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  line-height: 45px;
+  font-weight: bold;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+  height: 45px;
+  cursor: pointer;
+  text-transform: uppercase;
+  text-decoration: none;
+  max-width: 200px;
+  display: inline-block;
+  width: 800px;
+  text-align: center;
+}
+
+.download-button:hover {
+  background: linear-gradient(to bottom, #FF8C00, #FFA500); /* Reverse gradient on hover */
+}
+
+
+.link-list {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2em;
+}
+
+.link-list a {
+  color: #b0b0b0; /* White color for links */
+  text-decoration: none; /* Remove underline */
+}
+
+.link-list a:hover {
+  color: #CCCCCC; /* Light gray on hover */
+}
+
+.link-list a:visited {
+    color: #b0b0b0; /* White color for visited links */
+}
+
