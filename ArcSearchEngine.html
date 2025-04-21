@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ArkSearch - Your Search Engine</title>
+    <style>
+        :root {
+            --background-color: #f5f5f5;
+            --text-color: #333;
+            --search-box-color: #fff;
+            --search-box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            --footer-color: #f2f2f2;
+            --footer-text-color: #70757a;
+            --footer-border: #dadce0;
+            --link-color: #1a0dab;
+            --url-color: #006621;
+            --snippet-color: #545454;
+            --button-color: #f8f9fa;
+            --button-border: #f8f9fa;
+            --button-text: #3c4043;
+            --nav-link-color: #555;
+            --header-border: #e5e5e5;
+            --ark-blue: #4285f4;
+            --ark-red: #ea4335;
+            --ark-yellow: #fbbc05;
+            --ark-green: #34a853;
+        }
+        
+        .dark-mode {
+            --background-color: #202124;
+            --text-color: #bdc1c6;
+            --search-box-color: #303134;
+            --search-box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+            --footer-color: #171717;
+            --footer-text-color: #9aa0a6;
+            --footer-border: #3c4043;
+            --link-color: #8ab4f8;
+            --url-color: #80af76;
+            --snippet-color: #bdc1c6;
+            --button-color: #303134;
+            --button-border: #303134;
+            --button-text: #e8eaed;
+            --nav-link-color: #bdc1c6;
+            --header-border: #3c4043;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        .header {
+            padding: 20px;
+            text-align: right;
+        }
+        
+        .header a {
+            margin-left: 15px;
+            text-decoration: none;
+            color: var(--nav-link-color);
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+        
+        .header a:hover {
+            text-decoration: underline;
+        }
+        
+        .search-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+            margin-bottom: 100px;
+        }
+        
+        .logo {
+            font-size: 70px;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        
+        .logo span:nth-child(1) { color: var(--ark-blue); }
+        .logo span:nth-child(2) { color: var(--ark-red); }
+        .logo span:nth-child(3) { color: var(--ark-yellow); }
+        .logo span:nth-child(4) { color: var(--ark-blue); }
+        .logo span:nth-child(5) { color: var(--ark-green); }
+        .logo span:nth-child(6) { color: var(--ark-red); }
+        .logo span:nth-child(7) { color: var(--ark-yellow); }
+        .logo span:nth-child(8) { color: var(--ark-blue); }
+        
+        .search-box {
+            width: 580px;
+            max-width: 90%;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 14px 45px 14px 20px;
+            border: 1px solid #dfe1e5;
+            border-radius: 24px;
+            font-size: 16px;
+            outline: none;
+            box-shadow: var(--search-box-shadow);
+            background-color: var(--search-box-color);
+            color: var(--text-color);
+            transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .search-input:hover, .search-input:focus {
+            box-shadow: 0 1px 6px rgba(0,0,0,0.2);
+            border-color: rgba(223,225,229,0);
+        }
+        
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--ark-blue);
+            cursor: pointer;
+        }
+        
+        .search-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+        
+        .search-btn {
+            background-color: var(--button-color);
+            border: 1px solid var(--button-border);
+            border-radius: 4px;
+            color: var(--button-text);
+            font-size: 14px;
+            padding: 10px 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+        
+        .search-btn:hover {
+            border-color: #dadce0;
+            box-shadow: 0 1px 1px rgba(0,0,0,.1);
+        }
+        
+        .footer {
+            background-color: var(--footer-color);
+            padding: 15px 20px;
+            border-top: 1px solid var(--footer-border);
+            color: var(--footer-text-color);
+            font-size: 14px;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer a {
+            color: var(--footer-text-color);
+            text-decoration: none;
+            margin-right: 20px;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Results Page Styling */
+        .results-header {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid var(--header-border);
+            background: var(--background-color);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        
+        .small-logo {
+            font-size: 24px;
+            font-weight: bold;
+            margin-right: 20px;
+            cursor: pointer;
+        }
+        
+        .small-logo span:nth-child(1) { color: var(--ark-blue); }
+        .small-logo span:nth-child(2) { color: var(--ark-red); }
+        .small-logo span:nth-child(3) { color: var(--ark-yellow); }
+        .small-logo span:nth-child(4) { color: var(--ark-blue); }
+        .small-logo span:nth-child(5) { color: var(--ark-green); }
+        .small-logo span:nth-child(6) { color: var(--ark-red); }
+        .small-logo span:nth-child(7) { color: var(--ark-yellow); }
+        .small-logo span:nth-child(8) { color: var(--ark-blue); }
+        
+        .header-search-box {
+            flex-grow: 1;
+            max-width: 650px;
+            margin-right: 20px;
+        }
+        
+        .header-search-container {
+            position: relative;
+        }
+        
+        .header-search-input {
+            width: 100%;
+            padding: 10px 40px 10px 15px;
+            border: 1px solid #dfe1e5;
+            border-radius: 24px;
+            font-size: 16px;
+            outline: none;
+            background-color: var(--search-box-color);
+            color: var(--text-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        .header-search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--ark-blue);
+            cursor: pointer;
+        }
+        
+        /* Custom Results Container */
+        #custom-results-container {
+            max-width: 650px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+        
+        .result-item {
+            margin-bottom: 25px;
+        }
+        
+        .result-url {
+            color: var(--url-color);
+            font-size: 14px;
+            margin-bottom: 4px;
+            transition: color 0.3s ease;
+        }
+        
+        .result-title {
+            font-size: 18px;
+            color: var(--link-color);
+            margin-bottom: 6px;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .result-title:hover {
+            text-decoration: underline;
+        }
+        
+        .result-snippet {
+            font-size: 14px;
+            color: var(--snippet-color);
+            transition: color 0.3s ease;
+        }
+        
+        /* Google CSE Custom Styling Overrides */
+        .gsc-control-cse {
+            padding: 0 !important;
+            border: none !important;
+            background-color: transparent !important;
+        }
+        
+        .gsc-result-info {
+            padding-left: 0 !important;
+        }
+        
+        .gsc-above-wrapper-area {
+            border-bottom: none !important;
+        }
+        
+        .gs-result .gs-title, 
+        .gs-result .gs-title * {
+            color: var(--link-color) !important;
+            text-decoration: none !important;
+        }
+        
+        .gs-result .gs-title:hover, 
+        .gs-result .gs-title:hover * {
+            text-decoration: underline !important;
+        }
+        
+        .gs-result .gs-visibleUrl {
+            color: var(--url-color) !important;
+        }
+        
+        .gs-result .gs-snippet {
+            color: var(--snippet-color) !important;
+        }
+        
+        /* Settings Dialog */
+        .settings-dialog {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .settings-content {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            padding: 25px;
+            border-radius: 8px;
+            min-width: 300px;
+            max-width: 500px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .settings-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .settings-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 20px;
+            color: var(--text-color);
+        }
+        
+        .settings-option {
+            margin-bottom: 15px;
+        }
+        
+        .settings-option label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 20px;
+            margin-right: 10px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: var(--ark-blue);
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(20px);
+        }
+        
+        /* Dark mode adjustments for Google CSE */
+        .dark-mode .gsc-control-cse,
+        .dark-mode .gsc-results-wrapper-overlay,
+        .dark-mode .gsc-results-wrapper-visible,
+        .dark-mode .gsc-tabsArea {
+            background-color: var(--background-color) !important;
+            color: var(--text-color) !important;
+        }
+        
+        .dark-mode .gs-result .gs-title,
+        .dark-mode .gs-result .gs-title * {
+            color: var(--link-color) !important;
+        }
+        
+        .dark-mode .gsc-webResult.gsc-result {
+            background-color: var(--background-color) !important;
+            border-color: var(--header-border) !important;
+        }
+        
+        .dark-mode .gsc-control-cse .gsc-table-result {
+            background-color: var(--background-color) !important;
+            color: var(--text-color) !important;
+        }
+        
+        .dark-mode .gsc-refinementsArea {
+            background-color: var(--background-color) !important;
+            border-color: var(--header-border) !important;
+        }
+
+        /* Loading indicator */
+        .loading-indicator {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.3);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: var(--ark-blue);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading indicator -->
+    <div id="loading-indicator" class="loading-indicator">
+        <div class="spinner"></div>
+    </div>
+
+    <div id="home-page">
+        <div class="header">
+            <a href="#">Email</a>
+            <a href="#">Images</a>
+            <a href="#">About</a>
+            <a href="#" onclick="openSettings(event)">Settings</a>
+        </div>
+        
+        <div class="search-container">
+            <div class="logo">
+                <span>A</span><span>r</span><span>k</span><span>S</span><span>e</span><span>a</span><span>r</span><span>c</span><span>h</span>
+            </div>
+            
+            <div class="search-box">
+                <input type="text" id="search-input" class="search-input" placeholder="Search the web..." onkeydown="if(event.key==='Enter') doSearch()">
+                <div class="search-icon" onclick="doSearch()">🔍</div>
+            </div>
+            
+            <div class="search-buttons">
+                <button type="button" class="search-btn" onclick="doSearch()">ArkSearch</button>
+                <button type="button" class="search-btn" onclick="luckySearch()">I'm Feeling Lucky</button>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="footer-content">
+                <div>
+                    <a href="https://arc360hub.com">About</a>
+                </div>
+                <div>
+                    <a href="#" onclick="openSettings(event)">Settings</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="results-page" style="display: none;">
+        <div class="results-header">
+            <div class="small-logo" onclick="returnToHomePage()">
+                <span>A</span><span>r</span><span>k</span><span>S</span><span>e</span><span>a</span><span>r</span><span>c</span><span>h</span>
+            </div>
+            
+            <div class="header-search-box">
+                <div class="header-search-container">
+                    <input type="text" id="header-search-input" class="header-search-input" placeholder="Search the web..." onkeydown="if(event.key==='Enter') doSearch(true)">
+                    <div class="header-search-icon" onclick="doSearch(true)">🔍</div>
+                </div>
+            </div>
+            <a href="#" onclick="openSettings(event)" style="color: var(--nav-link-color); text-decoration: none;">Settings</a>
+        </div>
+        
+        <div id="custom-results-container">
+            <div id="search-results">
+                <!-- Google CSE Results will be loaded here -->
+                <div id="cse-results">
+                    <script>
+                        (function() {
+                            var cx = '15299cb7b560a499d';
+                            var gcse = document.createElement('script');
+                            gcse.type = 'text/javascript';
+                            gcse.async = true;
+                            gcse.src = 'https://cse.google.com/cse.js?cx=' + cx;
+                            var s = document.getElementsByTagName('script')[0];
+                            s.parentNode.insertBefore(gcse, s);
+                        })();
+                    </script>
+                    <div class="gcse-searchresults-only"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Settings Dialog -->
+    <div class="settings-dialog" id="settings-dialog">
+        <div class="settings-content">
+            <div class="settings-header">
+                <div class="settings-title">Settings</div>
+                <button class="close-btn" onclick="closeSettings()">×</button>
+            </div>
+            <div class="settings-option">
+                <label>
+                    <span class="toggle-switch">
+                        <input type="checkbox" id="dark-mode-toggle" onchange="toggleDarkMode()">
+                        <span class="slider"></span>
+                    </span>
+                    Dark Mode
+                </label>
+            </div>
+            <div class="settings-option">
+                <label>
+                    <span class="toggle-switch">
+                        <input type="checkbox" id="safe-search-toggle" onchange="saveSafeSearch()">
+                        <span class="slider"></span>
+                    </span>
+                    Safe Search
+                </label>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Apply dark mode before page is visible (avoid flash)
+        (function() {
+            var darkMode = localStorage.getItem('darkMode');
+            if (darkMode === 'true') {
+                document.body.classList.add('dark-mode');
+            }
+        })();
+        
+        // Get URL parameters helper function
+        function getURLParameter(name) {
+            return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [, ""])[1].replace(/\+/g, '%20')) || null;
+        }
+        
+        // On DOMContentLoaded (early stage of page load)
+        document.addEventListener('DOMContentLoaded', function() {
+            // Apply dark mode again to ensure it works
+            var darkMode = localStorage.getItem('darkMode');
+            if (darkMode === 'true') {
+                document.body.classList.add('dark-mode');
+                if (document.getElementById('dark-mode-toggle')) {
+                    document.getElementById('dark-mode-toggle').checked = true;
+                }
+            }
+        });
+        
+        // Check if we should display results on page load
+        window.onload = function() {
+            // Load saved settings
+            loadSettings();
+            
+            var query = getURLParameter('q');
+            if (query) {
+                // We have a query parameter, show results page
+                document.getElementById('header-search-input').value = query;
+                document.getElementById('home-page').style.display = 'none';
+                document.getElementById('results-page').style.display = 'block';
+            }
+        };
+        
+        // Load settings from localStorage
+        function loadSettings() {
+            // Load dark mode setting
+            if (localStorage.getItem('darkMode') === 'true') {
+                document.body.classList.add('dark-mode');
+                document.getElementById('dark-mode-toggle').checked = true;
+            }
+            
+            // Load safe search setting
+            if (localStorage.getItem('safeSearch') === 'true') {
+                document.getElementById('safe-search-toggle').checked = true;
+            }
+        }
+        
+        // Save safe search setting
+        function saveSafeSearch() {
+            localStorage.setItem('safeSearch', document.getElementById('safe-search-toggle').checked);
+        }
+        
+        // Do search
+        function doSearch(fromHeader = false) {
+            // Show loading indicator
+            document.getElementById('loading-indicator').style.display = 'flex';
+            
+            // Get the query
+            var query = fromHeader 
+                ? document.getElementById('header-search-input').value.trim()
+                : document.getElementById('search-input').value.trim();
+                
+            if (!query) {
+                document.getElementById('loading-indicator').style.display = 'none';
+                return;
+            }
+            
+            // Apply current theme to the body tag attribute for persistence
+            if (document.body.classList.contains('dark-mode')) {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+            }
+            
+            // Build the search URL
+            var searchUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+            searchUrl += '?q=' + encodeURIComponent(query);
+            
+            // Add safe search if enabled
+            if (document.getElementById('safe-search-toggle').checked) {
+                searchUrl += '&safe=active';
+            }
+            
+            // Add current theme to URL to prevent flash
+            searchUrl += '&theme=' + (document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+            
+            // Redirect to the search URL
+            window.location.href = searchUrl;
+        }
+        
+        // "I'm Feeling Lucky" functionality
+        function luckySearch() {
+            var query = document.getElementById('search-input').value.trim();
+            if (!query) return;
+            
+            // Show loading indicator
+            document.getElementById('loading-indicator').style.display = 'flex';
+            
+            // Redirect directly to the first result (simulate I'm Feeling Lucky)
+            window.location.href = 'https://www.google.com/search?q=' + encodeURIComponent(query) + '&btnI=I%27m+Feeling+Lucky';
+        }
+        
+        // Return to home page
+        function returnToHomePage() {
+            // Show the home page
+            document.getElementById('home-page').style.display = 'block';
+            document.getElementById('results-page').style.display = 'none';
+            
+            // Update the URL without triggering a page reload
+            var newURL = window.location.protocol + "//" + window.location.host + window.location.pathname;
+            window.history.pushState({path: newURL}, '', newURL);
+            
+            // Focus the search input
+            document.getElementById('search-input').focus();
+        }
+        
+        // Settings Dialog Functions
+        function openSettings(event) {
+            event.preventDefault();
+            document.getElementById('settings-dialog').style.display = 'flex';
+        }
+        
+        function closeSettings() {
+            document.getElementById('settings-dialog').style.display = 'none';
+        }
+        
+        // Close settings if clicking outside the dialog
+        window.onclick = function(event) {
+            var dialog = document.getElementById('settings-dialog');
+            if (event.target === dialog) {
+                dialog.style.display = 'none';
+            }
+        };
+        
+        // Toggle Dark Mode
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+        }
+        
+        // Apply theme from URL parameter if available
+        (function() {
+            var theme = getURLParameter('theme');
+            if (theme === 'dark') {
+                document.body.classList.add('dark-mode');
+                if (document.getElementById('dark-mode-toggle')) {
+                    document.getElementById('dark-mode-toggle').checked = true;
+                }
+                localStorage.setItem('darkMode', 'true');
+            } else if (theme === 'light') {
+                document.body.classList.remove('dark-mode');
+                if (document.getElementById('dark-mode-toggle')) {
+                    document.getElementById('dark-mode-toggle').checked = false;
+                }
+                localStorage.setItem('darkMode', 'false');
+            }
+        })();
+    </script>
+</body>
+</html>
