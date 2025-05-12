@@ -1,0 +1,397 @@
+/* General Body Styles */
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    color: #fff;
+    background-color: #1a1a2e; /* Fallback background */
+    line-height: 1.6;
+    overflow-x: hidden; /* Prevent horizontal scrollbar from background */
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* Animated Mesh Background - Swirling Blue Blobs */
+.animated-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    /* Define multiple radial gradients for a blob effect - Using blue/cyan/violet tones */
+    background:
+        /* Blob 1: Bright Cyan/Blue */
+        radial-gradient(at 15% 20%, hsla(190, 85%, 60%, 0.6) 0px, transparent 50%),
+        /* Blob 2: Medium Blue */
+        radial-gradient(at 80% 30%, hsla(210, 80%, 55%, 0.7) 0px, transparent 50%),
+        /* Blob 3: Deeper Violet/Blue */
+        radial-gradient(at 75% 80%, hsla(250, 65%, 60%, 0.65) 0px, transparent 50%),
+        /* Blob 4: Soft Sky Blue */
+        radial-gradient(at 25% 85%, hsla(200, 75%, 70%, 0.5) 0px, transparent 50%),
+        /* Blob 5: Central Darker Navy */
+        radial-gradient(at 50% 50%, hsla(220, 70%, 40%, 0.8) 0px, transparent 55%);
+    background-color: #051021; /* Very dark blue fallback */
+    background-size: 200% 200%; /* Make gradients larger than viewport */
+    animation: swirlAnimation 5s ease-in-out infinite alternate; /* Slower, smoother, back-and-forth */
+    filter: blur(90px); /* Heavy blur to blend blobs */
+    transform: scale(1.15); /* Scale up slightly to hide edges caused by blur */
+}
+
+/* Keyframes for the swirling animation */
+@keyframes swirlAnimation {
+    0% {
+        /* Initial positions for each radial gradient */
+        background-position: 15% 20%, 80% 30%, 75% 80%, 25% 85%, 50% 50%;
+    }
+    50% {
+        /* Mid-animation positions - Blobs move around */
+         background-position: 30% 50%, 65% 15%, 90% 60%, 10% 40%, 50% 50%;
+         background-size: 220% 220%; /* Slightly change size for more dynamic feel */
+    }
+    100% {
+        /* End positions (will reverse due to 'alternate') */
+        background-position: 0% 70%, 90% 40%, 50% 95%, 40% 10%, 50% 50%;
+        background-size: 200% 200%; /* Return to original size */
+    }
+}
+
+/* --- Ensure the rest of your style.css remains the same --- */
+
+/* Hero Section (Header) */
+#hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    position: relative; /* For z-index stacking if needed */
+}
+
+.hero-content {
+    background-color: rgba(0, 0, 0, 0.3); /* Slight dark overlay for text readability */
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.mod-name {
+    font-size: 4rem; /* Responsive font size */
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+    letter-spacing: 2px;
+}
+
+.btn-rounded {
+    display: inline-block;
+    background-color: #007bff; /* A vibrant blue */
+    color: white;
+    padding: 12px 30px;
+    text-decoration: none;
+    border-radius: 50px; /* Rounded corners */
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-top: 15px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.4);
+}
+
+.btn-rounded:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    transform: translateY(-3px);
+}
+
+.download-link {
+    display: block;
+    color: #90caf9; /* Light blue, stands out on dark */
+    font-size: 1rem;
+    margin-top: 25px;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.download-link:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+/* Content Sections */
+.content-section {
+    padding: 60px 20px;
+    max-width: 1200px;
+    margin: 40px auto; /* Centering content */
+    background-color: rgba(26, 26, 46, 0.85); /* Dark, slightly transparent background for sections */
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    color: #e0e0e0;
+}
+
+/* Features Section */
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+    gap: 30px;
+}
+
+.feature-panel {
+    background-color: rgba(40, 42, 68, 0.9); /* Slightly lighter panel background */
+    padding: 25px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-panel:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+.feature-image-container {
+    width: 100%;
+    height: 200px; /* Fixed height for image container */
+    overflow: hidden; /* Crop images that are too large */
+    border-radius: 6px;
+    margin-bottom: 15px;
+}
+
+.feature-panel img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Cover the area, cropping if necessary */
+    display: block;
+    border-radius: 6px; /* Match container */
+}
+
+.feature-panel h3 {
+    font-size: 1.5rem;
+    color: #00aaff;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.feature-panel p {
+    font-size: 1rem;
+    color: #cccccc;
+}
+
+/* Showoff Gallery Section */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+}
+
+.gallery-image {
+    width: 100%;
+    height: 200px; /* Fixed height for thumbnails */
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+}
+
+.gallery-image:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 123, 255, 0.5);
+    opacity: 0.85;
+}
+
+/* Image Modal */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed;
+    z-index: 1000;
+    padding-top: 50px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+    backdrop-filter: blur(5px); /* Blur background behind modal */
+}
+
+.modal-content {
+    margin: auto;
+    display: block;
+    max-width: 85%;
+    max-height: 80vh;
+    border-radius: 5px;
+}
+
+#caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 15px 0;
+    font-size: 1.1rem;
+}
+
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 30px 20px;
+    background-color: #0f0f1a; /* Darker footer */
+    color: #aaa;
+    font-size: 0.9rem;
+    margin-top: 50px; /* Space above footer */
+    position: relative; /* Ensures it's above the animated background if overlaps */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .mod-name {
+        font-size: 3rem;
+    }
+    .section-title {
+        font-size: 2rem;
+    }
+    .features-grid {
+        grid-template-columns: 1fr; /* Stack panels on smaller screens */
+    }
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Smaller thumbnails */
+    }
+    .modal-content {
+        max-width: 95%;
+    }
+}
+
+@media (max-width: 480px) {
+    .mod-name {
+        font-size: 2.5rem;
+    }
+    .btn-rounded {
+        padding: 10px 20px;
+        font-size: 1rem;
+    }
+    .download-link {
+        font-size: 0.9rem;
+    }
+}
+
+/* Update Log Section */
+#update-log {
+    /* Uses .content-section styles already defined */
+}
+
+.log-container {
+    max-width: 900px; /* Or whatever width looks good */
+    margin: 0 auto; /* Center the log container */
+}
+
+.log-entry {
+    background-color: rgba(40, 42, 68, 0.7); /* Similar to feature panels, but maybe slightly different */
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    border-left: 5px solid #00aaff; /* Accent border */
+}
+
+.log-entry:last-child {
+    margin-bottom: 0;
+}
+
+.log-entry h4 {
+    font-size: 1.4rem;
+    color: #c5cae9; /* Lighter blue/lavender for version title */
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.log-entry .log-date {
+    font-size: 0.9rem;
+    font-weight: normal;
+    color: #9fa8da; /* Softer color for the date */
+    margin-left: 10px;
+}
+
+.log-entry ul {
+    list-style-type: disc; /* Or 'circle' or 'square' */
+    padding-left: 25px; /* Indent the list items */
+    margin-bottom: 0;
+}
+
+.log-entry li {
+    font-size: 1rem;
+    color: #cccccc;
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.log-entry li:last-child {
+    margin-bottom: 0;
+}
+/* Update Log Download Button Area */
+.update-log-download-area {
+    text-align: center; /* Center the button and text */
+    margin-bottom: 40px; /* Add some space below it before the logs start */
+}
+
+.btn-download-highlight {
+    /* We can make this button a bit more prominent */
+    background-color: #28a745; /* A distinct green color */
+    border: 2px solid #1e7e34; /* A slightly darker green border */
+    padding: 15px 40px; /* Make it a bit larger */
+    font-size: 1.25rem; /* Larger font */
+    box-shadow: 0 5px 20px rgba(40, 167, 69, 0.4); /* Greenish shadow */
+    display: inline-block; /* Needed for margin auto centering on an anchor if it were the only element */
+    text-decoration: none;
+    color: white;
+    border-radius: 50px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.btn-download-highlight:hover {
+    background-color: #218838; /* Darker green on hover */
+    transform: translateY(-3px) scale(1.02); /* Slight lift and scale effect */
+    box-shadow: 0 8px 25px rgba(40, 167, 69, 0.5);
+}
+
+.current-version-text {
+    margin-top: 15px;
+    font-size: 0.95rem;
+    color: #b0bec5; /* A light greyish-blue color */
+}
+
+/* If you want this new download button to look EXACTLY like the 'Read More' button,
+   instead of adding the btn-download-highlight specific styles above,
+   you would just use the class "btn-rounded" on the anchor tag and wouldn't need
+   to add any new CSS for btn-download-highlight.
+   However, giving it a distinct class like btn-download-highlight allows for specific styling.
+*/
+
