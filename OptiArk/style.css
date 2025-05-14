@@ -394,4 +394,99 @@ footer {
    to add any new CSS for btn-download-highlight.
    However, giving it a distinct class like btn-download-highlight allows for specific styling.
 */
+/* Performance Comparison Section */
+#performance-comparison {
+    /* Uses .content-section styles */
+}
 
+.benchmark-subtitle {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #b0bec5; /* Light blue-grey */
+    margin-top: -20px; /* Pull it closer to the title */
+    margin-bottom: 30px;
+}
+
+.bar-graph-container {
+    max-width: 800px; /* Adjust as needed */
+    margin: 0 auto 30px auto; /* Center and add bottom margin */
+    padding: 20px;
+    background-color: rgba(30, 32, 58, 0.7); /* Slightly different background for emphasis */
+    border-radius: 8px;
+}
+
+.bar-entry {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    gap: 15px; /* Space between label, bar, and value */
+}
+
+.bar-entry:last-child {
+    margin-bottom: 0;
+}
+
+.bar-label {
+    flex-basis: 200px; /* Fixed width for labels */
+    font-weight: bold;
+    color: #e0e0e0;
+    font-size: 1rem;
+    text-align: right; /* Align text to the right, before the bar */
+    padding-right: 10px;
+}
+
+.bar {
+    flex-grow: 1; /* Bar takes remaining space */
+    height: 30px; /* Height of the bar track */
+    background-color: rgba(0, 0, 0, 0.3); /* Dark track for the bar */
+    border-radius: 5px;
+    overflow: hidden; /* Ensures bar-fill stays within rounded corners */
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
+}
+
+.bar-fill {
+    height: 100%;
+    border-radius: 5px; /* Match parent's border-radius */
+    transition: width 1s ease-out; /* Smooth animation for width change (if using JS later) */
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Aligns text inside bar to the right if needed */
+    color: white;
+    font-size: 0.9rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+.bar-fill.optiark-bar {
+    background: linear-gradient(90deg, #007bff, #00aaff); /* Blue gradient for OptiArk */
+}
+
+.bar-fill.competitor-bar {
+    background: linear-gradient(90deg, #dc3545, #ff6b6b); /* Red/Orange gradient for Competitor */
+}
+
+.bar-value {
+    flex-basis: 80px; /* Fixed width for FPS values */
+    font-weight: bold;
+    color: #e0e0e0;
+    font-size: 1rem;
+    text-align: left; /* Align text to the left, after the bar */
+}
+
+.benchmark-note {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #90a4ae; /* Lighter, less prominent color */
+    margin-top: 20px;
+    font-style: italic;
+}
+
+
+/* Optional: Animation for bars loading when they become visible (requires JS) */
+/* For now, this is a placeholder for a potential JS enhancement.
+.bar-fill {
+    width: 0; Initial width for animation
+}
+.bar-fill.in-view {
+    Actual width will be set by inline style or JS
+}
+*/
