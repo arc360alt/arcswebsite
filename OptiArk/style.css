@@ -181,7 +181,7 @@ main {
     width: fit-content;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 25px; /* Space above "Download" */
+    margin-top: 20px; /* Space above "Download" */
     /* Add margin-bottom if needed, e.g., margin-bottom: 10px; */
 }
 
