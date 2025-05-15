@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OptiArk News - Minecraft Modpack</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="animated-background"></div>
+
+    <nav class="main-nav">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="news.html" class="active-nav">News</a></li>
+            </ul>
+    </nav>
+
+    <header class="page-hero"> <div class="page-hero-content">
+            <h1 class="page-title">OptiArk News & Updates</h1>
+        </div>
+    </header>
+
+    <main>
+        <section id="news-articles" class="content-section">
+            <div class="news-grid">
+                <article class="news-item-box">
+                    <div class="news-item-content">
+                        <h3 class="news-item-title">OptiArk Version 1.4.0 "Rewrite" Released!</h3>
+                        <p class="news-item-date">May 14, 2025</p>
+                        <div class="news-item-text">
+                            <p>We're excited to announce the release of OptiArk version 1.4.0! This version includes a significant rewrite of the pack aimed at improving performance and stability. We've also addressed several bugs from previous versions.</p>
+                            <p>Key changes include potential FPS improvements and a warning about entity culling (please keep it disabled for now). Linux users on Wayland should still consider the WayFix mod for the best experience.</p>
+                            <p>Grab the latest version from the downloads page!</p>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="news-item-box">
+                    <div class="news-item-content">
+                        <h3 class="news-item-title">Performance Boost with Version 1.3.0</h3>
+                        <p class="news-item-date">May 14, 2025</p>
+                        <div class="news-item-image-container">
+                            <img src="6000fps.png" alt="High FPS Screenshot"> </div>
+                        <div class="news-item-text">
+                            <p>Version 1.3.0 brought even more optimizations to OptiArk! We've fine-tuned the mod list, removing some less effective mods and adding new ones that have shown significant performance gains. Users with high-end hardware like the RTX 4090 have reported FPS increases from around 1400 to 1700!</p>
+                            <p>We've also disabled the dynamic crosshair by default for a cleaner experience, but you can re-enable it if you prefer. As always, some mods were updated to their latest versions.</p>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="news-item-box">
+                    <div class="news-item-content">
+                        <h3 class="news-item-title">Welcome to the New OptiArk Website!</h3>
+                        <p class="news-item-date">May 15, 2025</p>
+                         <div class="news-item-image-container">
+                            <img src="optiark.png" alt="OptiArk Logo"> </div>
+                        <div class="news-item-text">
+                            <p>We're thrilled to launch our brand new website for OptiArk! Here you'll find all the information you need about the modpack, including features, performance benchmarks, download links, and now, a dedicated news section to keep you updated on the latest developments.</p>
+                            <p>Explore the site and let us know what you think!</p>
+                        </div>
+                    </div>
+                </article>
+
+                </div>
+        </section>
+    </main>
+
+    <div id="imageModal" class="modal"> <span class="close-btn" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage" alt="Maximized Screenshot">
+        <div id="caption"></div>
+    </div>
+
+    <footer>
+        <p>&copy; Arc360 Studios 2020-2025</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
