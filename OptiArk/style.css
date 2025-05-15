@@ -129,8 +129,15 @@ main {
     flex-shrink: 0; /* Prevent shrinking for sticky footer */
 }
 
-.hero-content {
-    max-width: 800px;
+.hero-content > a {
+    display: block;          /* This makes each link take its own line, effectively stacking them */
+    width: -moz-fit-content; /* For Firefox compatibility */
+    width: fit-content;      /* Makes the button width only as wide as its content */
+    margin-left: auto;       /* Used with margin-right: auto to center the button */
+    margin-right: auto;      /* Used with margin-left: auto to center the button */
+    margin-bottom: 10px;     /* Adds some space below each button */
+    /* If your buttons don't have other styling for text color, padding, etc.,
+       you might need to add that here or ensure their existing classes provide it. */
 }
 
 .mod-name {
@@ -412,7 +419,7 @@ main {
 }
 
 .btn-download-highlight {
-    background-color: #28a745;
+    background-color: ##636363;
     color: white;
     padding: 15px 40px;
     font-size: 1.2rem;
