@@ -172,7 +172,6 @@ main {
 }
 
 #hero .download-link {
-    background-color: #55595c; /* UPDATED: Medium-dark grey */
     color: white;
     /* margin: 0 10px; Remove or comment out this line */
 
@@ -186,9 +185,7 @@ main {
     /* Add margin-bottom if needed, e.g., margin-bottom: 10px; */
 }
 
-#hero .download-link:hover {
-    background-color: #1e7e34;
-}
+
 
 /* Page Hero (for subpages like News) */
 .page-hero {
