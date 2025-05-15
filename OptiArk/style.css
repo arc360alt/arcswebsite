@@ -164,9 +164,18 @@ main {
 }
 
 #hero .download-link {
-    background-color: #28a745;
+    background-color: #55595c; /* UPDATED: Medium-dark grey */
     color: white;
-    margin: 0 10px;
+    /* margin: 0 10px; Remove or comment out this line */
+
+    /* Add/Modify these for stacking and centering: */
+    display: block;
+    width: -moz-fit-content; /* Firefox */
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px; /* Space above "Download" */
+    /* Add margin-bottom if needed, e.g., margin-bottom: 10px; */
 }
 
 #hero .download-link:hover {
