@@ -1,21 +1,26 @@
+/* Global Box Sizing Reset */
+html {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 /* Global Styles */
 body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
-    color: #e0e0e0; /* Default light text color for better contrast on dark backgrounds */
-    background-color: #12121f; /* Fallback background, though animated one covers it */
-    display: flex; /* For sticky footer */
-    flex-direction: column; /* For sticky footer */
-    min-height: 100vh; /* For sticky footer */
-}
-
-html {
-    scroll-behavior: smooth;
-    height: 100%; /* For sticky footer */
+    color: #e0e0e0;
+    background-color: #12121f; /* Fallback background */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensures body takes at least full viewport height for sticky footer */
 }
 
 main {
-    flex-grow: 1; /* Crucial for sticky footer: makes main content take available space */
+    flex-grow: 1; /* Allows main content to expand and push footer down */
+    width: 100%; /* Ensure main takes full width in flex column */
 }
 
 .content-section {
@@ -57,7 +62,7 @@ main {
     background: linear-gradient(45deg, #1a1a2e, #16213e, #0f3460, #2c3e50, #536976, #292e49);
     background-size: 400% 400%;
     animation: gradientBG 25s ease infinite;
-    z-index: -1; /* Ensure it's behind other content */
+    z-index: -1;
 }
 
 @keyframes gradientBG {
@@ -68,23 +73,24 @@ main {
 
 /* Main Navigation */
 .main-nav {
-    background-color: rgba(20, 22, 48, 0.75); /* Slightly more transparent for better blur */
+    width: 100%; /* Ensure nav takes full width in flex column */
+    background-color: rgba(20, 22, 48, 0.75);
     padding: 10px 0;
     text-align: center;
     position: sticky;
     top: 0;
     z-index: 1000;
     box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-    backdrop-filter: blur(10px); /* ADDED: Blur effect */
-    -webkit-backdrop-filter: blur(10px); /* For Safari compatibility */
-    flex-shrink: 0; /* For sticky footer */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* Safari */
+    flex-shrink: 0; /* Prevent shrinking for sticky footer */
 }
 
 .main-nav ul {
     list-style: none;
     padding: 0;
     margin: 0;
-    display: inline-block;
+    display: inline-block; /* For centering with text-align on parent */
 }
 
 .main-nav ul li {
@@ -108,18 +114,19 @@ main {
     color: #ffffff;
 }
 
-/* Hero Section */
+/* Hero Section (for index.html) */
 #hero {
-    height: 80vh; /* Adjust as needed, less than 100vh to see content below */
-    min-height: 400px;
-    display: flex;
+    width: 100%; /* Ensure header takes full width in flex column */
+    height: 80vh;
+    min-height: 400px; /* Minimum height */
+    display: flex; /* For centering hero-content */
     align-items: center;
     justify-content: center;
     text-align: center;
     color: #fff;
-    padding: 0 20px; /* Add some padding */
-    position: relative; /* For z-indexing if needed, and for hero-content positioning */
-    flex-shrink: 0; /* For sticky footer */
+    padding: 0 20px;
+    position: relative; /* If needed for pseudo-elements or absolute children */
+    flex-shrink: 0; /* Prevent shrinking for sticky footer */
 }
 
 .hero-content {
@@ -127,7 +134,7 @@ main {
 }
 
 .mod-name {
-    font-size: 4rem; /* Responsive font size */
+    font-size: 4rem;
     font-weight: 700;
     margin-bottom: 15px;
     text-shadow: 2px 2px 6px rgba(0,0,0,0.5);
@@ -140,17 +147,17 @@ main {
 }
 
 #hero .btn-rounded {
-    background-color: #007bff; /* Primary action color */
+    background-color: #007bff;
     color: white;
     margin: 0 10px;
 }
 
 #hero .btn-rounded:hover {
-    background-color: #0056b3; /* Darker shade on hover */
+    background-color: #0056b3;
 }
 
 #hero .download-link {
-    background-color: #28a745; /* Success/Download color */
+    background-color: #28a745;
     color: white;
     margin: 0 10px;
 }
@@ -161,12 +168,13 @@ main {
 
 /* Page Hero (for subpages like News) */
 .page-hero {
-    background-color: rgba(26, 28, 58, 0.8); /* Consistent with nav/panel transparency */
+    width: 100%; /* Ensure header takes full width in flex column */
+    background-color: rgba(26, 28, 58, 0.8);
     padding: 60px 20px;
     text-align: center;
     color: #ffffff;
-    margin-bottom: 40px;
-    flex-shrink: 0; /* For sticky footer */
+    margin-bottom: 40px; /* Space before main content */
+    flex-shrink: 0; /* Prevent shrinking for sticky footer */
 }
 
 .page-hero-content {
@@ -183,9 +191,7 @@ main {
 }
 
 /* Features Section */
-#features {
-    /* Uses .content-section styles */
-}
+#features { /* Uses .content-section styles */ }
 
 .features-grid {
     display: grid;
@@ -194,7 +200,7 @@ main {
 }
 
 .feature-panel {
-    background-color: rgba(30, 32, 58, 0.85); /* Slightly transparent dark blue-grey */
+    background-color: rgba(30, 32, 58, 0.85);
     padding: 25px;
     border-radius: 10px;
     text-align: center;
@@ -209,34 +215,32 @@ main {
 
 .feature-image-container {
     width: 100%;
-    height: 180px; /* Fixed height for consistency */
+    height: 180px;
     margin-bottom: 20px;
     border-radius: 8px;
-    overflow: hidden; /* Clip image to rounded corners */
+    overflow: hidden;
 }
 
 .feature-image-container img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Cover the container, cropping if necessary */
+    object-fit: cover;
 }
 
 .feature-panel h3 {
     font-size: 1.75rem;
-    color: #00aaff; /* Light blue for feature titles */
+    color: #00aaff;
     margin-bottom: 10px;
 }
 
 .feature-panel p {
     font-size: 1rem;
     line-height: 1.6;
-    color: #c0c0c0; /* Lighter grey for text */
+    color: #c0c0c0;
 }
 
 /* Showoff Gallery Section */
-#showoff {
-    /* Uses .content-section styles */
-}
+#showoff { /* Uses .content-section styles */ }
 
 .gallery-grid {
     display: grid;
@@ -246,7 +250,7 @@ main {
 
 .gallery-image {
     width: 100%;
-    height: 200px; /* Or use aspect-ratio if preferred */
+    height: 200px;
     object-fit: cover;
     border-radius: 8px;
     cursor: pointer;
@@ -263,7 +267,7 @@ main {
 .modal {
     display: none;
     position: fixed;
-    z-index: 1001; /* Above nav bar */
+    z-index: 1001;
     padding-top: 50px;
     left: 0;
     top: 0;
@@ -271,7 +275,7 @@ main {
     height: 100%;
     overflow: auto;
     background-color: rgba(0,0,0,0.9);
-    backdrop-filter: blur(5px); /* Blur background behind modal */
+    backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
 }
 
@@ -311,11 +315,8 @@ main {
     cursor: pointer;
 }
 
-
 /* Performance Comparison Section */
-#performance-comparison {
-    /* Uses .content-section styles */
-}
+#performance-comparison { /* Uses .content-section styles */ }
 
 .benchmark-subtitle {
     text-align: center;
@@ -328,10 +329,10 @@ main {
 .bar-graph-container {
     max-width: 800px;
     margin: 0 auto 30px auto;
-    padding: 25px; /* Increased padding */
-    background-color: rgba(30, 32, 58, 0.85); /* Consistent with panels */
-    border-radius: 10px; /* Consistent with panels */
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3); /* Consistent with panels */
+    padding: 25px;
+    background-color: rgba(30, 32, 58, 0.85);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
 .bar-entry {
@@ -357,7 +358,7 @@ main {
 .bar {
     flex-grow: 1;
     height: 30px;
-    background-color: rgba(0, 0, 0, 0.35); /* Slightly darker track */
+    background-color: rgba(0, 0, 0, 0.35);
     border-radius: 5px;
     overflow: hidden;
     box-shadow: inset 0 1px 3px rgba(0,0,0,0.2);
@@ -399,30 +400,27 @@ main {
     font-style: italic;
 }
 
-
 /* Update Log Section */
-#update-log {
-    /* Uses .content-section styles */
-}
+#update-log { /* Uses .content-section styles */ }
 
 .update-log-download-area {
     text-align: center;
     margin-bottom: 40px;
     padding: 20px;
-    background-color: rgba(30, 32, 58, 0.7); /* Panel background */
+    background-color: rgba(30, 32, 58, 0.7);
     border-radius: 8px;
 }
 
 .btn-download-highlight {
-    background-color: #28a745; /* Green for download */
+    background-color: #28a745;
     color: white;
-    padding: 15px 40px; /* Larger button */
+    padding: 15px 40px;
     font-size: 1.2rem;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 .btn-download-highlight:hover {
-    background-color: #1e7e34; /* Darker green */
+    background-color: #1e7e34;
 }
 
 .current-version-text {
@@ -434,61 +432,59 @@ main {
 .log-container {
     max-width: 800px;
     margin: 0 auto;
-    background-color: rgba(30, 32, 58, 0.7); /* Panel background */
+    background-color: rgba(30, 32, 58, 0.7);
     padding: 20px 30px;
     border-radius: 8px;
 }
 
 .log-entry h4 {
     font-size: 1.5rem;
-    color: #00aaff; /* Light blue for version titles */
-    margin-top: 25px; /* Space above each version entry */
+    color: #00aaff;
+    margin-top: 25px;
     margin-bottom: 10px;
     padding-bottom: 5px;
     border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 .log-entry h4:first-child {
-    margin-top: 0; /* No top margin for the very first entry */
+    margin-top: 0;
 }
 
 .log-date {
     font-size: 0.9rem;
-    color: #78909c; /* Grey for date */
+    color: #78909c;
     font-style: italic;
 }
 
 .log-entry ul {
-    list-style: none; /* Remove default bullets */
-    padding-left: 0; /* Remove default padding */
+    list-style: none;
+    padding-left: 0;
 }
 
 .log-entry ul li {
-    padding: 8px 0 8px 20px; /* Add padding for custom bullet */
-    position: relative; /* For custom bullet positioning */
+    padding: 8px 0 8px 20px;
+    position: relative;
     font-size: 1rem;
     color: #c0c0c0;
     line-height: 1.5;
 }
 
-.log-entry ul li::before { /* Custom bullet */
-    content: '•'; /* Or use '→', '✓', etc. */
-    color: #007bff; /* Bullet color */
+.log-entry ul li::before {
+    content: '•';
+    color: #007bff;
     font-weight: bold;
     position: absolute;
     left: 0;
-    top: 8px; /* Adjust vertical alignment */
+    top: 8px;
 }
 
 /* News Grid Section */
-#news-articles {
-    /* Uses .content-section styles */
-}
+#news-articles { /* Uses .content-section styles */ }
 
 .news-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 30px;
-    margin-top: 30px;
+    margin-top: 30px; /* Space below a section title if you add one */
 }
 
 .news-item-box {
@@ -550,13 +546,13 @@ main {
 
 /* Footer */
 footer {
-    background-color: #1a1c3a; /* Dark blue, consistent with overall theme */
+    width: 100%; /* Ensure footer takes full width in flex column */
+    background-color: #1a1c3a;
     color: #e0e0e0;
     text-align: center;
-    padding: 25px 0; /* Increased padding */
-    margin-top: auto; /* Pushes footer to bottom in flex container if content is short -- not strictly needed if main has flex-grow */
-    border-top: 1px solid rgba(255,255,255,0.1); /* Subtle top border */
-    flex-shrink: 0; /* For sticky footer */
+    padding: 25px 0;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    flex-shrink: 0; /* Prevent shrinking for sticky footer */
 }
 
 footer p {
@@ -564,72 +560,31 @@ footer p {
     font-size: 0.95rem;
 }
 
-
 /* Responsive Adjustments */
 @media (max-width: 768px) {
-    .mod-name {
-        font-size: 3rem;
-    }
-
-    #hero p {
-        font-size: 1.2rem;
-    }
-
+    .mod-name { font-size: 3rem; }
+    #hero p { font-size: 1.2rem; }
     #hero .btn-rounded, #hero .download-link {
         padding: 10px 20px;
         font-size: 0.9rem;
-        display: block; /* Stack buttons on smaller screens */
-        margin: 10px auto; /* Center stacked buttons */
-        width: fit-content; /* Adjust width to content */
+        display: block;
+        margin: 10px auto;
+        width: fit-content;
     }
-
-    .section-title {
-        font-size: 2rem;
-    }
-
-    .page-title {
-        font-size: 2.2rem;
-    }
-
-    .bar-label {
-        flex-basis: 120px; /* Shorter label width on mobile */
-        font-size: 0.9rem;
-    }
-    .bar-value {
-        flex-basis: 60px;
-        font-size: 0.9rem;
-    }
-
-    .features-grid, .gallery-grid, .news-grid {
-        grid-template-columns: 1fr; /* Single column for smaller screens */
-    }
-
-    .main-nav ul li {
-        margin: 0 10px; /* Reduce nav item spacing */
-    }
-    .main-nav ul li a {
-        font-size: 1rem;
-    }
+    .section-title { font-size: 2rem; }
+    .page-title { font-size: 2.2rem; }
+    .bar-label { flex-basis: 120px; font-size: 0.9rem; }
+    .bar-value { flex-basis: 60px; font-size: 0.9rem; }
+    .features-grid, .gallery-grid, .news-grid { grid-template-columns: 1fr; }
+    .main-nav ul li { margin: 0 10px; }
+    .main-nav ul li a { font-size: 1rem; }
 }
 
 @media (max-width: 480px) {
-    .mod-name {
-        font-size: 2.5rem;
-    }
-    #hero p {
-        font-size: 1.1rem;
-    }
-    .section-title {
-        font-size: 1.8rem;
-    }
-    .page-title {
-        font-size: 2rem;
-    }
-     .main-nav ul li {
-        margin: 0 5px; /* Further reduce nav item spacing */
-    }
-    .main-nav ul li a {
-        padding: 6px 10px;
-        font-size: 0.9rem;
-    }
+    .mod-name { font-size: 2.5rem; }
+    #hero p { font-size: 1.1rem; }
+    .section-title { font-size: 1.8rem; }
+    .page-title { font-size: 2rem; }
+    .main-nav ul li { margin: 0 5px; }
+    .main-nav ul li a { padding: 6px 10px; font-size: 0.9rem; }
 }
