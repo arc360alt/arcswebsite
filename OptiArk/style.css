@@ -154,9 +154,17 @@ main {
 }
 
 #hero .btn-rounded {
-    background-color: #007bff;
+    background-color: #007bff; /* Blue for "Read More" */
     color: white;
-    margin: 0 10px;
+    /* margin: 0 10px; Remove or comment out this line */
+
+    /* Add/Modify these for stacking and centering: */
+    display: block;
+    width: -moz-fit-content; /* Firefox */
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px; /* Space below "Read More" */
 }
 
 #hero .btn-rounded:hover {
