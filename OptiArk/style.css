@@ -452,9 +452,9 @@ main {
 }
 
 .log-container {
-    max-width: 800px;
-    margin: 0 auto;
-    background-color: rgba(30, 32, 58, 0.7);
+    max-width: 800px; /* This is likely setting the width of the changelog box */
+    margin: 0 auto;   /* Centers the log-container if its parent is wider */
+    background-color: rgba(30, 32, 58, 0.7); /* This also has a background */
     padding: 20px 30px;
     border-radius: 8px;
 }
