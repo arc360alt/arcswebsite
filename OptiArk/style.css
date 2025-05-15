@@ -428,17 +428,18 @@ main {
     text-align: center;
     margin-bottom: 40px;
     padding: 20px;
-    background-color: rgba(30, 32, 58, 0.7);
+    background-color: rgba(30, 32, 58, 0.7); /* This has a background */
     border-radius: 8px;
 }
 
 .btn-download-highlight {
-    background-color: ##636363;
+    background-color: #28a745; /* Original green, user changed to #636363 */
     color: white;
     padding: 15px 40px;
     font-size: 1.2rem;
     text-transform: uppercase;
     letter-spacing: 1px;
+    /* This is an inline-block by default if it's an <a> tag styled like a button */
 }
 .btn-download-highlight:hover {
     background-color: #1e7e34;
