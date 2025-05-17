@@ -3,29 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gemini AI Chatbot</title>
+    <title>Gemini AI Chatbot - Multi-Chat</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    </head>
-<body class="theme-light"> <div id="chat-app-container">
-        <header id="chat-header-main">
-            <h1>Gemini Chatbot</h1>
-            <button id="settings-toggle-button" class="header-button">Settings</button>
-        </header>
-
-        <div id="chat-box-area">
-            <div class="message bot-message">
-                <p>Hello! I'm your Gemini assistant. How can I help you today? Don't forget to set your API key in settings! (get a free one here: https://aistudio.google.com/app/apikey)</p>
+</head>
+<body class="theme-light"> <div id="page-container">
+        <aside id="chat-sidebar">
+            <div class="sidebar-header">
+                <button id="new-chat-button" class="action-button">New Chat</button>
             </div>
-        </div>
+            <ul id="chat-list">
+                </ul>
+        </aside>
 
-        <div id="chat-input-area">
-            <textarea id="message-input" placeholder="Type your message... (Shift+Enter for new line)"></textarea>
-            <button id="send-button" class="action-button">Send</button>
+        <div id="chat-app-container">
+            <header id="chat-header-main">
+                <h1 id="current-chat-title">Chat</h1> <button id="settings-toggle-button" class="header-button">Settings</button>
+            </header>
+
+            <div id="chat-box-area">
+                </div>
+
+            <div id="image-preview-area" style="display: none;">
+                <img id="selected-image-preview" src="#" alt="Selected image preview" />
+                <button id="remove-image-button" class="remove-image-btn">&times;</button>
+                <span id="selected-image-name"></span>
+            </div>
+
+            <div id="chat-input-area">
+                <textarea id="message-input" placeholder="Type your message... (Shift+Enter for new line)"></textarea>
+                <div class="chat-action-buttons">
+                    <button id="attach-image-button" class="action-button attach-button-style">Attach Image</button>
+                    <button id="send-button" class="action-button send-button-style">Send</button>
+                </div>
+                <input type="file" id="image-file-input" accept="image/png, image/jpeg, image/webp, image/gif" style="display: none;">
+            </div>
         </div>
     </div>
 
-    <div id="settings-panel" class="modal-panel" style="display: none;"> <div class="modal-content">
+
+    <div id="settings-panel" class="modal-panel" style="display: none;">
+        <div class="modal-content">
             <div class="modal-header">
                 <h2>Settings</h2>
                 <button id="close-settings-button" class="close-button">&times;</button>
@@ -46,18 +64,18 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="model-select">Model:</label>
+                    <label for="model-select">Model (for new chats):</label>
                     <select id="model-select">
                         <option value="gemini-1.5-flash-latest">Gemini 1.5 Flash (Latest)</option>
                         <option value="gemini-2.0-flash">Gemini 2.0 Flash</option>
                         <option value="gemini-pro">Gemini Pro (General)</option>
-                        </select>
-                    <p><small>Note: You may not have acsess to some of thease models, so you may need to use some other ones to get this to work</small></p>
-                    <p><small>Yes I am aware this is pretty uselsess, becasue gemini is allready a web app, but I was board and wanted to make somthing.</small></p>
+                    </select>
+                    <p><small>Note: Model availability and naming can change. Please refer to official Google Gemini documentation for the latest free tier models. Ensure the selected model is compatible with your API key and usage tier. Flash models support image input.</small></p>
                 </div>
             </div>
             <div class="modal-footer">
                 <button id="save-settings-button" class="action-button">Save Settings</button>
+                <button id="clear-storage-button" class="action-button danger-button">Clear All Chat Data</button> 
             </div>
         </div>
     </div>
@@ -65,4 +83,3 @@
     <script type="module" src="script.js"></script>
 </body>
 </html>
-
