@@ -15,7 +15,8 @@ body {
   flex-direction: column; 
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  /* height: 100vh; /* Uncomment if you want full viewport height */
+  padding: 20px; /* Add some padding around the content */
   margin: 0;
 }
 
