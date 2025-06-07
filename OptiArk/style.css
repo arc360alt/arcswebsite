@@ -63,6 +63,8 @@ main {
     background-size: 400% 400%;
     animation: gradientBG 25s ease infinite;
     z-index: -1;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* Safari */
 }
 
 @keyframes gradientBG {
