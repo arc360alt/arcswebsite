@@ -403,8 +403,12 @@ main {
     background: linear-gradient(90deg, #007bff, #00aaff);
 }
 
-.bar-fill.competitor-bar {
+.bar-fill.optiarkVK-bar {
     background: linear-gradient(90deg, #dc3545, #ff6b6b);
+}
+
+.bar-fill.competitor-bar {
+    background: linear-gradient(90deg, ##35dc35, #6bffa1);
 }
 
 .bar-value {
