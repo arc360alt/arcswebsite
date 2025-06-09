@@ -408,7 +408,7 @@ main {
 }
 
 .bar-fill.competitor-bar {
-    background: linear-gradient(90deg, ##35dc35, #6bffa1);
+    background: linear-gradient(90deg, #35dc35, #6bffa1);
 }
 
 .bar-value {
