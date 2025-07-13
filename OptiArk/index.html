@@ -14,7 +14,7 @@
         <ul>
             <li><a href="index.html" class="active-nav">Home</a></li>
             <li><a href="news.html">News</a></li>
-            </ul>
+        </ul>
     </nav>
 
     <header id="hero">
@@ -22,7 +22,7 @@
             <h1 class="mod-name">OptiArk</h1>
             <p>A Performance modpack for Minecraft 1.21.6</p>
             <a href="#features" class="btn-rounded" id="read-more-btn">Read More</a>
-            <a href="#update-log" class="download-link" id="download-scroll-link">Download</a>
+            <a href="#download-section" class="download-link" id="download-scroll-link">Download</a>
         </div>
     </header>
 
@@ -68,7 +68,7 @@
             <h2 class="section-title">Performance Benchmark</h2>
             <p class="benchmark-subtitle">See how OptiArk stacks up, Used a Thinkpad w/ a 680M GPU</p>
             <div class="bar-graph-container">
-            <div class="bar-entry">
+                <div class="bar-entry">
                     <span class="bar-label">OptiArk VULKAN FPS</span>
                     <div class="bar">
                         <div class="bar-fill optiarkVK-bar" style="width: 85%;" data-value="820 FPS"></div>
@@ -93,15 +93,49 @@
             <p class="benchmark-note">*Benchmark results can vary based on hardware, game version, and specific in-game scenarios. This pack is also still in development, this could change at any time.</p>
         </section>
 
+        <section id="download-section" class="content-section">
+            <h2 class="section-title">Download OptiArk</h2>
+            <div class="download-dropdown-area">
+                <div class="download-dropdown-group">
+                    <label for="technology-select" class="dropdown-label">Technology:</label>
+                    <select id="technology-select" class="download-dropdown">
+                        <option value="">Select Technology</option>
+                        <option value="Sodium">Sodium</option>
+                        <option value="VulkanMod">VulkanMod</option>
+                        <option value="Nividium">Nividium</option>
+                    </select>
+                </div>
+
+                <div class="download-dropdown-group">
+                    <label for="version-select" class="dropdown-label">Version:</label>
+                    <select id="version-select" class="download-dropdown" disabled>
+                        <option value="">Select Versionoption>
+                    </select>
+                </div>
+
+                <div id="download-link-area" class="download-link-area">
+                    <p id="download-message">Please select a technology and version to get your download link.</p>
+                    <a id="dynamic-download-link" href="#" target="_blank" rel="noopener noreferrer"
+                       class="btn-rounded btn-download-highlight hidden">
+                        Download Now
+                        <svg class="download-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+
         <section id="update-log" class="content-section">
             <h2 class="section-title">Update Log</h2>
-            <div class="update-log-download-area">
-                <a href="https://github.com/arc360alt/arcswebsite/releases" class="btn-rounded btn-download-highlight" target="_blank" rel="noopener noreferrer">Download Latest Version</a>
-                <p class="current-version-text">Currently: Version 1.6.1 (as of 2025-07-01)</p>
-            </div>
+            <p class="current-version-text">Current General OptiArk Version: 1.6.1 (as of 2025-07-01)</p>
             <div class="log-container">
                 <div class="log-entry">
-                        <h4>Version 1.6.1 - 1.21.6 <span class="log-date">(2025-07-01)</span></h4>
+                    <h4>Pack Wide Update - Nvidia <span class="log-date">(2025-07-01)</span></h4>
+                    <ul>
+                        <li>Adds a brand new download system for modpacks</li>
+                        <li>Adds Nividium for 1.21.5-1.21.6</li>
+                        <li>Adds Vulkanmod for 1.21.4/li>
+                    </ul>
+                    <h4>Version 1.6.1 - 1.21.6 <span class="log-date">(2025-07-01)</span></h4>
                     <ul>
                         <li>1.21.6 support, waiting for vulkanmod support, so no vulkan release</li>
                         <li>Older versions may be updated again if big updates happen, aka LTS builds.</li>
