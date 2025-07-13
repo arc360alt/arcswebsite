@@ -132,14 +132,12 @@ main {
 }
 
 .hero-content > a {
-    display: block;          /* This makes each link take its own line, effectively stacking them */
+    display: block;           /* This makes each link take its own line, effectively stacking them */
     width: -moz-fit-content; /* For Firefox compatibility */
-    width: fit-content;      /* Makes the button width only as wide as its content */
+    width: fit-content;       /* Makes the button width only as wide as its content */
     margin-left: auto;       /* Used with margin-right: auto to center the button */
     margin-right: auto;      /* Used with margin-left: auto to center the button */
     margin-bottom: 10px;     /* Adds some space below each button */
-    /* If your buttons don't have other styling for text color, padding, etc.,
-       you might need to add that here or ensure their existing classes provide it. */
 }
 
 .mod-name {
@@ -444,6 +442,107 @@ main {
     /* We keep margin-bottom: 40px from above, so we only set auto for left/right */
 }
 
+/* NEW: Styles for the download dropdowns section */
+#download-section {
+    background-color: rgba(30, 32, 58, 0.85); /* Slightly darker background for this section */
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    padding: 40px 30px;
+    text-align: center;
+    margin-bottom: 60px; /* Space before update log */
+}
+
+.download-dropdown-area {
+    display: flex;
+    flex-direction: column; /* Stack on small screens */
+    gap: 25px;
+    max-width: 600px;
+    margin: 0 auto 30px auto;
+    align-items: center; /* Center items when stacked */
+}
+
+.download-dropdown-group {
+    width: 100%; /* Full width on smaller screens */
+    text-align: left;
+}
+
+.dropdown-label {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 8px;
+}
+
+.download-dropdown {
+    width: 100%;
+    padding: 12px 15px;
+    border-radius: 8px;
+    background-color: rgba(20, 22, 48, 0.9); /* Darker background for dropdowns */
+    border: 1px solid #007bff; /* Blue border */
+    color: #e0e0e0;
+    font-size: 1rem;
+    appearance: none; /* Remove default arrow */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url('data:image/svg+xml;utf8,<svg fill="%23e0e0e0" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>'); /* Custom arrow */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 20px;
+    cursor: pointer;
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.download-dropdown:focus {
+    outline: none;
+    border-color: #00aaff; /* Lighter blue on focus */
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+.download-dropdown:disabled {
+    background-color: rgba(20, 22, 48, 0.5);
+    border-color: rgba(0, 123, 255, 0.5);
+    color: #888;
+    cursor: not-allowed;
+}
+
+.download-link-area {
+    margin-top: 30px;
+}
+
+#download-message {
+    font-size: 1.1rem;
+    color: #c0c0c0;
+    margin-bottom: 20px;
+}
+
+#dynamic-download-link {
+    background-color: #28a745; /* Green for download button */
+    color: white;
+    padding: 15px 40px;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: inline-flex; /* Align icon and text */
+    align-items: center;
+    justify-content: center;
+}
+
+#dynamic-download-link.hidden {
+    display: none;
+}
+
+#dynamic-download-link:hover {
+    background-color: #1e7e34;
+}
+
+.download-icon {
+    width: 24px;
+    height: 24px;
+    margin-left: 10px;
+}
+
+/* Original Update Log Styles (kept) */
 .btn-download-highlight {
     background-color: #28a745; /* Original green, user changed to #636363 */
     color: white;
@@ -451,7 +550,6 @@ main {
     font-size: 1.2rem;
     text-transform: uppercase;
     letter-spacing: 1px;
-    /* This is an inline-block by default if it's an <a> tag styled like a button */
 }
 .btn-download-highlight:hover {
     background-color: #1e7e34;
@@ -461,11 +559,12 @@ main {
     margin-top: 15px;
     font-size: 0.95rem;
     color: #b0bec5;
+    text-align: center; /* Add this line */
 }
 
 .log-container {
     max-width: 800px; /* This is likely setting the width of the changelog box */
-    margin: 0 auto;   /* Centers the log-container if its parent is wider */
+    margin: 0 auto;    /* Centers the log-container if its parent is wider */
     background-color: rgba(30, 32, 58, 0.7); /* This also has a background */
     padding: 20px 30px;
     border-radius: 8px;
@@ -595,6 +694,17 @@ footer p {
 }
 
 /* Responsive Adjustments */
+@media (min-width: 769px) { /* Adjust dropdown layout for larger screens */
+    .download-dropdown-area {
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-end; /* Align bottoms of dropdowns */
+    }
+    .download-dropdown-group {
+        width: 250px; /* Fixed width for dropdowns on desktop */
+    }
+}
+
 @media (max-width: 768px) {
     .mod-name { font-size: 3rem; }
     #hero p { font-size: 1.2rem; }
@@ -612,6 +722,23 @@ footer p {
     .features-grid, .gallery-grid, .news-grid { grid-template-columns: 1fr; }
     .main-nav ul li { margin: 0 10px; }
     .main-nav ul li a { font-size: 1rem; }
+
+    /* Specific adjustments for download dropdowns on mobile */
+    .download-dropdown-area {
+        flex-direction: column;
+        align-items: center;
+    }
+    .download-dropdown-group {
+        width: 90%; /* Make dropdowns wider on small screens */
+        max-width: 350px; /* Cap max width */
+    }
+    .download-dropdown {
+        font-size: 0.95rem;
+    }
+    #dynamic-download-link {
+        padding: 12px 30px;
+        font-size: 1rem;
+    }
 }
 
 @media (max-width: 480px) {
