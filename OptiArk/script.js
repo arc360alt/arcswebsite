@@ -64,4 +64,78 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // --- NEW: Download Page Specific JavaScript ---
+
+    // Data structure for technologies, versions, and download links
+    // IMPORTANT: Replace these placeholder URLs with your actual download links!
+    const DOWNLOAD_DATA = {
+        "Sodium": {
+            "1.21.4": "https://github.com/arc360alt/arcswebsite/releases/download/oa1.5/OptiArk.1.5.1.21.4.mrpack",
+            "1.21.5": "https://github.com/arc360alt/arcswebsite/releases/download/oa1.6/OptiArk.1.6.1.21.5.mrpack",
+            "1.21.6": "https://github.com/arc360alt/arcswebsite/releases/download/oa.1.6(21.6)/OptiArk.1.6.1.21.6.mrpack"
+        },
+        "VulkanMod": {
+            "1.21.4": "https://github.com/arc360alt/arcswebsite/releases/download/oa1.5/OptiArk.1.5.1.21.4.1.5.0VK.mrpack",
+            "1.21.5": "https://github.com/arc360alt/arcswebsite/releases/download/oa1.6/OptiArk.1.6.1.21.5.VULKAN.mrpack"
+        },
+        "Nividium": {
+            "1.21.6": "https://github.com/arc360alt/arcswebsite/releases/download/oa.1.6(21.6)/OptiArk.1.6.1.21.6NV.1.6.0NV.mrpack",
+            "1.21.5": "https://github.com/arc360alt/arcswebsite/releases/download/oa1.6/OptiArk.1.6.1.21.5NV.1.6.0.mrpack"
+        }
+    };
+
+    const technologySelect = document.getElementById('technology-select');
+    const versionSelect = document.getElementById('version-select');
+    const dynamicDownloadLink = document.getElementById('dynamic-download-link');
+    const downloadMessage = document.getElementById('download-message');
+
+    // Function to populate the version dropdown based on selected technology
+    function populateVersions() {
+        const selectedTechnology = technologySelect.value;
+        versionSelect.innerHTML = '<option value="">-- Select Version --</option>'; // Clear existing options
+        versionSelect.disabled = true; // Disable until a technology is chosen
+        dynamicDownloadLink.classList.add('hidden'); // Hide download link
+        downloadMessage.textContent = 'Please select a technology and version to get your download link.';
+
+        if (selectedTechnology && DOWNLOAD_DATA[selectedTechnology]) {
+            const versions = Object.keys(DOWNLOAD_DATA[selectedTechnology]);
+            versions.forEach(version => {
+                const option = document.createElement('option');
+                option.value = version;
+                option.textContent = version;
+                versionSelect.appendChild(option);
+            });
+            versionSelect.disabled = false; // Enable version select
+        }
+    }
+
+    // Function to update the download link
+    function updateDownloadLink() {
+        const selectedTechnology = technologySelect.value;
+        const selectedVersion = versionSelect.value;
+
+        if (selectedTechnology && selectedVersion && DOWNLOAD_DATA[selectedTechnology] && DOWNLOAD_DATA[selectedTechnology][selectedVersion]) {
+            const url = DOWNLOAD_DATA[selectedTechnology][selectedVersion];
+            dynamicDownloadLink.href = url;
+            dynamicDownloadLink.classList.remove('hidden'); // Show download link
+            downloadMessage.textContent = `Download your selected ${selectedTechnology} ${selectedVersion} file here:`;
+        } else {
+            dynamicDownloadLink.classList.add('hidden'); // Hide download link
+            downloadMessage.textContent = 'Please select a technology and version to get your download link.';
+        }
+    }
+
+    // Event Listeners for download dropdowns
+    technologySelect.addEventListener('change', () => {
+        populateVersions(); // Update versions when technology changes
+        updateDownloadLink(); // Update download link (will hide it if version is not selected)
+    });
+
+    versionSelect.addEventListener('change', updateDownloadLink); // Update download link when version changes
+
+    // Initial setup on page load for download section
+    document.addEventListener('DOMContentLoaded', () => {
+        populateVersions(); // Initialize version dropdown
+    });
+
 });
