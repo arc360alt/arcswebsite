@@ -80,7 +80,8 @@ document.addEventListener('DOMContentLoaded', () => {
         },
         "Nividium": {
             "1.21.6": "https://github.com/arc360alt/arcswebsite/releases/download/oa.1.6(21.6)/OptiArk.1.6.1.21.6NV.1.6.0NV.mrpack",
-            "1.21.5": "https://github.com/arc360alt/arcswebsite/releases/download/oa1.6/OptiArk.1.6.1.21.5NV.1.6.0.mrpack"
+            "1.21.5": "https://github.com/arc360alt/arcswebsite/releases/download/oa1.6/OptiArk.1.6.1.21.5NV.1.6.0.mrpack",
+            "1.21.4": "https://github.com/arc360alt/arcswebsite/releases/download/oa1.5/OptiArk.1.5.1.21.4NV.1.5.0.mrpack"
         }
     };
 
