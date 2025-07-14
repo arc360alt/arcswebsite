@@ -16,5 +16,5 @@
 
 ### Reasoning:
 - The removed mods Decrease preformance in some cases, so those are going to be removed, and the 3 added mods (1 is allready added) They add QOL stuff and stuff taht impacts preformance.
-
+### Credits:
 - Huge thanks to [HexyMC](https://github.com/MrGlitchDogePE) For helping test my modpack on less pwoerful hardware that i dont currently have my hands on.
