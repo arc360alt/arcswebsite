@@ -70,18 +70,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // IMPORTANT: Replace these placeholder URLs with your actual download links!
     const DOWNLOAD_DATA = {
         "Sodium": {
-            "1.21.4": "https://github.com/arc360alt/arcswebsite/releases/download/oa1.5/OptiArk.1.5.1.21.4.mrpack",
-            "1.21.5": "https://github.com/arc360alt/arcswebsite/releases/download/oa1.6/OptiArk.1.6.1.21.5.mrpack",
-            "1.21.6": "https://github.com/arc360alt/arcswebsite/releases/download/oa.1.6(21.6)/OptiArk.1.6.1.21.6.mrpack"
+            "1.21.4": "https://github.com/arc360alt/arcswebsite/releases/download/oa1.7/OptiArk.1.21.4.1.7.Sodium.mrpack",
+            "1.21.5": "https://github.com/arc360alt/arcswebsite/releases/download/oa1.7/OptiArk.1.21.5.1.7.Sodium.mrpack",
+            "1.21.6": "https://github.com/arc360alt/arcswebsite/releases/download/oa1.7/OptiArk.1.21.6.1.7.Sodium.mrpack"
         },
         "VulkanMod": {
-            "1.21.4": "https://github.com/arc360alt/arcswebsite/releases/download/oa1.5/OptiArk.1.5.1.21.4.1.5.0VK.mrpack",
-            "1.21.5": "https://github.com/arc360alt/arcswebsite/releases/download/oa1.6/OptiArk.1.6.1.21.5.VULKAN.mrpack"
+            "1.21.4": "https://github.com/arc360alt/arcswebsite/releases/download/oa1.7/OptiArk.1.21.4.1.7.VK.mrpack",
+            "1.21.5": "https://github.com/arc360alt/arcswebsite/releases/download/oa1.7/OptiArk.1.21.5.1.7.VK.mrpack"
         },
         "Nividium": {
-            "1.21.6": "https://github.com/arc360alt/arcswebsite/releases/download/oa.1.6(21.6)/OptiArk.1.6.1.21.6NV.1.6.0NV.mrpack",
-            "1.21.5": "https://github.com/arc360alt/arcswebsite/releases/download/oa1.6/OptiArk.1.6.1.21.5NV.1.6.0.mrpack",
-            "1.21.4": "https://github.com/arc360alt/arcswebsite/releases/download/oa1.5/OptiArk.1.5.1.21.4NV.1.5.0.mrpack"
+            "1.21.4": "https://github.com/arc360alt/arcswebsite/releases/download/oa1.7/OptiArk.1.21.4.1.7.NV.mrpack",
+            "1.21.5": "https://github.com/arc360alt/arcswebsite/releases/download/oa1.7/OptiArk.1.21.5.1.7.NV.mrpack",
+            "1.21.6": "https://github.com/arc360alt/arcswebsite/releases/download/oa1.7/OptiArk.1.21.6.1.7.NV.mrpack"
         }
     };
 
