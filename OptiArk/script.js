@@ -91,7 +91,8 @@ document.addEventListener('DOMContentLoaded', () => {
             "1.21.6": "https://github.com/arc360alt/arcswebsite/releases/download/oa1.7/OptiArk.1.21.6.1.7.NV.mrpack"
         },
         "Embeddium": {
-            "1.20.1": "https://github.com/arc360alt/arcswebsite/releases/download/oa1.7/OptiArk.1.20.1.1.7.EB.mrpack"
+            "1.20.1": "https://github.com/arc360alt/arcswebsite/releases/download/oa1.7/OptiArk.1.20.1.1.7.EB.mrpack",
+            "1.16.5": "https://github.com/arc360alt/arcswebsite/releases/download/oa1.7/OptiArk.1.16.5.1.7.EB.mrpack"
         }
     };
 
