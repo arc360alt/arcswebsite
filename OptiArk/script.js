@@ -26,11 +26,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- Image Modal Functionality (Keep As Is) ---
+    // --- Image Modal Functionality ---
     const modal = document.getElementById("imageModal");
     const modalImg = document.getElementById("modalImage");
     const captionText = document.getElementById("caption");
-    const closeModalBtn = document.querySelector(".close-btn"); // Ensure close button is selected if not already
+    const closeModalBtn = document.querySelector(".close-btn");
+
+    // Assign event listener for the close button if it exists
+    if (closeModalBtn) {
+        closeModalBtn.addEventListener('click', () => {
+            closeModal();
+        });
+    }
 
     window.openModal = function(src, altText) {
         if (modal && modalImg && captionText) {
@@ -64,7 +71,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- NEW: Download Page Specific JavaScript ---
+    ---
+    ## NEW: Download Page Specific JavaScript
+    ---
 
     // Data structure for technologies, versions, and download links
     // IMPORTANT: Replace these placeholder URLs with your actual download links!
@@ -83,7 +92,6 @@ document.addEventListener('DOMContentLoaded', () => {
             "1.21.5": "https://github.com/arc360alt/arcswebsite/releases/download/oa1.7/OptiArk.1.21.5.1.7.NV.mrpack",
             "1.21.6": "https://github.com/arc360alt/arcswebsite/releases/download/oa1.7/OptiArk.1.21.6.1.7.NV.mrpack"
         },
-        }
         "Embeddium": {
             "1.20.1": "https://github.com/arc360alt/arcswebsite/releases/download/oa1.7/OptiArk.1.20.1.1.7.EB.mrpack",
         }
@@ -131,16 +139,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Event Listeners for download dropdowns
-    technologySelect.addEventListener('change', () => {
-        populateVersions(); // Update versions when technology changes
-        updateDownloadLink(); // Update download link (will hide it if version is not selected)
-    });
+    if (technologySelect && versionSelect) { // Ensure elements exist before adding listeners
+        technologySelect.addEventListener('change', () => {
+            populateVersions(); // Update versions when technology changes
+            updateDownloadLink(); // Update download link (will hide it if version is not selected)
+        });
 
-    versionSelect.addEventListener('change', updateDownloadLink); // Update download link when version changes
+        versionSelect.addEventListener('change', updateDownloadLink); // Update download link when version changes
 
-    // Initial setup on page load for download section
-    document.addEventListener('DOMContentLoaded', () => {
+        // Initial setup on page load for download section
         populateVersions(); // Initialize version dropdown
-    });
-
+    }
 });
