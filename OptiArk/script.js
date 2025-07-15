@@ -71,9 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    ---
-    ## NEW: Download Page Specific JavaScript
-    ---
+    // --- NEW: Download Page Specific JavaScript ---
 
     // Data structure for technologies, versions, and download links
     // IMPORTANT: Replace these placeholder URLs with your actual download links!
@@ -139,7 +137,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Event Listeners for download dropdowns
-    if (technologySelect && versionSelect) { // Ensure elements exist before adding listeners
+    // Ensure elements exist before adding listeners to prevent errors on pages without these elements
+    if (technologySelect && versionSelect && dynamicDownloadLink && downloadMessage) {
         technologySelect.addEventListener('change', () => {
             populateVersions(); // Update versions when technology changes
             updateDownloadLink(); // Update download link (will hide it if version is not selected)
