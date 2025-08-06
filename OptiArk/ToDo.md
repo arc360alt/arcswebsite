@@ -1,4 +1,6 @@
-# A todo list of things that i need to do:
+# This update has already been finished.
+
+## A todo list of things that i need to do:
 
 ## for Update 1.7:
 
@@ -28,27 +30,27 @@
 Large updates to the pack that significantly increase preformance overall.
 
 ### Tasks
-- [ ] Remove Cull Leaves in all packs
-- [ ] Remove Immedeatly Fast in all packs
-- [ ] Remove More Culling in all packs
-- [ ] Remove WayFix in all packs
-- [ ] Add Cubes w/o borders in all packs
-- [ ] Add Ksyxis in all packs
-- [ ] Add ThreatanGL (When Possible) in all packs
-- [ ] Change Graphics Settings to Defualt in all packs
+- [x] Remove Cull Leaves in all packs
+- [x] Remove Immedeatly Fast in all packs
+- [x] Remove More Culling in all packs
+- [x] Remove WayFix in all packs
+- [x] Add Cubes w/o borders in all packs
+- [x] Add Ksyxis in all packs
+- [x] Add ThreatanGL (When Possible) in all packs
+- [x] Change Graphics Settings to Defualt in all packs
 
 ## Completed Versions
 ### Sodium
-- [ ] Do all changes above to 1.21.4
-- [ ] Do all changes above to 1.21.5
-- [ ] Do all changes above to 1.21.6
-- [ ] Compile all packs and upload
+- [x] Do all changes above to 1.21.4
+- [x] Do all changes above to 1.21.5
+- [x] Do all changes above to 1.21.6
+- [x] Compile all packs and upload
 ### VulkanMod
-- [ ] Do all changes above to 1.21.4
-- [ ] Do all changes above to 1.21.5
-- [ ] Compile all packs and upload
+- [x] Do all changes above to 1.21.4
+- [x] Do all changes above to 1.21.5
+- [x] Compile all packs and upload
 ### Nividium
-- [ ] Do all changes above to 1.21.4
-- [ ] Do all changes above to 1.21.5
-- [ ] Do all changes above to 1.21.6
-- [ ] Compile all packs and upload
+- [x] Do all changes above to 1.21.4
+- [x] Do all changes above to 1.21.5
+- [x] Do all changes above to 1.21.6
+- [x] Compile all packs and upload
