@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
             "1.21.6": "https://github.com/arc360alt/arcswebsite/releases/download/oa1.7/OptiArk.1.21.6.1.7.Sodium.mrpack"
         },
         "VulkanMod": {
-            "1.21.4 (Unsuported)": "https://github.com/arc360alt/arcswebsite/releases/download/oa1.7/OptiArk.1.21.4.1.7.VK.mrpack",
+            "1.21.4": "https://github.com/arc360alt/arcswebsite/releases/download/oa1.7/OptiArk.1.21.4.1.7.VK.mrpack",
             "1.21.5": "https://github.com/arc360alt/arcswebsite/releases/download/oa1.7/OptiArk.1.21.5.1.7.VK.mrpack"
         },
         "Nividium": {
@@ -106,6 +106,96 @@ document.addEventListener('DOMContentLoaded', () => {
     const dynamicDownloadLink = document.getElementById('dynamic-download-link');
     const downloadMessage = document.getElementById('download-message');
 
+    // Helper function to check if a version is unsupported
+    function isUnsupportedVersion(version) {
+        // Add any keywords that indicate unsupported versions here
+        const unsupportedKeywords = ['unsuported', 'unsupported', 'deprecated', 'discontinued'];
+        return unsupportedKeywords.some(keyword => 
+            version.toLowerCase().includes(keyword.toLowerCase())
+        );
+    }
+
+    // Helper function to check if a technology has infrequent updates
+    function isInfrequentlyUpdatedTechnology(technology) {
+        const infrequentTechnologies = ['Old', 'Embeddium'];
+        return infrequentTechnologies.includes(technology);
+    }
+
+    // Function to show/hide unsupported version banner
+    function toggleUnsupportedBanner(show, version = '') {
+        let banner = document.getElementById('unsupported-banner');
+        
+        if (show) {
+            // Create banner if it doesn't exist
+            if (!banner) {
+                banner = document.createElement('div');
+                banner.id = 'unsupported-banner';
+                banner.className = 'unsupported-banner';
+                
+                const downloadSection = document.getElementById('download-section');
+                const title = downloadSection.querySelector('.section-title');
+                title.parentNode.insertBefore(banner, title.nextSibling);
+            }
+            
+            banner.innerHTML = `
+                <div class="banner-content">
+                    <span class="warning-icon">⚠️</span>
+                    <div class="banner-text">
+                        <strong>Warning:</strong> The version "${version}" is no longer being updated and may contain bugs or compatibility issues.
+                    </div>
+                    <button class="banner-close" onclick="document.getElementById('unsupported-banner').style.display='none'">×</button>
+                </div>
+            `;
+            banner.style.display = 'block';
+        } else {
+            // Hide banner if it exists
+            if (banner) {
+                banner.style.display = 'none';
+            }
+        }
+    }
+
+    // Function to show/hide infrequent updates banner
+    function toggleInfrequentUpdatesBanner(show, technology = '') {
+        let banner = document.getElementById('infrequent-updates-banner');
+        
+        if (show) {
+            // Create banner if it doesn't exist
+            if (!banner) {
+                banner = document.createElement('div');
+                banner.id = 'infrequent-updates-banner';
+                banner.className = 'infrequent-updates-banner';
+                
+                const downloadSection = document.getElementById('download-section');
+                const title = downloadSection.querySelector('.section-title');
+                
+                // Insert after unsupported banner if it exists, otherwise after title
+                const unsupportedBanner = document.getElementById('unsupported-banner');
+                if (unsupportedBanner) {
+                    unsupportedBanner.parentNode.insertBefore(banner, unsupportedBanner.nextSibling);
+                } else {
+                    title.parentNode.insertBefore(banner, title.nextSibling);
+                }
+            }
+            
+            banner.innerHTML = `
+                <div class="banner-content">
+                    <span class="info-icon">📝</span>
+                    <div class="banner-text">
+                        <strong>Note:</strong> These versions will not be frequently updated like the other ones for various reasons.
+                    </div>
+                    <button class="banner-close" onclick="document.getElementById('infrequent-updates-banner').style.display='none'">×</button>
+                </div>
+            `;
+            banner.style.display = 'block';
+        } else {
+            // Hide banner if it exists
+            if (banner) {
+                banner.style.display = 'none';
+            }
+        }
+    }
+
     // Function to populate the version dropdown based on selected technology
     function populateVersions() {
         const selectedTechnology = technologySelect.value;
@@ -113,6 +203,10 @@ document.addEventListener('DOMContentLoaded', () => {
         versionSelect.disabled = true; // Disable until a technology is chosen
         dynamicDownloadLink.classList.add('hidden'); // Hide download link
         downloadMessage.textContent = 'Please select a technology and version to get your download link.';
+        
+        // Hide banners when technology changes
+        toggleUnsupportedBanner(false);
+        toggleInfrequentUpdatesBanner(false);
 
         if (selectedTechnology && DOWNLOAD_DATA[selectedTechnology]) {
             const versions = Object.keys(DOWNLOAD_DATA[selectedTechnology]);
@@ -130,6 +224,28 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateDownloadLink() {
         const selectedTechnology = technologySelect.value;
         const selectedVersion = versionSelect.value;
+
+        // Check if version is unsupported and show/hide banner accordingly
+        if (selectedVersion) {
+            if (isUnsupportedVersion(selectedVersion)) {
+                toggleUnsupportedBanner(true, selectedVersion);
+            } else {
+                toggleUnsupportedBanner(false);
+            }
+        } else {
+            toggleUnsupportedBanner(false);
+        }
+
+        // Check if technology has infrequent updates and show/hide banner accordingly
+        if (selectedTechnology && selectedVersion) {
+            if (isInfrequentlyUpdatedTechnology(selectedTechnology)) {
+                toggleInfrequentUpdatesBanner(true, selectedTechnology);
+            } else {
+                toggleInfrequentUpdatesBanner(false);
+            }
+        } else {
+            toggleInfrequentUpdatesBanner(false);
+        }
 
         if (selectedTechnology && selectedVersion && DOWNLOAD_DATA[selectedTechnology] && DOWNLOAD_DATA[selectedTechnology][selectedVersion]) {
             const url = DOWNLOAD_DATA[selectedTechnology][selectedVersion];
