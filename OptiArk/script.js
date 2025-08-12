@@ -129,6 +129,11 @@ document.addEventListener('DOMContentLoaded', () => {
         return infrequentTechnologies.includes(technology);
     }
 
+    // Helper function to check if version is Adventure Edition
+    function isAdventureEdition(technology, version) {
+        return technology === 'Adventure Edition' && version === '1.21.5-0.1';
+    }
+
     // Function to show/hide unsupported version banner
     function toggleUnsupportedBanner(show, version = '') {
         let banner = document.getElementById('unsupported-banner');
@@ -204,6 +209,51 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Function to show/hide Adventure Edition banner
+    function toggleAdventureEditionBanner(show) {
+        let banner = document.getElementById('adventure-edition-banner');
+        
+        if (show) {
+            // Create banner if it doesn't exist
+            if (!banner) {
+                banner = document.createElement('div');
+                banner.id = 'adventure-edition-banner';
+                banner.className = 'infrequent-updates-banner'; // Reuse the same CSS class as the note banner
+                
+                const downloadSection = document.getElementById('download-section');
+                const title = downloadSection.querySelector('.section-title');
+                
+                // Find the last existing banner to insert after it
+                const unsupportedBanner = document.getElementById('unsupported-banner');
+                const infrequentBanner = document.getElementById('infrequent-updates-banner');
+                
+                if (infrequentBanner) {
+                    infrequentBanner.parentNode.insertBefore(banner, infrequentBanner.nextSibling);
+                } else if (unsupportedBanner) {
+                    unsupportedBanner.parentNode.insertBefore(banner, unsupportedBanner.nextSibling);
+                } else {
+                    title.parentNode.insertBefore(banner, title.nextSibling);
+                }
+            }
+            
+            banner.innerHTML = `
+                <div class="banner-content">
+                    <span class="info-icon">🎮</span>
+                    <div class="banner-text">
+                        <strong>Adventure Edition:</strong> This version is in development, and is not for performance, it is for the looks and for the adventure, expect bugs and less than optimal performance.
+                    </div>
+                    <button class="banner-close" onclick="document.getElementById('adventure-edition-banner').style.display='none'">×</button>
+                </div>
+            `;
+            banner.style.display = 'block';
+        } else {
+            // Hide banner if it exists
+            if (banner) {
+                banner.style.display = 'none';
+            }
+        }
+    }
+
     // Function to populate the version dropdown based on selected technology
     function populateVersions() {
         const selectedTechnology = technologySelect.value;
@@ -215,6 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Hide banners when technology changes
         toggleUnsupportedBanner(false);
         toggleInfrequentUpdatesBanner(false);
+        toggleAdventureEditionBanner(false);
 
         if (selectedTechnology && DOWNLOAD_DATA[selectedTechnology]) {
             const versions = Object.keys(DOWNLOAD_DATA[selectedTechnology]);
@@ -253,6 +304,17 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         } else {
             toggleInfrequentUpdatesBanner(false);
+        }
+
+        // Check if it's Adventure Edition and show/hide banner accordingly
+        if (selectedTechnology && selectedVersion) {
+            if (isAdventureEdition(selectedTechnology, selectedVersion)) {
+                toggleAdventureEditionBanner(true);
+            } else {
+                toggleAdventureEditionBanner(false);
+            }
+        } else {
+            toggleAdventureEditionBanner(false);
         }
 
         if (selectedTechnology && selectedVersion && DOWNLOAD_DATA[selectedTechnology] && DOWNLOAD_DATA[selectedTechnology][selectedVersion]) {
