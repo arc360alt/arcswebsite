@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Helper function to check if version is Adventure Edition
     function isAdventureEdition(technology, version) {
-        return technology === 'Adventure Edition' && version === '1.21.5-0.1';
+        return technology === 'Adventure Edition' && version === '1.21.5-0.2';
     }
 
     // Function to show/hide unsupported version banner
