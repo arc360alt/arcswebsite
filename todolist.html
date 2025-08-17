@@ -1,0 +1,1512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ark Todo & Notes</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Material You Light Theme */
+            --md-sys-color-primary: #6750a4;
+            --md-sys-color-on-primary: #ffffff;
+            --md-sys-color-primary-container: #eaddff;
+            --md-sys-color-on-primary-container: #21005d;
+            --md-sys-color-secondary: #625b71;
+            --md-sys-color-on-secondary: #ffffff;
+            --md-sys-color-secondary-container: #e8def8;
+            --md-sys-color-on-secondary-container: #1d192b;
+            --md-sys-color-tertiary: #7d5260;
+            --md-sys-color-on-tertiary: #ffffff;
+            --md-sys-color-error: #ba1a1a;
+            --md-sys-color-on-error: #ffffff;
+            --md-sys-color-error-container: #ffdad6;
+            --md-sys-color-on-error-container: #410002;
+            --md-sys-color-background: #fef7ff;
+            --md-sys-color-on-background: #1d1b20;
+            --md-sys-color-surface: #fef7ff;
+            --md-sys-color-on-surface: #1d1b20;
+            --md-sys-color-surface-variant: #e7e0ec;
+            --md-sys-color-on-surface-variant: #49454f;
+            --md-sys-color-outline: #79747e;
+            --md-sys-color-outline-variant: #cab6cd;
+            --md-sys-color-shadow: #000000;
+            --md-sys-color-surface-tint: #6750a4;
+        }
+
+        [data-theme="dark"] {
+            /* Material You Dark Theme */
+            --md-sys-color-primary: #d0bcff;
+            --md-sys-color-on-primary: #371e73;
+            --md-sys-color-primary-container: #4f378b;
+            --md-sys-color-on-primary-container: #eaddff;
+            --md-sys-color-secondary: #ccc2dc;
+            --md-sys-color-on-secondary: #332d41;
+            --md-sys-color-secondary-container: #4a4458;
+            --md-sys-color-on-secondary-container: #e8def8;
+            --md-sys-color-tertiary: #efb8c8;
+            --md-sys-color-on-tertiary: #492532;
+            --md-sys-color-error: #ffb4ab;
+            --md-sys-color-on-error: #690005;
+            --md-sys-color-error-container: #93000a;
+            --md-sys-color-on-error-container: #ffdad6;
+            --md-sys-color-background: #141218;
+            --md-sys-color-on-background: #e6e0e9;
+            --md-sys-color-surface: #141218;
+            --md-sys-color-on-surface: #e6e0e9;
+            --md-sys-color-surface-variant: #49454f;
+            --md-sys-color-on-surface-variant: #cab6cd;
+            --md-sys-color-outline: #938f96;
+            --md-sys-color-outline-variant: #49454f;
+            --md-sys-color-shadow: #000000;
+            --md-sys-color-surface-tint: #d0bcff;
+        }
+
+        body {
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--md-sys-color-background);
+            color: var(--md-sys-color-on-background);
+            line-height: 1.5;
+        }
+
+        .app-container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 280px;
+            background-color: var(--md-sys-color-surface);
+            border-right: 1px solid var(--md-sys-color-outline-variant);
+            padding: 24px;
+            overflow-y: auto;
+        }
+
+        .sidebar h1 {
+            font-size: 24px;
+            margin-bottom: 24px;
+            color: var(--md-sys-color-primary);
+            font-weight: 500;
+        }
+
+        .mode-selector {
+            margin-bottom: 24px;
+        }
+
+        .mode-button {
+            display: block;
+            width: 100%;
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            background: none;
+            border: 1px solid var(--md-sys-color-outline);
+            border-radius: 12px;
+            color: var(--md-sys-color-on-surface);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 14px;
+        }
+
+        .mode-button:hover {
+            background-color: var(--md-sys-color-primary-container);
+            color: var(--md-sys-color-on-primary-container);
+        }
+
+        .mode-button.active {
+            background-color: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
+            border-color: var(--md-sys-color-primary);
+        }
+
+        .lists-section h3 {
+            font-size: 16px;
+            margin-bottom: 12px;
+            color: var(--md-sys-color-on-surface);
+            font-weight: 500;
+        }
+
+        .list-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 12px;
+            margin-bottom: 4px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .list-item:hover {
+            background-color: var(--md-sys-color-surface-variant);
+        }
+
+        .list-item.active {
+            background-color: var(--md-sys-color-secondary-container);
+            color: var(--md-sys-color-on-secondary-container);
+        }
+
+        .list-item span {
+            flex: 1;
+            font-size: 14px;
+        }
+
+        .list-item button {
+            background: none;
+            border: none;
+            color: var(--md-sys-color-error);
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .list-item:hover button {
+            opacity: 1;
+        }
+
+        .add-list-button {
+            width: 100%;
+            padding: 8px;
+            background: none;
+            border: 1px dashed var(--md-sys-color-outline);
+            border-radius: 8px;
+            color: var(--md-sys-color-on-surface);
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+
+        .theme-toggle {
+            margin-top: auto;
+            padding-top: 24px;
+        }
+
+        .theme-button {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--md-sys-color-secondary-container);
+            color: var(--md-sys-color-on-secondary-container);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+        }
+
+        .header h2 {
+            font-size: 28px;
+            font-weight: 400;
+            color: var(--md-sys-color-on-surface);
+        }
+
+        .fab {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            background-color: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 24px;
+            box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12);
+        }
+
+        /* Todo Mode Styles */
+        .todo-item {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            margin-bottom: 8px;
+            background-color: var(--md-sys-color-surface);
+            border-radius: 12px;
+            border: 1px solid var(--md-sys-color-outline-variant);
+        }
+
+        .todo-checkbox {
+            width: 20px;
+            height: 20px;
+            margin-right: 16px;
+            accent-color: var(--md-sys-color-primary);
+        }
+
+        .todo-text {
+            flex: 1;
+            font-size: 16px;
+            color: var(--md-sys-color-on-surface);
+        }
+
+        .todo-text.completed {
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+
+        .todo-delete {
+            background: none;
+            border: none;
+            color: var(--md-sys-color-error);
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 4px;
+        }
+
+        /* Notes Mode Styles */
+        .notes-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 16px;
+        }
+
+        .note-card {
+            background-color: var(--md-sys-color-surface);
+            border: 1px solid var(--md-sys-color-outline-variant);
+            border-radius: 12px;
+            padding: 16px;
+            transition: all 0.2s;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .note-card:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .note-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            gap: 8px;
+        }
+
+        .note-title-input {
+            flex: 1;
+            background: none;
+            border: none;
+            font-size: 18px;
+            font-weight: 500;
+            color: var(--md-sys-color-on-surface);
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .note-title-input:hover, .note-title-input:focus {
+            background-color: var(--md-sys-color-surface-variant);
+            outline: none;
+        }
+
+        .note-controls {
+            display: flex;
+            gap: 4px;
+        }
+
+        .note-mode-btn, .note-delete-btn {
+            background: none;
+            border: none;
+            padding: 6px 8px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            color: var(--md-sys-color-on-surface-variant);
+            transition: all 0.2s;
+        }
+
+        .note-mode-btn:hover, .note-delete-btn:hover {
+            background-color: var(--md-sys-color-surface-variant);
+        }
+
+        .note-mode-btn.active {
+            background-color: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
+        }
+
+        .note-delete-btn {
+            color: var(--md-sys-color-error);
+        }
+
+        .note-delete-btn:hover {
+            background-color: var(--md-sys-color-error-container);
+            color: var(--md-sys-color-on-error-container);
+        }
+
+        .note-content-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .note-content-textarea {
+            flex: 1;
+            width: 100%;
+            min-height: 150px;
+            padding: 12px;
+            border: 1px solid var(--md-sys-color-outline-variant);
+            border-radius: 8px;
+            background-color: var(--md-sys-color-surface);
+            color: var(--md-sys-color-on-surface);
+            font-family: 'Roboto Mono', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            resize: vertical;
+        }
+
+        .note-content-textarea:focus {
+            outline: none;
+            border-color: var(--md-sys-color-primary);
+        }
+
+        .note-content-preview {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid transparent;
+            border-radius: 8px;
+            cursor: text;
+            min-height: 150px;
+            font-size: 14px;
+            line-height: 1.5;
+            transition: all 0.2s;
+        }
+
+        .note-content-preview:hover {
+            border-color: var(--md-sys-color-outline-variant);
+            background-color: var(--md-sys-color-surface-variant);
+        }
+
+        .note-empty {
+            color: var(--md-sys-color-on-surface-variant);
+            font-style: italic;
+        }
+
+        .note-title {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--md-sys-color-on-surface);
+        }
+
+        .note-preview {
+            color: var(--md-sys-color-on-surface-variant);
+            font-size: 14px;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+        }
+
+        /* Kanban Mode Styles */
+        .kanban-board {
+            display: flex;
+            gap: 16px;
+            overflow-x: auto;
+            padding-bottom: 16px;
+        }
+
+        .kanban-column {
+            min-width: 300px;
+            background-color: var(--md-sys-color-surface-variant);
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .kanban-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .kanban-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: var(--md-sys-color-on-surface-variant);
+        }
+
+        .kanban-delete {
+            background: none;
+            border: none;
+            color: var(--md-sys-color-error);
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .kanban-items {
+            min-height: 50px;
+            transition: background-color 0.2s;
+            border-radius: 8px;
+            padding: 4px;
+        }
+
+        .kanban-item {
+            background-color: var(--md-sys-color-surface);
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 8px;
+            cursor: grab;
+            border: 1px solid var(--md-sys-color-outline-variant);
+            position: relative;
+            transition: all 0.2s;
+        }
+
+        .kanban-item:active {
+            cursor: grabbing;
+        }
+
+        .kanban-item.dragging {
+            opacity: 0.5;
+            transform: rotate(5deg);
+        }
+
+        .kanban-item:hover {
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .kanban-item-delete {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            background: none;
+            border: none;
+            color: var(--md-sys-color-error);
+            cursor: pointer;
+            font-size: 16px;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .kanban-item:hover .kanban-item-delete {
+            opacity: 1;
+        }
+
+        .add-card-button {
+            width: 100%;
+            padding: 8px;
+            background: none;
+            border: 1px dashed var(--md-sys-color-outline);
+            border-radius: 8px;
+            color: var(--md-sys-color-on-surface-variant);
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: var(--md-sys-color-surface);
+            border-radius: 16px;
+            padding: 24px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 500;
+            color: var(--md-sys-color-on-surface);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--md-sys-color-on-surface);
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: var(--md-sys-color-on-surface);
+            font-weight: 500;
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid var(--md-sys-color-outline);
+            border-radius: 8px;
+            background-color: var(--md-sys-color-surface);
+            color: var(--md-sys-color-on-surface);
+            font-size: 16px;
+            resize: vertical;
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--md-sys-color-primary);
+        }
+
+        .form-textarea {
+            min-height: 200px;
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end;
+        }
+
+        .button {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .button-primary {
+            background-color: var(--md-sys-color-primary);
+            color: var(--md-sys-color-on-primary);
+        }
+
+        .button-secondary {
+            background-color: transparent;
+            color: var(--md-sys-color-primary);
+            border: 1px solid var(--md-sys-color-primary);
+        }
+
+        .button-danger {
+            background-color: var(--md-sys-color-error);
+            color: var(--md-sys-color-on-error);
+        }
+
+        .markdown-preview {
+            border: 1px solid var(--md-sys-color-outline-variant);
+            border-radius: 8px;
+            padding: 16px;
+            background-color: var(--md-sys-color-surface-variant);
+            margin-top: 8px;
+            min-height: 100px;
+        }
+
+        .markdown-preview h1, .markdown-preview h2, .markdown-preview h3 {
+            color: var(--md-sys-color-on-surface);
+            margin-top: 16px;
+            margin-bottom: 8px;
+        }
+
+        .markdown-preview h1:first-child, 
+        .markdown-preview h2:first-child, 
+        .markdown-preview h3:first-child {
+            margin-top: 0;
+        }
+
+        .markdown-preview p {
+            margin-bottom: 8px;
+            color: var(--md-sys-color-on-surface);
+        }
+
+        .markdown-preview code {
+            background-color: var(--md-sys-color-primary-container);
+            color: var(--md-sys-color-on-primary-container);
+            padding: 2px 4px;
+            border-radius: 4px;
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        .markdown-preview pre {
+            background-color: var(--md-sys-color-primary-container);
+            color: var(--md-sys-color-on-primary-container);
+            padding: 12px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        .markdown-preview ul, .markdown-preview ol {
+            margin-left: 20px;
+            margin-bottom: 8px;
+        }
+
+        .markdown-preview blockquote {
+            border-left: 4px solid var(--md-sys-color-primary);
+            padding-left: 12px;
+            margin-left: 0;
+            font-style: italic;
+            color: var(--md-sys-color-on-surface-variant);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 48px 24px;
+            color: var(--md-sys-color-on-surface-variant);
+        }
+
+        .empty-state h3 {
+            font-size: 20px;
+            margin-bottom: 8px;
+        }
+
+        .empty-state p {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <div class="sidebar">
+            <h1>A Notes App</h1>
+            
+            <div class="mode-selector">
+                <button class="mode-button active" data-mode="todo">📋 Todo Lists</button>
+                <button class="mode-button" data-mode="notes">📝 Notes</button>
+                <button class="mode-button" data-mode="kanban">📊 Kanban Board</button>
+            </div>
+
+            <div class="lists-section">
+                <h3 id="lists-title">Todo Lists</h3>
+                <div id="lists-container"></div>
+                <button class="add-list-button" id="add-list-btn">+ Add New</button>
+            </div>
+
+            <div class="theme-toggle">
+                <button class="theme-button" id="theme-toggle">🌙 Dark Mode</button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="header">
+                <h2 id="content-title">My Todo List</h2>
+                <button class="fab" id="add-item-btn">+</button>
+            </div>
+            
+            <div id="content-area">
+                <!-- Content will be dynamically loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class MaterialYouApp {
+            constructor() {
+                this.currentMode = 'todo';
+                this.currentList = 'default';
+                this.data = this.loadData();
+                this.isDarkMode = JSON.parse(localStorage.getItem('darkMode') || 'false');
+                
+                this.init();
+            }
+
+            loadData() {
+                const saved = localStorage.getItem('materialYouAppData');
+                return saved ? JSON.parse(saved) : {
+                    todo: { 
+                        default: { 
+                            name: 'My Todo List', 
+                            items: [] 
+                        } 
+                    },
+                    notes: { 
+                        default: { 
+                            name: 'My Notes', 
+                            items: [] 
+                        } 
+                    },
+                    kanban: { 
+                        default: { 
+                            name: 'My Project', 
+                            columns: { 
+                                'todo': { name: 'To Do', items: [] },
+                                'doing': { name: 'In Progress', items: [] },
+                                'done': { name: 'Done', items: [] }
+                            }
+                        }
+                    }
+                };
+            }
+
+            saveData() {
+                localStorage.setItem('materialYouAppData', JSON.stringify(this.data));
+            }
+
+            init() {
+                this.setupEventListeners();
+                this.applyTheme();
+                this.renderSidebar();
+                this.renderContent();
+            }
+
+            setupEventListeners() {
+                // Mode switching
+                document.querySelectorAll('.mode-button').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        this.switchMode(e.target.dataset.mode);
+                    });
+                });
+
+                // Theme toggle
+                document.getElementById('theme-toggle').addEventListener('click', () => {
+                    this.toggleTheme();
+                });
+
+                // Add list button
+                document.getElementById('add-list-btn').addEventListener('click', () => {
+                    this.showAddListModal();
+                });
+
+                // Add item button
+                document.getElementById('add-item-btn').addEventListener('click', () => {
+                    this.showAddItemModal();
+                });
+            }
+
+            switchMode(mode) {
+                this.currentMode = mode;
+                this.currentList = Object.keys(this.data[mode])[0] || 'default';
+                
+                document.querySelectorAll('.mode-button').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.mode === mode);
+                });
+
+                const titles = { todo: 'Todo Lists', notes: 'Notes', kanban: 'Kanban Boards' };
+                document.getElementById('lists-title').textContent = titles[mode];
+
+                this.renderSidebar();
+                this.renderContent();
+            }
+
+            renderSidebar() {
+                const container = document.getElementById('lists-container');
+                container.innerHTML = '';
+
+                const lists = this.data[this.currentMode];
+                Object.keys(lists).forEach(key => {
+                    const list = lists[key];
+                    const div = document.createElement('div');
+                    div.className = `list-item ${key === this.currentList ? 'active' : ''}`;
+                    div.innerHTML = `
+                        <span>${this.escapeHtml(list.name)}</span>
+                        ${Object.keys(lists).length > 1 ? `<button onclick="app.deleteList('${key}')">×</button>` : ''}
+                    `;
+                    div.addEventListener('click', (e) => {
+                        if (e.target.tagName !== 'BUTTON') {
+                            this.selectList(key);
+                        }
+                    });
+                    container.appendChild(div);
+                });
+            }
+
+            selectList(listId) {
+                this.currentList = listId;
+                this.renderSidebar();
+                this.renderContent();
+            }
+
+            renderContent() {
+                const contentArea = document.getElementById('content-area');
+                const currentListData = this.data[this.currentMode][this.currentList];
+                
+                document.getElementById('content-title').textContent = currentListData?.name || 'Untitled';
+
+                switch(this.currentMode) {
+                    case 'todo':
+                        this.renderTodoContent(contentArea);
+                        break;
+                    case 'notes':
+                        this.renderNotesContent(contentArea);
+                        break;
+                    case 'kanban':
+                        this.renderKanbanContent(contentArea);
+                        break;
+                }
+            }
+
+            renderTodoContent(container) {
+                const items = this.data.todo[this.currentList]?.items || [];
+                
+                if (items.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <h3>No tasks yet</h3>
+                            <p>Click the + button to add your first task</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = items.map((item, index) => `
+                    <div class="todo-item">
+                        <input type="checkbox" class="todo-checkbox" ${item.completed ? 'checked' : ''} 
+                               onchange="app.toggleTodo(${index})">
+                        <span class="todo-text ${item.completed ? 'completed' : ''}">${this.escapeHtml(item.text)}</span>
+                        <button class="todo-delete" onclick="app.deleteTodo(${index})">×</button>
+                    </div>
+                `).join('');
+            }
+
+            renderNotesContent(container) {
+                const items = this.data.notes[this.currentList]?.items || [];
+                
+                if (items.length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <h3>No notes yet</h3>
+                            <p>Click the + button to create your first note</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = `
+                    <div class="notes-container">
+                        ${items.map((item, index) => `
+                            <div class="note-card" data-note-index="${index}">
+                                <div class="note-header">
+                                    <input type="text" class="note-title-input" value="${this.escapeHtml(item.title)}" 
+                                           onchange="app.updateNoteTitle(${index}, this.value)" 
+                                           onblur="app.updateNoteTitle(${index}, this.value)">
+                                    <div class="note-controls">
+                                        <button class="note-mode-btn ${item.viewMode === 'raw' ? 'active' : ''}" 
+                                                onclick="app.setNoteViewMode(${index}, 'raw')" title="Raw Text">📝</button>
+                                        <button class="note-mode-btn ${item.viewMode !== 'raw' ? 'active' : ''}" 
+                                                onclick="app.setNoteViewMode(${index}, 'preview')" title="Markdown Preview">👁</button>
+                                        <button class="note-delete-btn" onclick="app.deleteNote(${index})" title="Delete Note">×</button>
+                                    </div>
+                                </div>
+                                <div class="note-content-container">
+                                    ${item.viewMode === 'raw' ? 
+                                        `<textarea class="note-content-textarea" onchange="app.updateNoteContent(${index}, this.value)" onblur="app.updateNoteContent(${index}, this.value)">${this.escapeHtml(item.content)}</textarea>` :
+                                        `<div class="note-content-preview" onclick="app.setNoteViewMode(${index}, 'raw')">${item.content ? this.renderMarkdown(item.content) : '<em class="note-empty">Click to start writing...</em>'}</div>`
+                                    }
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+            }
+
+            renderKanbanContent(container) {
+                const columns = this.data.kanban[this.currentList]?.columns || {};
+                
+                if (Object.keys(columns).length === 0) {
+                    container.innerHTML = `
+                        <div class="empty-state">
+                            <h3>No columns yet</h3>
+                            <p>Click the + button to add your first column</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = `
+                    <div class="kanban-board">
+                        ${Object.keys(columns).map(columnId => `
+                            <div class="kanban-column" data-column="${columnId}">
+                                <div class="kanban-header">
+                                    <span class="kanban-title">${this.escapeHtml(columns[columnId].name)}</span>
+                                    <button class="kanban-delete" onclick="app.deleteColumn('${columnId}')">×</button>
+                                </div>
+                                <div class="kanban-items" data-column="${columnId}">
+                                    ${columns[columnId].items.map((item, index) => `
+                                        <div class="kanban-item" draggable="true" data-item="${index}" data-column="${columnId}">
+                                            ${this.escapeHtml(item.text)}
+                                            <button class="kanban-item-delete" onclick="event.stopPropagation(); app.deleteKanbanItem('${columnId}', ${index})">×</button>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                                <button class="add-card-button" data-column-id="${columnId}">+ Add Card</button>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+
+                // Add event listeners after rendering
+                this.setupKanbanEventListeners(container);
+            }
+
+            setupKanbanEventListeners(container) {
+                // Add card button listeners
+                container.querySelectorAll('.add-card-button').forEach(button => {
+                    button.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const columnId = button.dataset.columnId;
+                        this.showAddKanbanItemModal(columnId);
+                    });
+                });
+
+                // Drag and drop listeners
+                container.querySelectorAll('.kanban-item').forEach(item => {
+                    item.addEventListener('dragstart', (e) => {
+                        const columnId = item.dataset.column;
+                        const itemIndex = parseInt(item.dataset.item);
+                        e.dataTransfer.setData('text/plain', JSON.stringify({
+                            columnId: columnId,
+                            itemIndex: itemIndex
+                        }));
+                        item.classList.add('dragging');
+                    });
+
+                    item.addEventListener('dragend', (e) => {
+                        item.classList.remove('dragging');
+                    });
+                });
+
+                // Drop zone listeners
+                container.querySelectorAll('.kanban-items').forEach(dropZone => {
+                    dropZone.addEventListener('dragover', (e) => {
+                        e.preventDefault();
+                        dropZone.style.backgroundColor = 'var(--md-sys-color-primary-container)';
+                    });
+
+                    dropZone.addEventListener('dragleave', (e) => {
+                        if (!dropZone.contains(e.relatedTarget)) {
+                            dropZone.style.backgroundColor = '';
+                        }
+                    });
+
+                    dropZone.addEventListener('drop', (e) => {
+                        e.preventDefault();
+                        dropZone.style.backgroundColor = '';
+                        
+                        try {
+                            const data = JSON.parse(e.dataTransfer.getData('text/plain'));
+                            const targetColumnId = dropZone.dataset.column;
+                            this.moveKanbanItem(data.columnId, data.itemIndex, targetColumnId);
+                        } catch (error) {
+                            console.error('Drop error:', error);
+                        }
+                    });
+                });
+            }
+
+            showAddKanbanItemModal(columnId) {
+                const modal = this.createModal('Add Card', `
+                    <div class="form-group">
+                        <label class="form-label">Card Text</label>
+                        <textarea class="form-textarea" id="kanban-item-text" placeholder="Enter card content..." rows="3"></textarea>
+                    </div>
+                    <div class="button-group">
+                        <button class="button button-secondary" onclick="app.closeModal()">Cancel</button>
+                        <button class="button button-primary" onclick="app.addKanbanItemFromModal('${columnId}')">Add Card</button>
+                    </div>
+                `);
+                document.body.appendChild(modal);
+                document.getElementById('kanban-item-text').focus();
+            }
+
+            addKanbanItemFromModal(columnId) {
+                const text = document.getElementById('kanban-item-text').value.trim();
+                if (!text) return;
+
+                if (!this.data.kanban[this.currentList]) {
+                    this.data.kanban[this.currentList] = { name: 'New Board', columns: {} };
+                }
+
+                if (!this.data.kanban[this.currentList].columns[columnId]) {
+                    this.data.kanban[this.currentList].columns[columnId] = { name: 'New Column', items: [] };
+                }
+
+                this.data.kanban[this.currentList].columns[columnId].items.push({
+                    text: text,
+                    id: Date.now()
+                });
+
+                this.saveData();
+                this.closeModal();
+                this.renderContent();
+            }
+
+            moveKanbanItem(sourceColumnId, itemIndex, targetColumnId) {
+                if (sourceColumnId === targetColumnId) return;
+
+                const sourceColumn = this.data.kanban[this.currentList].columns[sourceColumnId];
+                const targetColumn = this.data.kanban[this.currentList].columns[targetColumnId];
+                
+                if (!sourceColumn || !targetColumn || !sourceColumn.items[itemIndex]) return;
+
+                // Move item from source to target
+                const item = sourceColumn.items.splice(itemIndex, 1)[0];
+                targetColumn.items.push(item);
+
+                this.saveData();
+                this.renderContent();
+            }
+
+            // Todo operations
+            toggleTodo(index) {
+                if (!this.data.todo[this.currentList]) return;
+                this.data.todo[this.currentList].items[index].completed = !this.data.todo[this.currentList].items[index].completed;
+                this.saveData();
+                this.renderContent();
+            }
+
+            deleteTodo(index) {
+                if (!this.data.todo[this.currentList]) return;
+                this.data.todo[this.currentList].items.splice(index, 1);
+                this.saveData();
+                this.renderContent();
+            }
+
+            // Modal operations
+            showAddListModal() {
+                const modal = this.createModal('Add New List', `
+                    <div class="form-group">
+                        <label class="form-label">List Name</label>
+                        <input type="text" class="form-input" id="list-name" placeholder="Enter list name">
+                    </div>
+                    <div class="button-group">
+                        <button class="button button-secondary" onclick="app.closeModal()">Cancel</button>
+                        <button class="button button-primary" onclick="app.addList()">Add List</button>
+                    </div>
+                `);
+                document.body.appendChild(modal);
+                document.getElementById('list-name').focus();
+            }
+
+            showAddItemModal() {
+                let content = '';
+                
+                if (this.currentMode === 'todo') {
+                    content = `
+                        <div class="form-group">
+                            <label class="form-label">Task</label>
+                            <input type="text" class="form-input" id="item-text" placeholder="Enter task">
+                        </div>
+                        <div class="button-group">
+                            <button class="button button-secondary" onclick="app.closeModal()">Cancel</button>
+                            <button class="button button-primary" onclick="app.addTodo()">Add Task</button>
+                        </div>
+                    `;
+                } else if (this.currentMode === 'notes') {
+                    content = `
+                        <div class="form-group">
+                            <label class="form-label">Title</label>
+                            <input type="text" class="form-input" id="note-title" placeholder="Note title">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Content (Markdown supported)</label>
+                            <textarea class="form-textarea" id="note-content" placeholder="# Markdown Header
+
+Write your note content here. You can use:
+- **bold text**
+- *italic text*
+- \`code\`
+- [links](http://example.com)
+- Lists and more!"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Preview</label>
+                            <div class="markdown-preview" id="markdown-preview"><em>Preview will appear here...</em></div>
+                        </div>
+                        <div class="button-group">
+                            <button class="button button-secondary" onclick="app.closeModal()">Cancel</button>
+                            <button class="button button-primary" onclick="app.addNote()">Save Note</button>
+                        </div>
+                    `;
+                } else if (this.currentMode === 'kanban') {
+                    content = `
+                        <div class="form-group">
+                            <label class="form-label">Column Name</label>
+                            <input type="text" class="form-input" id="column-name" placeholder="Enter column name">
+                        </div>
+                        <div class="button-group">
+                            <button class="button button-secondary" onclick="app.closeModal()">Cancel</button>
+                            <button class="button button-primary" onclick="app.addColumn()">Add Column</button>
+                        </div>
+                    `;
+                }
+
+                const modal = this.createModal(
+                    this.currentMode === 'todo' ? 'Add Task' : 
+                    this.currentMode === 'notes' ? 'Add Note' : 'Add Column', 
+                    content
+                );
+                document.body.appendChild(modal);
+                
+                if (this.currentMode === 'notes') {
+                    const contentTextarea = document.getElementById('note-content');
+                    const preview = document.getElementById('markdown-preview');
+                    
+                    const updatePreview = () => {
+                        const content = contentTextarea.value;
+                        if (content.trim()) {
+                            try {
+                                preview.innerHTML = marked.parse(content);
+                            } catch (e) {
+                                preview.innerHTML = '<em>Invalid markdown</em>';
+                            }
+                        } else {
+                            preview.innerHTML = '<em>Preview will appear here...</em>';
+                        }
+                    };
+                    
+                    contentTextarea.addEventListener('input', updatePreview);
+                    updatePreview();
+                }
+                
+                const firstInput = modal.querySelector('input');
+                if (firstInput) firstInput.focus();
+            }
+
+            createModal(title, content) {
+                const modal = document.createElement('div');
+                modal.className = 'modal';
+                modal.innerHTML = `
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3 class="modal-title">${title}</h3>
+                            <button class="modal-close" onclick="app.closeModal()">×</button>
+                        </div>
+                        ${content}
+                    </div>
+                `;
+                
+                // Close modal when clicking outside
+                modal.addEventListener('click', (e) => {
+                    if (e.target === modal) {
+                        this.closeModal();
+                    }
+                });
+                
+                return modal;
+            }
+
+            closeModal() {
+                const modal = document.querySelector('.modal');
+                if (modal) {
+                    modal.remove();
+                }
+            }
+
+            addList() {
+                const name = document.getElementById('list-name').value.trim();
+                if (!name) return;
+
+                const id = Date.now().toString();
+                
+                if (this.currentMode === 'todo') {
+                    this.data.todo[id] = { name, items: [] };
+                } else if (this.currentMode === 'notes') {
+                    this.data.notes[id] = { name, items: [] };
+                } else if (this.currentMode === 'kanban') {
+                    this.data.kanban[id] = { 
+                        name, 
+                        columns: {
+                            'todo': { name: 'To Do', items: [] },
+                            'doing': { name: 'In Progress', items: [] },
+                            'done': { name: 'Done', items: [] }
+                        }
+                    };
+                }
+
+                this.currentList = id;
+                this.saveData();
+                this.closeModal();
+                this.renderSidebar();
+                this.renderContent();
+            }
+
+            deleteList(listId) {
+                if (Object.keys(this.data[this.currentMode]).length <= 1) return;
+                
+                delete this.data[this.currentMode][listId];
+                
+                if (this.currentList === listId) {
+                    this.currentList = Object.keys(this.data[this.currentMode])[0];
+                }
+                
+                this.saveData();
+                this.renderSidebar();
+                this.renderContent();
+            }
+
+            addTodo() {
+                const text = document.getElementById('item-text').value.trim();
+                if (!text) return;
+
+                if (!this.data.todo[this.currentList]) {
+                    this.data.todo[this.currentList] = { name: 'New List', items: [] };
+                }
+
+                this.data.todo[this.currentList].items.push({
+                    text,
+                    completed: false,
+                    id: Date.now()
+                });
+
+                this.saveData();
+                this.closeModal();
+                this.renderContent();
+            }
+
+            addNote() {
+                const title = document.getElementById('note-title').value.trim();
+                const content = document.getElementById('note-content').value.trim();
+                
+                if (!title && !content) return;
+
+                if (!this.data.notes[this.currentList]) {
+                    this.data.notes[this.currentList] = { name: 'New Notes', items: [] };
+                }
+
+                this.data.notes[this.currentList].items.push({
+                    title: title || 'Untitled Note',
+                    content,
+                    viewMode: 'raw', // Start in raw mode for new notes
+                    id: Date.now(),
+                    created: new Date().toISOString()
+                });
+
+                this.saveData();
+                this.closeModal();
+                this.renderContent();
+            }
+
+            updateNoteTitle(index, newTitle) {
+                if (!this.data.notes[this.currentList] || !this.data.notes[this.currentList].items[index]) return;
+                
+                this.data.notes[this.currentList].items[index].title = newTitle.trim() || 'Untitled Note';
+                this.data.notes[this.currentList].items[index].modified = new Date().toISOString();
+                this.saveData();
+            }
+
+            updateNoteContent(index, newContent) {
+                if (!this.data.notes[this.currentList] || !this.data.notes[this.currentList].items[index]) return;
+                
+                this.data.notes[this.currentList].items[index].content = newContent;
+                this.data.notes[this.currentList].items[index].modified = new Date().toISOString();
+                this.saveData();
+            }
+
+            setNoteViewMode(index, mode) {
+                if (!this.data.notes[this.currentList] || !this.data.notes[this.currentList].items[index]) return;
+                
+                this.data.notes[this.currentList].items[index].viewMode = mode;
+                this.saveData();
+                this.renderContent();
+            }
+
+            renderMarkdown(content) {
+                if (!content || !content.trim()) return '<em class="note-empty">Empty note</em>';
+                
+                try {
+                    return marked.parse(content);
+                } catch (e) {
+                    return '<em>Invalid markdown</em>';
+                }
+            }
+
+            editNote(index) {
+                const note = this.data.notes[this.currentList].items[index];
+                
+                const modal = this.createModal('Edit Note', `
+                    <div class="form-group">
+                        <label class="form-label">Title</label>
+                        <input type="text" class="form-input" id="note-title" value="${this.escapeHtml(note.title)}">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Content (Markdown supported)</label>
+                        <textarea class="form-textarea" id="note-content">${this.escapeHtml(note.content)}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Preview</label>
+                        <div class="markdown-preview" id="markdown-preview"></div>
+                    </div>
+                    <div class="button-group">
+                        <button class="button button-danger" onclick="app.deleteNote(${index}); app.closeModal();">Delete</button>
+                        <button class="button button-secondary" onclick="app.closeModal()">Cancel</button>
+                        <button class="button button-primary" onclick="app.updateNote(${index})">Save</button>
+                    </div>
+                `);
+                
+                document.body.appendChild(modal);
+                
+                const contentTextarea = document.getElementById('note-content');
+                const preview = document.getElementById('markdown-preview');
+                
+                const updatePreview = () => {
+                    const content = contentTextarea.value;
+                    if (content.trim()) {
+                        try {
+                            preview.innerHTML = marked.parse(content);
+                        } catch (e) {
+                            preview.innerHTML = '<em>Invalid markdown</em>';
+                        }
+                    } else {
+                        preview.innerHTML = '<em>Preview will appear here...</em>';
+                    }
+                };
+                
+                contentTextarea.addEventListener('input', updatePreview);
+                updatePreview();
+            }
+
+            updateNote(index) {
+                const title = document.getElementById('note-title').value.trim();
+                const content = document.getElementById('note-content').value.trim();
+                
+                this.data.notes[this.currentList].items[index] = {
+                    ...this.data.notes[this.currentList].items[index],
+                    title: title || 'Untitled Note',
+                    content,
+                    modified: new Date().toISOString()
+                };
+
+                this.saveData();
+                this.closeModal();
+                this.renderContent();
+            }
+
+            deleteNote(index) {
+                this.data.notes[this.currentList].items.splice(index, 1);
+                this.saveData();
+                this.renderContent();
+            }
+
+            addColumn() {
+                const name = document.getElementById('column-name').value.trim();
+                if (!name) return;
+
+                const id = Date.now().toString();
+                
+                if (!this.data.kanban[this.currentList]) {
+                    this.data.kanban[this.currentList] = { name: 'New Board', columns: {} };
+                }
+
+                this.data.kanban[this.currentList].columns[id] = { name, items: [] };
+
+                this.saveData();
+                this.closeModal();
+                this.renderContent();
+            }
+
+            deleteColumn(columnId) {
+                delete this.data.kanban[this.currentList].columns[columnId];
+                this.saveData();
+                this.renderContent();
+            }
+
+            // Remove old drag and drop methods (they're now in setupKanbanEventListeners)
+            addKanbanItem(columnId) {
+                // Legacy method - now redirects to modal
+                this.showAddKanbanItemModal(columnId);
+            }
+
+            deleteKanbanItem(columnId, index) {
+                if (this.data.kanban[this.currentList] && this.data.kanban[this.currentList].columns[columnId]) {
+                    this.data.kanban[this.currentList].columns[columnId].items.splice(index, 1);
+                    this.saveData();
+                    this.renderContent();
+                }
+            }
+
+            // Remove old drag methods - replaced with better event listeners
+            // drag, allowDrop, drop methods removed and replaced with setupKanbanEventListeners
+
+            toggleTheme() {
+                this.isDarkMode = !this.isDarkMode;
+                localStorage.setItem('darkMode', JSON.stringify(this.isDarkMode));
+                this.applyTheme();
+            }
+
+            applyTheme() {
+                document.documentElement.setAttribute('data-theme', this.isDarkMode ? 'dark' : 'light');
+                document.getElementById('theme-toggle').textContent = this.isDarkMode ? '☀️ Light Mode' : '🌙 Dark Mode';
+            }
+
+            escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+        }
+
+        // Initialize the app
+        const app = new MaterialYouApp();
+
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey || e.metaKey) {
+                switch(e.key) {
+                    case 'n':
+                        e.preventDefault();
+                        app.showAddItemModal();
+                        break;
+                    case 'l':
+                        e.preventDefault();
+                        app.showAddListModal();
+                        break;
+                    case 'd':
+                        e.preventDefault();
+                        app.toggleTheme();
+                        break;
+                }
+            }
+            
+            if (e.key === 'Escape') {
+                app.closeModal();
+            }
+        });
+
+        // Clean up drag styling
+        document.addEventListener('dragend', () => {
+            document.querySelectorAll('.kanban-item').forEach(item => {
+                item.classList.remove('dragging');
+            });
+        });
+
+        // Handle Enter key in input fields
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && e.target.matches('.form-input')) {
+                const modal = e.target.closest('.modal');
+                if (modal) {
+                    const primaryButton = modal.querySelector('.button-primary');
+                    if (primaryButton) {
+                        primaryButton.click();
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
