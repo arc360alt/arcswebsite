@@ -86,6 +86,8 @@
             border-right: 1px solid var(--md-sys-color-outline-variant);
             padding: 24px;
             overflow-y: auto;
+            display: flex;
+            flex-direction: column;
         }
 
         .sidebar h1 {
@@ -183,8 +185,8 @@
         }
 
         .theme-toggle {
-            margin-top: auto;
             padding-top: 24px;
+            order: 1; /* Keep before data controls */
         }
 
         .theme-button {
@@ -201,7 +203,8 @@
         .main-content {
             flex: 1;
             padding: 24px;
-            overflow-y: auto;
+            overflow: hidden;
+            position: relative;
         }
 
         .header {
@@ -241,6 +244,65 @@
             background-color: var(--md-sys-color-surface);
             border-radius: 12px;
             border: 1px solid var(--md-sys-color-outline-variant);
+            cursor: grab;
+            transition: all 0.2s;
+            position: relative;
+        }
+
+        .todo-item:active {
+            cursor: grabbing;
+        }
+
+        .todo-item.dragging {
+            opacity: 0.6;
+            transform: rotate(2deg);
+            z-index: 1000;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+        }
+        /* ADD THESE NEW CSS RULES: */
+        .data-controls {
+            padding-top: 16px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--md-sys-color-outline-variant);
+            order: 2; /* Move after theme toggle */
+        }
+
+        .data-button {
+            width: 100%;
+            padding: 10px 12px;
+            margin-bottom: 8px;
+            background-color: var(--md-sys-color-secondary-container);
+            color: var(--md-sys-color-on-secondary-container);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .data-button:hover {
+            background-color: var(--md-sys-color-primary-container);
+            color: var(--md-sys-color-on-primary-container);
+        }
+
+        .data-button:last-child {
+            margin-bottom: 0;
+        }
+        .todo-item.drag-over {
+            border: 2px dashed var(--md-sys-color-primary);
+            background-color: var(--md-sys-color-primary-container);
+        }
+
+        .todo-drag-handle {
+            padding: 8px;
+            margin-right: 8px;
+            color: var(--md-sys-color-on-surface-variant);
+            cursor: grab;
+            font-size: 14px;
+        }
+
+        .todo-drag-handle:active {
+            cursor: grabbing;
         }
 
         .todo-checkbox {
@@ -272,24 +334,41 @@
 
         /* Notes Mode Styles */
         .notes-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 16px;
+            position: relative;
+            width: 100%;
+            height: calc(100vh - 140px);
+            overflow: hidden;
+            border: 1px solid var(--md-sys-color-outline-variant);
+            border-radius: 12px;
+            background-color: var(--md-sys-color-surface-variant);
         }
 
         .note-card {
+            position: absolute;
             background-color: var(--md-sys-color-surface);
             border: 1px solid var(--md-sys-color-outline-variant);
             border-radius: 12px;
             padding: 16px;
-            transition: all 0.2s;
-            min-height: 200px;
+            transition: box-shadow 0.2s;
+            min-height: 250px;
             display: flex;
             flex-direction: column;
+            min-width: 300px;
+            max-width: 600px;
+            z-index: 1;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            cursor: move;
         }
 
         .note-card:hover {
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .note-card.dragging {
+            opacity: 0.8;
+            z-index: 1000;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            transform: rotate(3deg);
         }
 
         .note-header {
@@ -298,6 +377,9 @@
             justify-content: space-between;
             margin-bottom: 12px;
             gap: 8px;
+            cursor: move;
+            user-select: none;
+            pointer-events: auto;
         }
 
         .note-title-input {
@@ -310,6 +392,8 @@
             padding: 4px 8px;
             border-radius: 4px;
             transition: background-color 0.2s;
+            pointer-events: auto;
+            cursor: text; /* Add this */
         }
 
         .note-title-input:hover, .note-title-input:focus {
@@ -319,18 +403,40 @@
 
         .note-controls {
             display: flex;
-            gap: 4px;
+            gap: 2px; /* Smaller gap */
+            pointer-events: auto;
+            z-index: 10;
+            position: relative;
+            flex-shrink: 0;
+            min-width: 80px; /* Smaller minimum */
+        }
+
+        .note-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            gap: 8px;
+            cursor: move;
+            user-select: none;
+            min-height: 32px; /* Ensure minimum height */
+            flex-shrink: 0; /* Prevent shrinking */
         }
 
         .note-mode-btn, .note-delete-btn {
             background: none;
             border: none;
-            padding: 6px 8px;
-            border-radius: 6px;
+            padding: 4px 6px; /* Smaller padding */
+            border-radius: 4px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 12px; /* Smaller font */
             color: var(--md-sys-color-on-surface-variant);
             transition: all 0.2s;
+            pointer-events: auto;
+            min-width: 24px; /* Fixed minimum width */
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .note-mode-btn:hover, .note-delete-btn:hover {
@@ -355,6 +461,7 @@
             flex: 1;
             display: flex;
             flex-direction: column;
+            pointer-events: auto;
         }
 
         .note-content-textarea {
@@ -369,7 +476,7 @@
             font-family: 'Roboto Mono', monospace;
             font-size: 14px;
             line-height: 1.5;
-            resize: vertical;
+            resize: none;
         }
 
         .note-content-textarea:focus {
@@ -415,6 +522,24 @@
             -webkit-box-orient: vertical;
         }
 
+        .resize-handle {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 16px;
+            height: 16px;
+            background: linear-gradient(
+                135deg,
+                transparent 0%,
+                transparent 45%,
+                var(--md-sys-color-outline-variant) 50%,
+                transparent 55%,
+                transparent 100%
+            );
+            cursor: se-resize;
+            pointer-events: auto;
+        }
+
         /* Kanban Mode Styles */
         .kanban-board {
             display: flex;
@@ -428,6 +553,9 @@
             background-color: var(--md-sys-color-surface-variant);
             border-radius: 12px;
             padding: 16px;
+            display: flex;
+            flex-direction: column;
+            height: fit-content;
         }
 
         .kanban-header {
@@ -456,6 +584,8 @@
             transition: background-color 0.2s;
             border-radius: 8px;
             padding: 4px;
+            flex: 1;
+            margin-bottom: 12px;
         }
 
         .kanban-item {
@@ -508,6 +638,8 @@
             color: var(--md-sys-color-on-surface-variant);
             cursor: pointer;
             font-size: 14px;
+            margin-top: auto;
+            flex-shrink: 0;
         }
 
         /* Modal Styles */
@@ -521,7 +653,19 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 1000;
+            z-index: 10000; /* Much higher z-index */
+        }
+
+        .modal-content {
+            background-color: var(--md-sys-color-surface);
+            border-radius: 16px;
+            padding: 24px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            z-index: 10001; /* Ensure content is above modal background */
+            position: relative;
         }
 
         .modal-content {
@@ -689,12 +833,16 @@
         .empty-state p {
             font-size: 14px;
         }
+        .lists-section {
+            flex: 1; /* Take up available space */
+            margin-bottom: auto; /* Push everything below to bottom */
+        }
     </style>
 </head>
 <body>
     <div class="app-container">
         <div class="sidebar">
-            <h1>A Notes App</h1>
+            <h1>A Notes app</h1>
             
             <div class="mode-selector">
                 <button class="mode-button active" data-mode="todo">📋 Todo Lists</button>
@@ -706,6 +854,12 @@
                 <h3 id="lists-title">Todo Lists</h3>
                 <div id="lists-container"></div>
                 <button class="add-list-button" id="add-list-btn">+ Add New</button>
+            </div>
+
+            <div class="data-controls">
+                <button class="data-button" id="export-data-btn">📤 Export Data</button>
+                <button class="data-button" id="import-data-btn">📥 Import Data</button>
+                <input type="file" id="import-file-input" accept=".json" style="display: none;">
             </div>
 
             <div class="theme-toggle">
@@ -731,14 +885,34 @@
                 this.currentMode = 'todo';
                 this.currentList = 'default';
                 this.data = this.loadData();
-                this.isDarkMode = JSON.parse(localStorage.getItem('darkMode') || 'false');
+                this.isDarkMode = this.loadFromMemory('darkMode', false);
+                this.draggedNoteIndex = null;
+                this.draggedTodoIndex = null;
+                this.isDragging = false;
+                this.dragOffset = { x: 0, y: 0 };
                 
                 this.init();
             }
 
+            loadFromMemory(key, defaultValue) {
+                try {
+                    const stored = localStorage.getItem(key);
+                    return stored !== null ? JSON.parse(stored) : defaultValue;
+                } catch (e) {
+                    return defaultValue;
+                }
+            }
+
+            saveToMemory(key, value) {
+                try {
+                    localStorage.setItem(key, JSON.stringify(value));
+                } catch (e) {
+                    console.warn('Storage failed for key:', key);
+                }
+            }
+
             loadData() {
-                const saved = localStorage.getItem('materialYouAppData');
-                return saved ? JSON.parse(saved) : {
+                const defaultData = {
                     todo: { 
                         default: { 
                             name: 'My Todo List', 
@@ -762,12 +936,35 @@
                         }
                     }
                 };
+
+                const data = this.loadFromMemory('materialYouAppData', defaultData);
+                
+                // Ensure note items have proper positioning properties
+                if (data.notes) {
+                    Object.keys(data.notes).forEach(listId => {
+                        if (data.notes[listId].items) {
+                            data.notes[listId].items.forEach((note, index) => {
+                                if (!note.width) note.width = 350;
+                                if (!note.height) note.height = 250;
+                                if (note.x === undefined) note.x = 50 + (index * 40);
+                                if (note.y === undefined) note.y = 50 + (index * 40);
+                                if (!note.id) note.id = Date.now() + index;
+                                if (!note.title) note.title = 'Untitled Note';
+                                if (!note.content) note.content = '';
+                                if (!note.viewMode) note.viewMode = 'raw';
+                                if (!note.zIndex) note.zIndex = 10 + index;
+                            });
+                        }
+                    });
+                }
+                
+                return data;
             }
 
             saveData() {
-                localStorage.setItem('materialYouAppData', JSON.stringify(this.data));
+                this.saveToMemory('materialYouAppData', this.data);
             }
-
+            
             init() {
                 this.setupEventListeners();
                 this.applyTheme();
@@ -796,8 +993,21 @@
                 // Add item button
                 document.getElementById('add-item-btn').addEventListener('click', () => {
                     this.showAddItemModal();
+                            });
+                                document.getElementById('export-data-btn').addEventListener('click', () => {
+                    this.exportData();
+                });
+
+                document.getElementById('import-data-btn').addEventListener('click', () => {
+                    document.getElementById('import-file-input').click();
+                });
+
+                document.getElementById('import-file-input').addEventListener('change', (e) => {
+                    this.importData(e);
                 });
             }
+
+            
 
             switchMode(mode) {
                 this.currentMode = mode;
@@ -813,7 +1023,7 @@
                 this.renderSidebar();
                 this.renderContent();
             }
-
+            
             renderSidebar() {
                 const container = document.getElementById('lists-container');
                 container.innerHTML = '';
@@ -875,20 +1085,27 @@
                 }
 
                 container.innerHTML = items.map((item, index) => `
-                    <div class="todo-item">
+                    <div class="todo-item" draggable="true" data-todo-index="${index}">
+                        <div class="todo-drag-handle">⋮⋮</div>
                         <input type="checkbox" class="todo-checkbox" ${item.completed ? 'checked' : ''} 
                                onchange="app.toggleTodo(${index})">
                         <span class="todo-text ${item.completed ? 'completed' : ''}">${this.escapeHtml(item.text)}</span>
                         <button class="todo-delete" onclick="app.deleteTodo(${index})">×</button>
                     </div>
                 `).join('');
+
+                // Setup drag and drop for todo items
+                this.setupTodoDragAndDrop(container);
             }
 
             renderNotesContent(container) {
                 const items = this.data.notes[this.currentList]?.items || [];
                 
+                container.innerHTML = `<div class="notes-container"></div>`;
+                const notesContainer = container.querySelector('.notes-container');
+                
                 if (items.length === 0) {
-                    container.innerHTML = `
+                    notesContainer.innerHTML = `
                         <div class="empty-state">
                             <h3>No notes yet</h3>
                             <p>Click the + button to create your first note</p>
@@ -896,33 +1113,247 @@
                     `;
                     return;
                 }
-
-                container.innerHTML = `
-                    <div class="notes-container">
-                        ${items.map((item, index) => `
-                            <div class="note-card" data-note-index="${index}">
-                                <div class="note-header">
-                                    <input type="text" class="note-title-input" value="${this.escapeHtml(item.title)}" 
-                                           onchange="app.updateNoteTitle(${index}, this.value)" 
-                                           onblur="app.updateNoteTitle(${index}, this.value)">
-                                    <div class="note-controls">
-                                        <button class="note-mode-btn ${item.viewMode === 'raw' ? 'active' : ''}" 
-                                                onclick="app.setNoteViewMode(${index}, 'raw')" title="Raw Text">📝</button>
-                                        <button class="note-mode-btn ${item.viewMode !== 'raw' ? 'active' : ''}" 
-                                                onclick="app.setNoteViewMode(${index}, 'preview')" title="Markdown Preview">👁</button>
-                                        <button class="note-delete-btn" onclick="app.deleteNote(${index})" title="Delete Note">×</button>
-                                    </div>
-                                </div>
-                                <div class="note-content-container">
-                                    ${item.viewMode === 'raw' ? 
-                                        `<textarea class="note-content-textarea" onchange="app.updateNoteContent(${index}, this.value)" onblur="app.updateNoteContent(${index}, this.value)">${this.escapeHtml(item.content)}</textarea>` :
-                                        `<div class="note-content-preview" onclick="app.setNoteViewMode(${index}, 'raw')">${item.content ? this.renderMarkdown(item.content) : '<em class="note-empty">Click to start writing...</em>'}</div>`
-                                    }
-                                </div>
+                
+                items.forEach((item, index) => {
+                    const noteCard = document.createElement('div');
+                    noteCard.className = 'note-card';
+                    noteCard.dataset.noteIndex = index;
+                    noteCard.style.left = `${item.x || 20 + (index * 30)}px`;
+                    noteCard.style.top = `${item.y || 20 + (index * 30)}px`;
+                    noteCard.style.width = `${item.width || 350}px`;
+                    noteCard.style.height = `${item.height || 200}px`;
+                    noteCard.style.zIndex = Math.min(item.zIndex || (1 + index), 9999);
+                    
+                    noteCard.innerHTML = `
+                        <div class="note-header">
+                            <input type="text" class="note-title-input" value="${this.escapeHtml(item.title || 'Untitled Note')}" 
+                                   onchange="app.updateNoteTitle(${index}, this.value)" 
+                                   onblur="app.updateNoteTitle(${index}, this.value)">
+                            <div class="note-controls">
+                                <button class="note-mode-btn ${item.viewMode === 'raw' ? 'active' : ''}" 
+                                        onclick="app.setNoteViewMode(${index}, 'raw')" title="Raw Text">📝</button>
+                                <button class="note-mode-btn ${item.viewMode !== 'raw' ? 'active' : ''}" 
+                                        onclick="app.setNoteViewMode(${index}, 'preview')" title="Markdown Preview">👁</button>
+                                <button class="note-delete-btn" onclick="app.deleteNote(${index})" title="Delete Note">×</button>
                             </div>
-                        `).join('')}
-                    </div>
-                `;
+                        </div>
+                        <div class="note-content-container">
+                            ${item.viewMode === 'raw' ? 
+                                `<textarea class="note-content-textarea" onchange="app.updateNoteContent(${index}, this.value)" onblur="app.updateNoteContent(${index}, this.value)">${this.escapeHtml(item.content || '')}</textarea>` :
+                                `<div class="note-content-preview" onclick="app.setNoteViewMode(${index}, 'raw')">${item.content ? this.renderMarkdown(item.content) : '<em class="note-empty">Click to start writing...</em>'}</div>`
+                            }
+                        </div>
+                        <div class="resize-handle"></div>
+                    `;
+                    
+                    notesContainer.appendChild(noteCard);
+                });
+
+                // Setup drag and drop and resize functionality
+                this.setupNoteInteractions();
+            }
+
+            setupTodoDragAndDrop(container) {
+                const todoItems = container.querySelectorAll('.todo-item');
+                
+                todoItems.forEach((item, index) => {
+                    const dragHandle = item.querySelector('.todo-drag-handle');
+                    
+                    // Only allow dragging from the drag handle
+                    dragHandle.addEventListener('mousedown', () => {
+                        item.draggable = true;
+                    });
+
+                    item.addEventListener('dragstart', (e) => {
+                        if (!item.draggable) {
+                            e.preventDefault();
+                            return;
+                        }
+                        
+                        this.draggedTodoIndex = index;
+                        item.classList.add('dragging');
+                        e.dataTransfer.effectAllowed = 'move';
+                    });
+
+                    item.addEventListener('dragend', (e) => {
+                        item.classList.remove('dragging');
+                        item.draggable = false;
+                        this.draggedTodoIndex = null;
+                    });
+
+                    item.addEventListener('dragover', (e) => {
+                        if (this.draggedTodoIndex !== null && this.draggedTodoIndex !== index) {
+                            e.preventDefault();
+                            e.dataTransfer.dropEffect = 'move';
+                            item.classList.add('drag-over');
+                        }
+                    });
+
+                    item.addEventListener('dragleave', (e) => {
+                    if (!e.relatedTarget || !item.contains(e.relatedTarget)) {
+                        item.classList.remove('drag-over');
+                    }
+                });
+
+                    item.addEventListener('drop', (e) => {
+                        e.preventDefault();
+                        item.classList.remove('drag-over');
+                        
+                        if (this.draggedTodoIndex !== null && this.draggedTodoIndex !== index) {
+                            this.moveTodo(this.draggedTodoIndex, index);
+                        }
+                    });
+
+                    // Reset draggable state when not dragging from handle
+                    item.addEventListener('mousedown', (e) => {
+                        if (!e.target.closest('.todo-drag-handle')) {
+                            item.draggable = false;
+                        }
+                    });
+                });
+            }
+
+            moveTodo(fromIndex, toIndex) {
+                const items = this.data.todo[this.currentList].items;
+                const movedItem = items.splice(fromIndex, 1)[0];
+                items.splice(toIndex, 0, movedItem);
+                
+                this.saveData();
+                this.renderContent();
+            }
+
+            setupNoteInteractions() {
+                const noteCards = document.querySelectorAll('.note-card');
+                
+                noteCards.forEach((card, index) => {
+                    this.setupNoteDragging(card, index);
+                    this.setupNoteResize(card, index);
+                });
+            }
+
+setupNoteDragging(card, index) {
+    let isDragging = false;
+    let startX, startY, startLeft, startTop;
+
+    // Make the entire card draggable, but prevent dragging when interacting with controls
+    card.addEventListener('mousedown', (e) => {
+        // Don't drag if clicking directly on interactive elements
+        if (e.target.matches('input, button, textarea')) {
+            return;
+        }
+
+        isDragging = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        startLeft = parseInt(card.style.left) || 0;
+        startTop = parseInt(card.style.top) || 0;
+
+        // Bring to front
+        const maxZ = Math.max(...Array.from(document.querySelectorAll('.note-card')).map(c => parseInt(c.style.zIndex) || 0));
+        card.style.zIndex = Math.min(maxZ + 1, 9999); // Cap at 9999 to stay below modals
+        card.classList.add('dragging');
+
+        // Update data
+        const noteItem = this.data.notes[this.currentList].items[index];
+        if (noteItem) {
+            noteItem.zIndex = maxZ + 1;
+            this.saveData();
+        }
+
+        e.preventDefault();
+        e.stopPropagation();
+
+        const onMouseMove = (e) => {
+            if (!isDragging) return;
+
+            const deltaX = e.clientX - startX;
+            const deltaY = e.clientY - startY;
+            
+            // Get container dimensions
+            const container = card.parentElement;
+            const containerRect = container.getBoundingClientRect();
+            const cardRect = card.getBoundingClientRect();
+            
+            // Calculate boundaries
+            const maxLeft = containerRect.width - cardRect.width;
+            const maxTop = containerRect.height - cardRect.height;
+            
+            const newLeft = Math.max(0, Math.min(maxLeft, startLeft + deltaX));
+            const newTop = Math.max(0, Math.min(maxTop, startTop + deltaY));
+
+            card.style.left = `${newLeft}px`;
+            card.style.top = `${newTop}px`;
+        };
+
+        const onMouseUp = (e) => {
+            if (isDragging) {
+                isDragging = false;
+                card.classList.remove('dragging');
+                
+                // Save position
+                const noteItem = this.data.notes[this.currentList].items[index];
+                if (noteItem) {
+                    noteItem.x = parseInt(card.style.left);
+                    noteItem.y = parseInt(card.style.top);
+                    noteItem.zIndex = parseInt(card.style.zIndex);
+                    this.saveData();
+                }
+            }
+
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+        };
+
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+    });
+}
+
+            setupNoteResize(card, index) {
+                const resizeHandle = card.querySelector('.resize-handle');
+                let isResizing = false;
+                let startX, startY, startWidth, startHeight;
+
+                resizeHandle.addEventListener('mousedown', (e) => {
+                    isResizing = true;
+                    startX = e.clientX;
+                    startY = e.clientY;
+                    startWidth = parseInt(card.style.width);
+                    startHeight = parseInt(card.style.height);
+                    
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    const onMouseMove = (e) => {
+                        if (!isResizing) return;
+                        
+                        const newWidth = Math.max(350, startWidth + e.clientX - startX); // Even larger minimum
+                        const newHeight = Math.max(280, startHeight + e.clientY - startY); // Larger minimum for header space
+                        
+                        card.style.width = `${newWidth}px`;
+                        card.style.height = `${newHeight}px`;
+                    };
+
+                    const onMouseUp = (e) => {
+                        if (isResizing) {
+                            isResizing = false;
+                            
+                            // Save the new dimensions
+                            const noteItem = this.data.notes[this.currentList].items[index];
+                            if (noteItem) {
+                                noteItem.width = parseInt(card.style.width);
+                                noteItem.height = parseInt(card.style.height);
+                                this.saveData();
+                            }
+                        }
+                        
+                        document.removeEventListener('mousemove', onMouseMove);
+                        document.removeEventListener('mouseup', onMouseUp);
+                    };
+
+                    document.addEventListener('mousemove', onMouseMove);
+                    document.addEventListener('mouseup', onMouseUp);
+                });
             }
 
             renderKanbanContent(container) {
@@ -999,7 +1430,7 @@
                     });
 
                     dropZone.addEventListener('dragleave', (e) => {
-                        if (!dropZone.contains(e.relatedTarget)) {
+                        if (!e.relatedTarget || !dropZone.contains(e.relatedTarget)) {
                             dropZone.style.backgroundColor = '';
                         }
                     });
@@ -1056,6 +1487,20 @@
                 this.renderContent();
             }
 
+            deleteColumn(columnId) {
+                delete this.data.kanban[this.currentList].columns[columnId];
+                this.saveData();
+                this.renderContent();
+            }
+
+            deleteKanbanItem(columnId, index) {
+                if (this.data.kanban[this.currentList] && this.data.kanban[this.currentList].columns[columnId]) {
+                    this.data.kanban[this.currentList].columns[columnId].items.splice(index, 1);
+                    this.saveData();
+                    this.renderContent();
+                }
+            }
+
             moveKanbanItem(sourceColumnId, itemIndex, targetColumnId) {
                 if (sourceColumnId === targetColumnId) return;
 
@@ -1085,6 +1530,23 @@
                 this.data.todo[this.currentList].items.splice(index, 1);
                 this.saveData();
                 this.renderContent();
+            }
+
+            toggleTheme() {
+                this.isDarkMode = !this.isDarkMode;
+                this.saveToMemory('darkMode', this.isDarkMode);
+                this.applyTheme();
+            }
+
+            applyTheme() {
+                document.documentElement.setAttribute('data-theme', this.isDarkMode ? 'dark' : 'light');
+                document.getElementById('theme-toggle').textContent = this.isDarkMode ? '☀️ Light Mode' : '🌙 Dark Mode';
+            }
+
+            escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
             }
 
             // Modal operations
@@ -1289,13 +1751,27 @@ Write your note content here. You can use:
                     this.data.notes[this.currentList] = { name: 'New Notes', items: [] };
                 }
 
-                this.data.notes[this.currentList].items.push({
-                    title: title || 'Untitled Note',
-                    content,
-                    viewMode: 'raw', // Start in raw mode for new notes
-                    id: Date.now(),
-                    created: new Date().toISOString()
-                });
+                const existingNotes = this.data.notes[this.currentList].items;
+                
+                // Calculate better positioning to avoid overlap
+                const baseX = 50;
+                const baseY = 50;
+                const offsetStep = 40;
+                
+        const newNote = {
+            title: title || 'New Note',
+            content: content || '# Welcome!\n\nStart writing your note here...\n\n- Use **markdown** for formatting\n- Drag to move\n- Resize from bottom-right corner',
+            viewMode: 'preview', // Start in preview mode
+            id: Date.now(),
+            created: new Date().toISOString(),
+            width: 400, // Larger default width
+            height: 300, // Larger default height
+            x: baseX + (existingNotes.length * offsetStep) % 400,
+            y: baseY + (existingNotes.length * offsetStep) % 300,
+            zIndex: 10 + existingNotes.length
+        };
+
+                this.data.notes[this.currentList].items.push(newNote);
 
                 this.saveData();
                 this.closeModal();
@@ -1336,67 +1812,6 @@ Write your note content here. You can use:
                 }
             }
 
-            editNote(index) {
-                const note = this.data.notes[this.currentList].items[index];
-                
-                const modal = this.createModal('Edit Note', `
-                    <div class="form-group">
-                        <label class="form-label">Title</label>
-                        <input type="text" class="form-input" id="note-title" value="${this.escapeHtml(note.title)}">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Content (Markdown supported)</label>
-                        <textarea class="form-textarea" id="note-content">${this.escapeHtml(note.content)}</textarea>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Preview</label>
-                        <div class="markdown-preview" id="markdown-preview"></div>
-                    </div>
-                    <div class="button-group">
-                        <button class="button button-danger" onclick="app.deleteNote(${index}); app.closeModal();">Delete</button>
-                        <button class="button button-secondary" onclick="app.closeModal()">Cancel</button>
-                        <button class="button button-primary" onclick="app.updateNote(${index})">Save</button>
-                    </div>
-                `);
-                
-                document.body.appendChild(modal);
-                
-                const contentTextarea = document.getElementById('note-content');
-                const preview = document.getElementById('markdown-preview');
-                
-                const updatePreview = () => {
-                    const content = contentTextarea.value;
-                    if (content.trim()) {
-                        try {
-                            preview.innerHTML = marked.parse(content);
-                        } catch (e) {
-                            preview.innerHTML = '<em>Invalid markdown</em>';
-                        }
-                    } else {
-                        preview.innerHTML = '<em>Preview will appear here...</em>';
-                    }
-                };
-                
-                contentTextarea.addEventListener('input', updatePreview);
-                updatePreview();
-            }
-
-            updateNote(index) {
-                const title = document.getElementById('note-title').value.trim();
-                const content = document.getElementById('note-content').value.trim();
-                
-                this.data.notes[this.currentList].items[index] = {
-                    ...this.data.notes[this.currentList].items[index],
-                    title: title || 'Untitled Note',
-                    content,
-                    modified: new Date().toISOString()
-                };
-
-                this.saveData();
-                this.closeModal();
-                this.renderContent();
-            }
-
             deleteNote(index) {
                 this.data.notes[this.currentList].items.splice(index, 1);
                 this.saveData();
@@ -1419,45 +1834,110 @@ Write your note content here. You can use:
                 this.closeModal();
                 this.renderContent();
             }
+            // ADD THESE NEW METHODS:
+                
+            exportData() {
+                try {
+                    const exportData = {
+                        data: this.data,
+                        darkMode: this.isDarkMode,
+                        currentMode: this.currentMode,
+                        currentList: this.currentList,
+                        exportDate: new Date().toISOString(),
+                        version: '1.0'
+                    };
 
-            deleteColumn(columnId) {
-                delete this.data.kanban[this.currentList].columns[columnId];
-                this.saveData();
-                this.renderContent();
-            }
-
-            // Remove old drag and drop methods (they're now in setupKanbanEventListeners)
-            addKanbanItem(columnId) {
-                // Legacy method - now redirects to modal
-                this.showAddKanbanItemModal(columnId);
-            }
-
-            deleteKanbanItem(columnId, index) {
-                if (this.data.kanban[this.currentList] && this.data.kanban[this.currentList].columns[columnId]) {
-                    this.data.kanban[this.currentList].columns[columnId].items.splice(index, 1);
-                    this.saveData();
-                    this.renderContent();
+                    const dataStr = JSON.stringify(exportData, null, 2);
+                    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+                    
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(dataBlob);
+                    link.download = `ark-notes-backup-${new Date().toISOString().split('T')[0]}.json`;
+                    link.click();
+                    
+                    URL.revokeObjectURL(link.href);
+                    
+                    // Show success message
+                    this.showNotification('Data exported successfully!', 'success');
+                } catch (error) {
+                    console.error('Export failed:', error);
+                    this.showNotification('Export failed. Please try again.', 'error');
                 }
             }
 
-            // Remove old drag methods - replaced with better event listeners
-            // drag, allowDrop, drop methods removed and replaced with setupKanbanEventListeners
+            importData(event) {
+                const file = event.target.files[0];
+                if (!file) return;
 
-            toggleTheme() {
-                this.isDarkMode = !this.isDarkMode;
-                localStorage.setItem('darkMode', JSON.stringify(this.isDarkMode));
-                this.applyTheme();
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    try {
+                        const importedData = JSON.parse(e.target.result);
+                        
+                        // Validate the imported data structure
+                        if (!importedData.data || !importedData.data.todo || !importedData.data.notes || !importedData.data.kanban) {
+                            throw new Error('Invalid data format');
+                        }
+
+                        // Confirm before overwriting
+                        if (confirm('This will replace all your current data. Are you sure you want to continue?')) {
+                            this.data = importedData.data;
+                            this.isDarkMode = importedData.darkMode || false;
+                            this.currentMode = importedData.currentMode || 'todo';
+                            this.currentList = importedData.currentList || 'default';
+
+                            // Ensure current list exists in the imported data
+                            if (!this.data[this.currentMode][this.currentList]) {
+                                this.currentList = Object.keys(this.data[this.currentMode])[0] || 'default';
+                            }
+
+                            // Save to storage and refresh UI
+                            this.saveData();
+                            this.saveToMemory('darkMode', this.isDarkMode);
+                            this.applyTheme();
+                            this.switchMode(this.currentMode);
+
+                            this.showNotification('Data imported successfully!', 'success');
+                        }
+                    } catch (error) {
+                        console.error('Import failed:', error);
+                        this.showNotification('Import failed. Please check the file format.', 'error');
+                    }
+                };
+
+                reader.readAsText(file);
+                // Clear the input so the same file can be imported again
+                event.target.value = '';
             }
 
-            applyTheme() {
-                document.documentElement.setAttribute('data-theme', this.isDarkMode ? 'dark' : 'light');
-                document.getElementById('theme-toggle').textContent = this.isDarkMode ? '☀️ Light Mode' : '🌙 Dark Mode';
-            }
-
-            escapeHtml(text) {
-                const div = document.createElement('div');
-                div.textContent = text;
-                return div.innerHTML;
+            showNotification(message, type = 'info') {
+                // Create a simple notification
+                const notification = document.createElement('div');
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    padding: 12px 16px;
+                    border-radius: 8px;
+                    color: white;
+                    font-size: 14px;
+                    z-index: 10002;
+                    transition: all 0.3s ease;
+                    ${type === 'success' ? 'background-color: #4caf50;' : 'background-color: #f44336;'}
+                `;
+                notification.textContent = message;
+                
+                document.body.appendChild(notification);
+                
+                // Remove notification after 3 seconds
+                setTimeout(() => {
+                    notification.style.opacity = '0';
+                    setTimeout(() => {
+                        if (notification.parentNode) {
+                            notification.parentNode.removeChild(notification);
+                        }
+                    }, 300);
+                }, 3000);
             }
         }
 
@@ -1488,13 +1968,6 @@ Write your note content here. You can use:
             }
         });
 
-        // Clean up drag styling
-        document.addEventListener('dragend', () => {
-            document.querySelectorAll('.kanban-item').forEach(item => {
-                item.classList.remove('dragging');
-            });
-        });
-
         // Handle Enter key in input fields
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' && e.target.matches('.form-input')) {
@@ -1507,6 +1980,21 @@ Write your note content here. You can use:
                 }
             }
         });
+
+        // Prevent default drag behavior on images and other elements
+        document.addEventListener('dragstart', (e) => {
+            if (e.target.tagName === 'IMG') {
+                e.preventDefault();
+            }
+        });
+
+        // Prevent text selection during note dragging
+        document.addEventListener('selectstart', (e) => {
+            if (e.target.closest('.note-card.dragging')) {
+                e.preventDefault();
+            }
+        });
+        
     </script>
 </body>
 </html>
