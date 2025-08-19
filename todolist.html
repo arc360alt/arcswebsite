@@ -6,6 +6,7 @@
     <title>Ark Todo & Notes</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/4.3.0/marked.min.js"></script>
     <style>
+    
         * {
             margin: 0;
             padding: 0;
@@ -73,8 +74,9 @@
             background-color: var(--md-sys-color-background);
             color: var(--md-sys-color-on-background);
             line-height: 1.5;
+            
         }
-
+        
         .app-container {
             display: flex;
             height: 100vh;
@@ -337,12 +339,13 @@
             position: relative;
             width: 100%;
             height: calc(100vh - 140px);
-            overflow: hidden;
+            overflow: auto; /* Enable scrolling */
             border: 1px solid var(--md-sys-color-outline-variant);
             border-radius: 12px;
             background-color: var(--md-sys-color-surface-variant);
         }
 
+        /* Update the existing .note-card CSS rule - remove min-width and max-width constraints */
         .note-card {
             position: absolute;
             background-color: var(--md-sys-color-surface);
@@ -350,14 +353,18 @@
             border-radius: 12px;
             padding: 16px;
             transition: box-shadow 0.2s;
-            min-height: 250px;
+            min-height: 200px; /* Reduced from 250px */
             display: flex;
             flex-direction: column;
-            min-width: 300px;
-            max-width: 600px;
+            /* Remove these if they exist: */
+            /* min-width: 300px; */
+            /* max-width: 600px; */
+            width: 350px; /* Default width - will be overridden by inline styles */
+            height: 250px; /* Default height - will be overridden by inline styles */
             z-index: 1;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             cursor: move;
+            resize: none; /* Prevent browser default resize */
         }
 
         .note-card:hover {
@@ -837,9 +844,134 @@
             flex: 1; /* Take up available space */
             margin-bottom: auto; /* Push everything below to bottom */
         }
+        
+
+
+.app-title {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--md-sys-color-on-surface-variant);
+  user-select: none;
+  -webkit-app-region: drag; /* title is draggable */
+}
+
+.window-controls {
+  display: flex;
+  gap: 4px;
+  -webkit-app-region: no-drag; /* buttons must stay clickable */
+}
+
+/* Circle Material-style buttons */
+.window-controls button {
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--md-sys-color-on-surface-variant);
+  cursor: pointer;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s, color 0.2s;
+  margin: 2px;
+}
+
+.window-controls button:hover {
+  background-color: var(--md-sys-color-surface-variant);
+  color: var(--md-sys-color-on-surface);
+}
+/* Optional: Close button warning style */
+#close-btn:hover {
+  background-color: var(--md-sys-color-error-container);
+  color: var(--md-sys-color-on-error-container);
+}
+.app-container {
+  height: calc(100vh - 32px); /* shrink container height */
+  margin-top: 32px;           /* push below titlebar */
+}
+.notes-workspace {
+    position: relative;
+    width: 5000px;
+    height: 5000px;
+    /* Fixed checkerboard pattern that covers the full 5000x5000 area */
+    background-image: 
+        linear-gradient(45deg, rgba(0,0,0,0.1) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(0,0,0,0.1) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, rgba(0,0,0,0.1) 75%),
+        linear-gradient(-45deg, transparent 75%, rgba(0,0,0,0.1) 75%);
+    background-size: 50px 50px;
+    background-position: 
+        0 0, 
+        0 25px, 
+        25px -25px, 
+        -25px 0px;
+    background-repeat: repeat; /* Ensure pattern repeats across entire area */
+    transform-origin: 0 0;
+    transition: transform 0.1s ease-out;
+    /* Ensure the background covers the full workspace */
+    background-attachment: local;
+}
+[data-theme="dark"] .notes-workspace {
+    background-image: 
+        linear-gradient(45deg, rgba(255,255,255,0.05) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(255,255,255,0.05) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, rgba(255,255,255,0.05) 75%),
+        linear-gradient(-45deg, transparent 75%, rgba(255,255,255,0.05) 75%);
+    background-size: 50px 50px;
+    background-position: 
+        0 0, 
+        0 25px, 
+        25px -25px, 
+        -25px 0px;
+    background-repeat: repeat;
+    background-attachment: local;
+}
+/* Scrollbar styling for Material You theme */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--md-sys-color-surface-variant);
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--md-sys-color-outline-variant);
+    border-radius: 6px;
+    border: 2px solid var(--md-sys-color-surface-variant);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--md-sys-color-primary);
+}
+
+/* For dark theme */
+[data-theme="dark"] ::-webkit-scrollbar-track {
+    background: var(--md-sys-color-surface);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+    background: var(--md-sys-color-outline);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+    background: var(--md-sys-color-primary);
+}
+
     </style>
 </head>
 <body>
+<div class="titlebar">
+  <div class="titlebar-left">
+    <span class="app-title">A Notes App</span>
+  </div>
+</div>
+
+
     <div class="app-container">
         <div class="sidebar">
             <h1>A Notes app</h1>
@@ -1098,58 +1230,88 @@
                 this.setupTodoDragAndDrop(container);
             }
 
+            // Replace the renderNotesContent method with this updated version:
             renderNotesContent(container) {
                 const items = this.data.notes[this.currentList]?.items || [];
                 
-                container.innerHTML = `<div class="notes-container"></div>`;
+                // Store current scroll position if container already exists
+                let savedScrollLeft = 0;
+                let savedScrollTop = 0;
+                let isInitialLoad = true;
+                
+                const existingContainer = container.querySelector('.notes-container');
+                if (existingContainer) {
+                    savedScrollLeft = existingContainer.scrollLeft;
+                    savedScrollTop = existingContainer.scrollTop;
+                    isInitialLoad = false;
+                }
+                
+                // Create the scrollable container with workspace inside
+                container.innerHTML = `
+                    <div class="notes-container">
+                        <div class="notes-workspace" id="notes-workspace"></div>
+                    </div>
+                `;
+                
                 const notesContainer = container.querySelector('.notes-container');
+                const notesWorkspace = container.querySelector('.notes-workspace');
                 
                 if (items.length === 0) {
-                    notesContainer.innerHTML = `
-                        <div class="empty-state">
+                    notesWorkspace.innerHTML = `
+                        <div class="empty-state" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
                             <h3>No notes yet</h3>
                             <p>Click the + button to create your first note</p>
                         </div>
                     `;
-                    return;
+                } else {
+                    items.forEach((item, index) => {
+                        const noteCard = document.createElement('div');
+                        noteCard.className = 'note-card';
+                        noteCard.dataset.noteIndex = index;
+                        noteCard.style.left = `${item.x || 100 + (index * 40)}px`;
+                        noteCard.style.top = `${item.y || 100 + (index * 40)}px`;
+                        noteCard.style.width = `${item.width || 350}px`;
+                        noteCard.style.height = `${item.height || 200}px`;
+                        noteCard.style.zIndex = Math.min(item.zIndex || (1 + index), 9999);
+                        
+                        noteCard.innerHTML = `
+                            <div class="note-header">
+                                <input type="text" class="note-title-input" value="${this.escapeHtml(item.title || 'Untitled Note')}" 
+                                    onchange="app.updateNoteTitle(${index}, this.value)" 
+                                    onblur="app.updateNoteTitle(${index}, this.value)">
+                                <div class="note-controls">
+                                    <button class="note-mode-btn ${item.viewMode === 'raw' ? 'active' : ''}" 
+                                            onclick="app.setNoteViewMode(${index}, 'raw')" title="Raw Text">📝</button>
+                                    <button class="note-mode-btn ${item.viewMode !== 'raw' ? 'active' : ''}" 
+                                            onclick="app.setNoteViewMode(${index}, 'preview')" title="Markdown Preview">👁</button>
+                                    <button class="note-delete-btn" onclick="app.deleteNote(${index})" title="Delete Note">×</button>
+                                </div>
+                            </div>
+                            <div class="note-content-container">
+                                ${item.viewMode === 'raw' ? 
+                                    `<textarea class="note-content-textarea" onchange="app.updateNoteContent(${index}, this.value)" onblur="app.updateNoteContent(${index}, this.value)">${this.escapeHtml(item.content || '')}</textarea>` :
+                                    `<div class="note-content-preview" onclick="app.setNoteViewMode(${index}, 'raw')">${item.content ? this.renderMarkdown(item.content) : '<em class="note-empty">Click to start writing...</em>'}</div>`
+                                }
+                            </div>
+                            <div class="resize-handle"></div>
+                        `;
+                        
+                        notesWorkspace.appendChild(noteCard);
+                    });
+                }
+
+                // Setup zoom and pan functionality - only center on initial load
+                this.setupWorkspaceInteractions(notesContainer, notesWorkspace, isInitialLoad);
+                
+                // Restore scroll position if not initial load
+                if (!isInitialLoad) {
+                    setTimeout(() => {
+                        notesContainer.scrollLeft = savedScrollLeft;
+                        notesContainer.scrollTop = savedScrollTop;
+                    }, 0);
                 }
                 
-                items.forEach((item, index) => {
-                    const noteCard = document.createElement('div');
-                    noteCard.className = 'note-card';
-                    noteCard.dataset.noteIndex = index;
-                    noteCard.style.left = `${item.x || 20 + (index * 30)}px`;
-                    noteCard.style.top = `${item.y || 20 + (index * 30)}px`;
-                    noteCard.style.width = `${item.width || 350}px`;
-                    noteCard.style.height = `${item.height || 200}px`;
-                    noteCard.style.zIndex = Math.min(item.zIndex || (1 + index), 9999);
-                    
-                    noteCard.innerHTML = `
-                        <div class="note-header">
-                            <input type="text" class="note-title-input" value="${this.escapeHtml(item.title || 'Untitled Note')}" 
-                                   onchange="app.updateNoteTitle(${index}, this.value)" 
-                                   onblur="app.updateNoteTitle(${index}, this.value)">
-                            <div class="note-controls">
-                                <button class="note-mode-btn ${item.viewMode === 'raw' ? 'active' : ''}" 
-                                        onclick="app.setNoteViewMode(${index}, 'raw')" title="Raw Text">📝</button>
-                                <button class="note-mode-btn ${item.viewMode !== 'raw' ? 'active' : ''}" 
-                                        onclick="app.setNoteViewMode(${index}, 'preview')" title="Markdown Preview">👁</button>
-                                <button class="note-delete-btn" onclick="app.deleteNote(${index})" title="Delete Note">×</button>
-                            </div>
-                        </div>
-                        <div class="note-content-container">
-                            ${item.viewMode === 'raw' ? 
-                                `<textarea class="note-content-textarea" onchange="app.updateNoteContent(${index}, this.value)" onblur="app.updateNoteContent(${index}, this.value)">${this.escapeHtml(item.content || '')}</textarea>` :
-                                `<div class="note-content-preview" onclick="app.setNoteViewMode(${index}, 'raw')">${item.content ? this.renderMarkdown(item.content) : '<em class="note-empty">Click to start writing...</em>'}</div>`
-                            }
-                        </div>
-                        <div class="resize-handle"></div>
-                    `;
-                    
-                    notesContainer.appendChild(noteCard);
-                });
-
-                // Setup drag and drop and resize functionality
+                // Setup drag and drop and resize functionality for notes
                 this.setupNoteInteractions();
             }
 
@@ -1231,14 +1393,192 @@
                 });
             }
 
+// Replace the setupWorkspaceInteractions method with this fixed version:
+setupWorkspaceInteractions(container, workspace, shouldCenter = false) {
+    let zoomLevel = 1;
+    const minZoom = 0.1;
+    const maxZoom = 3;
+    let isPanning = false;
+    let panStart = { x: 0, y: 0 };
+    let panOffset = { x: 0, y: 0 };
+
+    // Zoom functionality with mouse wheel and trackpad pinch
+    container.addEventListener('wheel', (e) => {
+        // Check if we're hovering over a note card
+        const noteCard = e.target.closest('.note-card');
+        if (noteCard) {
+            // If we're over a note card, allow normal scrolling within the note
+            return;
+        }
+        
+        // Always prevent default to stop any scrolling behavior
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // Detect trackpad pinch (usually has ctrlKey set)
+        if (e.ctrlKey) {
+            // Trackpad pinch zoom
+            const rect = container.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+            
+            const delta = e.deltaY > 0 ? 0.95 : 1.05; // Smaller increments for smoother trackpad zoom
+            const newZoom = Math.min(Math.max(zoomLevel * delta, minZoom), maxZoom);
+            
+            if (newZoom !== zoomLevel) {
+                // Calculate zoom point
+                const zoomPointX = (mouseX + container.scrollLeft) / zoomLevel;
+                const zoomPointY = (mouseY + container.scrollTop) / zoomLevel;
+                
+                zoomLevel = newZoom;
+                workspace.style.transform = `scale(${zoomLevel})`;
+                
+                // Adjust scroll position to zoom towards mouse cursor
+                container.scrollLeft = zoomPointX * zoomLevel - mouseX;
+                container.scrollTop = zoomPointY * zoomLevel - mouseY;
+            }
+        } else {
+            // Better detection: Check for precise trackpad characteristics
+            const isTrackpadScroll = (
+                // Trackpad usually has smaller, more precise deltaY values
+                (Math.abs(e.deltaY) < 50 && e.deltaY % 1 !== 0) ||
+                // Horizontal scrolling is almost always trackpad
+                Math.abs(e.deltaX) > 0 ||
+                // Very small movements are typically trackpad
+                Math.abs(e.deltaY) < 10
+            );
+            
+            if (isTrackpadScroll && Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+                // Horizontal trackpad movement = pan horizontally
+                container.scrollLeft += e.deltaX * 2; // Multiply for smoother panning
+                container.scrollTop += e.deltaY * 2;
+            } else {
+                // Mouse wheel OR vertical trackpad zoom
+                const rect = container.getBoundingClientRect();
+                const mouseX = e.clientX - rect.left;
+                const mouseY = e.clientY - rect.top;
+                
+                // Use smaller zoom increments for trackpad, larger for mouse wheel
+                const delta = isTrackpadScroll ? 
+                    (e.deltaY > 0 ? 0.98 : 1.02) :  // Very smooth zoom for trackpad
+                    (e.deltaY > 0 ? 0.9 : 1.1);     // Normal zoom for mouse wheel
+                    
+                const newZoom = Math.min(Math.max(zoomLevel * delta, minZoom), maxZoom);
+                
+                if (newZoom !== zoomLevel) {
+                    const zoomPointX = (mouseX + container.scrollLeft) / zoomLevel;
+                    const zoomPointY = (mouseY + container.scrollTop) / zoomLevel;
+                    
+                    zoomLevel = newZoom;
+                    workspace.style.transform = `scale(${zoomLevel})`;
+                    
+                    container.scrollLeft = zoomPointX * zoomLevel - mouseX;
+                    container.scrollTop = zoomPointY * zoomLevel - mouseY;
+                }
+            }
+        }
+    }, { passive: false });
+
+    // Pan functionality with multiple input methods
+    container.addEventListener('mousedown', (e) => {
+        // Don't pan if clicking on a note card
+        if (e.target.closest('.note-card')) {
+            return;
+        }
+        
+        // Middle mouse button OR left click on empty space (trackpad friendly)
+        if (e.button === 1 || e.button === 0) {
+            e.preventDefault();
+            isPanning = true;
+            panStart.x = e.clientX + container.scrollLeft;
+            panStart.y = e.clientY + container.scrollTop;
+            container.style.cursor = 'grabbing';
+            
+            // Add visual feedback
+            workspace.style.userSelect = 'none';
+        }
+    });
+
+    // Handle mouse move for panning
+    document.addEventListener('mousemove', (e) => {
+        if (isPanning) {
+            e.preventDefault();
+            container.scrollLeft = panStart.x - e.clientX;
+            container.scrollTop = panStart.y - e.clientY;
+        }
+    });
+
+    // Handle mouse up for panning
+    document.addEventListener('mouseup', (e) => {
+        if (isPanning) {
+            isPanning = false;
+            container.style.cursor = '';
+            workspace.style.userSelect = '';
+        }
+    });
+
+    // Prevent context menu on middle click and right click during pan
+    container.addEventListener('contextmenu', (e) => {
+        if (e.button === 1 || isPanning) {
+            e.preventDefault();
+        }
+    });
+
+    // Double-click to reset zoom and center
+    container.addEventListener('dblclick', (e) => {
+        if (!e.target.closest('.note-card')) {
+            e.preventDefault();
+            zoomLevel = 1;
+            workspace.style.transform = 'scale(1)';
+            container.scrollLeft = (3000 - container.clientWidth) / 2;
+            container.scrollTop = (3000 - container.clientHeight) / 2;
+        }
+    });
+
+    // Add visual cursor changes for better UX
+    container.addEventListener('mouseenter', (e) => {
+        if (!e.target.closest('.note-card') && !isPanning) {
+            container.style.cursor = 'grab';
+        }
+    });
+
+    container.addEventListener('mouseleave', (e) => {
+        if (!isPanning) {
+            container.style.cursor = '';
+        }
+    });
+
+    container.addEventListener('mousemove', (e) => {
+        if (!isPanning) {
+            if (e.target.closest('.note-card')) {
+                container.style.cursor = '';
+            } else {
+                container.style.cursor = 'grab';
+            }
+        }
+    });
+
+    // Only initialize centered position if shouldCenter is true (initial load)
+    if (shouldCenter) {
+        setTimeout(() => {
+            container.scrollLeft = (5000 - container.clientWidth) / 2;
+            container.scrollTop = (5000 - container.clientHeight) / 2;
+        }, 0);
+    }
+}
+
 setupNoteDragging(card, index) {
     let isDragging = false;
     let startX, startY, startLeft, startTop;
 
-    // Make the entire card draggable, but prevent dragging when interacting with controls
     card.addEventListener('mousedown', (e) => {
         // Don't drag if clicking directly on interactive elements
         if (e.target.matches('input, button, textarea')) {
+            return;
+        }
+
+        // Don't drag if Ctrl is held (for panning)
+        if (e.ctrlKey) {
             return;
         }
 
@@ -1250,7 +1590,7 @@ setupNoteDragging(card, index) {
 
         // Bring to front
         const maxZ = Math.max(...Array.from(document.querySelectorAll('.note-card')).map(c => parseInt(c.style.zIndex) || 0));
-        card.style.zIndex = Math.min(maxZ + 1, 9999); // Cap at 9999 to stay below modals
+        card.style.zIndex = Math.min(maxZ + 1, 9999);
         card.classList.add('dragging');
 
         // Update data
@@ -1266,17 +1606,25 @@ setupNoteDragging(card, index) {
         const onMouseMove = (e) => {
             if (!isDragging) return;
 
-            const deltaX = e.clientX - startX;
-            const deltaY = e.clientY - startY;
+            // Get the current zoom level from the workspace transform
+            const workspace = card.closest('.notes-workspace');
+            const transform = workspace.style.transform;
+            let zoomLevel = 1;
             
-            // Get container dimensions
-            const container = card.parentElement;
-            const containerRect = container.getBoundingClientRect();
-            const cardRect = card.getBoundingClientRect();
+            if (transform && transform.includes('scale')) {
+                const scaleMatch = transform.match(/scale\(([^)]+)\)/);
+                if (scaleMatch) {
+                    zoomLevel = parseFloat(scaleMatch[1]);
+                }
+            }
+
+            // Calculate movement accounting for zoom level
+            const deltaX = (e.clientX - startX) / zoomLevel;
+            const deltaY = (e.clientY - startY) / zoomLevel;
             
-            // Calculate boundaries
-            const maxLeft = containerRect.width - cardRect.width;
-            const maxTop = containerRect.height - cardRect.height;
+            // Calculate boundaries within the 5000x5000 workspace
+            const maxLeft = 8000 - parseInt(card.style.width);
+            const maxTop = 5000 - parseInt(card.style.height);
             
             const newLeft = Math.max(0, Math.min(maxLeft, startLeft + deltaX));
             const newTop = Math.max(0, Math.min(maxTop, startTop + deltaY));
@@ -1309,52 +1657,68 @@ setupNoteDragging(card, index) {
     });
 }
 
-            setupNoteResize(card, index) {
-                const resizeHandle = card.querySelector('.resize-handle');
-                let isResizing = false;
-                let startX, startY, startWidth, startHeight;
+setupNoteResize(card, index) {
+    const resizeHandle = card.querySelector('.resize-handle');
+    let isResizing = false;
+    let startX, startY, startWidth, startHeight;
 
-                resizeHandle.addEventListener('mousedown', (e) => {
-                    isResizing = true;
-                    startX = e.clientX;
-                    startY = e.clientY;
-                    startWidth = parseInt(card.style.width);
-                    startHeight = parseInt(card.style.height);
-                    
-                    e.preventDefault();
-                    e.stopPropagation();
+    resizeHandle.addEventListener('mousedown', (e) => {
+        isResizing = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        startWidth = parseInt(card.style.width);
+        startHeight = parseInt(card.style.height);
+        
+        e.preventDefault();
+        e.stopPropagation();
 
-                    const onMouseMove = (e) => {
-                        if (!isResizing) return;
-                        
-                        const newWidth = Math.max(350, startWidth + e.clientX - startX); // Even larger minimum
-                        const newHeight = Math.max(280, startHeight + e.clientY - startY); // Larger minimum for header space
-                        
-                        card.style.width = `${newWidth}px`;
-                        card.style.height = `${newHeight}px`;
-                    };
-
-                    const onMouseUp = (e) => {
-                        if (isResizing) {
-                            isResizing = false;
-                            
-                            // Save the new dimensions
-                            const noteItem = this.data.notes[this.currentList].items[index];
-                            if (noteItem) {
-                                noteItem.width = parseInt(card.style.width);
-                                noteItem.height = parseInt(card.style.height);
-                                this.saveData();
-                            }
-                        }
-                        
-                        document.removeEventListener('mousemove', onMouseMove);
-                        document.removeEventListener('mouseup', onMouseUp);
-                    };
-
-                    document.addEventListener('mousemove', onMouseMove);
-                    document.addEventListener('mouseup', onMouseUp);
-                });
+        const onMouseMove = (e) => {
+            if (!isResizing) return;
+            
+            // Get the current zoom level from the workspace transform
+            const workspace = card.closest('.notes-workspace');
+            const transform = workspace.style.transform;
+            let zoomLevel = 1;
+            
+            if (transform && transform.includes('scale')) {
+                const scaleMatch = transform.match(/scale\(([^)]+)\)/);
+                if (scaleMatch) {
+                    zoomLevel = parseFloat(scaleMatch[1]);
+                }
             }
+            
+            // Calculate movement accounting for zoom level
+            const deltaX = (e.clientX - startX) / zoomLevel;
+            const deltaY = (e.clientY - startY) / zoomLevel;
+            
+            const newWidth = Math.max(320, Math.min(1200, startWidth + deltaX)); // Min 320px to fit header, Max 1200px
+            const newHeight = Math.max(220, Math.min(800, startHeight + deltaY)); // Min 220px for header + content, Max 800px
+            
+            card.style.width = `${newWidth}px`;
+            card.style.height = `${newHeight}px`;
+        };
+
+        const onMouseUp = (e) => {
+            if (isResizing) {
+                isResizing = false;
+                
+                // Save the new dimensions
+                const noteItem = this.data.notes[this.currentList].items[index];
+                if (noteItem) {
+                    noteItem.width = parseInt(card.style.width);
+                    noteItem.height = parseInt(card.style.height);
+                    this.saveData();
+                }
+            }
+            
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+        };
+
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+    });
+}
 
             renderKanbanContent(container) {
                 const columns = this.data.kanban[this.currentList]?.columns || {};
@@ -1758,14 +2122,15 @@ Write your note content here. You can use:
                 const baseY = 50;
                 const offsetStep = 40;
                 
+        // In the addNote() method, update the newNote object:
         const newNote = {
             title: title || 'New Note',
             content: content || '# Welcome!\n\nStart writing your note here...\n\n- Use **markdown** for formatting\n- Drag to move\n- Resize from bottom-right corner',
-            viewMode: 'preview', // Start in preview mode
+            viewMode: 'preview',
             id: Date.now(),
             created: new Date().toISOString(),
-            width: 400, // Larger default width
-            height: 300, // Larger default height
+            width: 350,  // Good default width
+            height: 250, // Good default height  
             x: baseX + (existingNotes.length * offsetStep) % 400,
             y: baseY + (existingNotes.length * offsetStep) % 300,
             zIndex: 10 + existingNotes.length
@@ -1799,8 +2164,38 @@ Write your note content here. You can use:
                 
                 this.data.notes[this.currentList].items[index].viewMode = mode;
                 this.saveData();
-                this.renderContent();
+                
+                // Instead of full re-render, just update the specific note card
+                this.updateSingleNoteCard(index);
             }
+
+            updateSingleNoteCard(index) {
+            const noteCard = document.querySelector(`[data-note-index="${index}"]`);
+            if (!noteCard) return;
+            
+            const item = this.data.notes[this.currentList].items[index];
+            if (!item) return;
+            
+            // Update only the content container, preserve everything else
+            const contentContainer = noteCard.querySelector('.note-content-container');
+            if (!contentContainer) return;
+            
+            // Update view mode buttons
+            const rawBtn = noteCard.querySelector('.note-mode-btn[onclick*="raw"]');
+            const previewBtn = noteCard.querySelector('.note-mode-btn[onclick*="preview"]');
+            
+            if (rawBtn && previewBtn) {
+                rawBtn.classList.toggle('active', item.viewMode === 'raw');
+                previewBtn.classList.toggle('active', item.viewMode !== 'raw');
+            }
+            
+            // Update content display
+            if (item.viewMode === 'raw') {
+                contentContainer.innerHTML = `<textarea class="note-content-textarea" onchange="app.updateNoteContent(${index}, this.value)" onblur="app.updateNoteContent(${index}, this.value)">${this.escapeHtml(item.content || '')}</textarea>`;
+            } else {
+                contentContainer.innerHTML = `<div class="note-content-preview" onclick="app.setNoteViewMode(${index}, 'raw')">${item.content ? this.renderMarkdown(item.content) : '<em class="note-empty">Click to start writing...</em>'}</div>`;
+            }
+        }
 
             renderMarkdown(content) {
                 if (!content || !content.trim()) return '<em class="note-empty">Empty note</em>';
@@ -1994,7 +2389,19 @@ Write your note content here. You can use:
                 e.preventDefault();
             }
         });
-        
+        const { ipcRenderer } = require('electron');
+        document.getElementById('min-btn').addEventListener('click', () => {
+        ipcRenderer.send('window-control', 'minimize');
+        });
+
+        document.getElementById('max-btn').addEventListener('click', () => {
+        ipcRenderer.send('window-control', 'maximize');
+        });
+
+        document.getElementById('close-btn').addEventListener('click', () => {
+        ipcRenderer.send('window-control', 'close');
+        });
+
     </script>
 </body>
 </html>
