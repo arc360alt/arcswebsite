@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARK Network Status</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-card: #ffffff;
+            --text-primary: #1a202c;
+            --text-secondary: #718096;
+            --border: #e2e8f0;
+            --success: #48bb78;
+            --error: #f56565;
+            --warning: #ed8936;
+            --accent: #4299e1;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #1a202c;
+            --bg-secondary: #2d3748;
+            --bg-card: #2d3748;
+            --text-primary: #f7fafc;
+            --text-secondary: #a0aec0;
+            --border: #4a5568;
+            --success: #68d391;
+            --error: #fc8181;
+            --warning: #f6ad55;
+            --accent: #63b3ed;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        header {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+            box-shadow: var(--shadow);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent), var(--success));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .theme-toggle {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .theme-toggle:hover {
+            background: var(--border);
+        }
+
+        main {
+            padding: 2rem 0;
+        }
+
+        .status-overview {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .overall-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .status-indicator {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .status-operational { background-color: var(--success); }
+        .status-degraded { background-color: var(--warning); }
+        .status-outage { background-color: var(--error); }
+        .status-checking { background-color: #a0aec0; }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .service-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            transition: transform 0.2s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .service-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .service-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .service-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .service-url {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            word-break: break-all;
+            margin-bottom: 0.5rem;
+        }
+
+        .service-uptime {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.875rem;
+        }
+
+        .uptime-bar {
+            background: var(--bg-secondary);
+            height: 6px;
+            border-radius: 3px;
+            overflow: hidden;
+            flex: 1;
+            margin: 0 1rem;
+        }
+
+        .uptime-fill {
+            height: 100%;
+            background: var(--success);
+            transition: width 0.3s ease;
+        }
+
+        .error-message {
+            color: var(--error);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            padding: 0.5rem;
+            background: rgba(245, 101, 101, 0.1);
+            border-radius: 4px;
+        }
+
+        .news-section {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+        }
+
+        .news-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .news-item {
+            border-left: 4px solid var(--accent);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            background: var(--bg-secondary);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .news-item.incident {
+            border-left-color: var(--error);
+        }
+
+        .news-item.maintenance {
+            border-left-color: var(--warning);
+        }
+
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .news-type {
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .news-type.incident { background: var(--error); color: white; }
+        .news-type.maintenance { background: var(--warning); color: white; }
+        .news-type.update { background: var(--accent); color: white; }
+
+        .news-date {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .news-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .news-content {
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .refresh-btn {
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            transition: all 0.2s ease;
+        }
+
+        .refresh-btn:hover {
+            filter: brightness(1.1);
+        }
+
+        .refresh-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 768px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header-content {
+                text-align: center;
+            }
+            
+            .news-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body data-theme="light">
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">A</div>
+                    <h1>ARK Network Status</h1>
+                </div>
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <span id="theme-icon">🌙</span>
+                    <span id="theme-text">Dark Mode</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="status-overview">
+                <div class="overall-status">
+                    <div class="status-indicator status-checking" id="overall-indicator"></div>
+                    <h2 id="overall-status-text">Checking Services</h2>
+                </div>
+                <p id="status-description">Checking service availability...</p>
+                <button class="refresh-btn" onclick="checkAllServices()" id="refresh-btn">🔄 Refresh Status</button>
+            </div>
+
+            <div class="services-grid" id="services-container">
+                <!-- Services will be populated by JavaScript -->
+            </div>
+
+            <div class="news-section">
+                <div class="news-header">
+                    <h2>System News & Updates</h2>
+                </div>
+
+                <div id="news-container">
+                    <div class="news-item incident">
+                        <div class="news-meta">
+                            <span class="news-type incident">Hardware Error</span>
+                            <span class="news-date" id="current-date"></span>
+                        </div>
+                        <div class="news-title">Internet Hardware Issues</div>
+                        <div class="news-content">Our Internet hardware is expereancing some strange issues, our Wifi Router dicided to break and stop showing any kind of life at 3:22PM today, and at 4:30PM today, our Fiber Optic station died and gave an "Alert" light. Our servicse will be down untill this is solved in about 24-48 hours. Sorry for the inconveneance.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Services configuration
+        const services = [
+            { name: "Minecraft Server 1", url: "arkmc.minecraft.party:25565", type: "minecraft" },
+            { name: "Minecraft Server 2", url: "arkmc.minecraft.party:25566", type: "minecraft" },
+            { name: "Minecraft Server 3", url: "arkmc.minecraft.party:25567", type: "minecraft" },
+            { name: "Minecraft Server 4", url: "arkmc.minecraft.party:25568", type: "minecraft" },
+            { name: "Minecraft Server 5", url: "arkmc.minecraft.party:25569", type: "minecraft" },
+            { name: "Minecraft Server 6", url: "arkmc.minecraft.party:25570", type: "minecraft" },
+            { name: "ArkFS", url: "https://arkfs.arc360hub.com", type: "web" },
+            { name: "Notes App (WEB)", url: "https://loginapinote.arc360hub.com", type: "web" },
+            { name: "ArkMC Map", url: "https://map.arc360hub.com", type: "web" },
+            { name: "Stats API", url: "https://stats.arc360hub.com", type: "api" },
+            { name: "Bedrock Joining IP", url: "playbr.arc360hub.com:4832", type: "minecraft" }
+        ];
+
+        let serviceStatuses = {};
+
+        // PARALLEL service checking function
+        async function checkServiceStatus(service, index) {
+            console.log(`🚀 STARTING PARALLEL check for: ${service.name} at ${service.url}`);
+            const serviceStartTime = Date.now();
+            
+            try {
+                if (service.type === 'minecraft') {
+                    const domain = service.url.split(':')[0];
+                    try {
+                        console.log(`🎮 Checking Minecraft domain: ${domain}`);
+                        const response = await fetch(`https://${domain}`, {
+                            method: 'HEAD',
+                            mode: 'no-cors',
+                            signal: AbortSignal.timeout ? AbortSignal.timeout(2000) : undefined
+                        });
+                        
+                        serviceStatuses[index] = {
+                            status: 'degraded',
+                            uptime: 75,
+                            lastChecked: new Date(),
+                            error: 'MC server status unknown - domain reachable but cannot check game port'
+                        };
+                    } catch (mcError) {
+                        serviceStatuses[index] = {
+                            status: 'outage',
+                            uptime: 0,
+                            lastChecked: new Date(),
+                            error: 'Minecraft server domain unreachable'
+                        };
+                    }
+                    console.log(`✅ FINISHED ${service.name} in ${Date.now() - serviceStartTime}ms`);
+                    return;
+                }
+
+// Web services - try CORS first to detect specific errors, fallback to no-cors
+let corsError = null;
+let response = null;
+
+// First try CORS to get detailed error information
+try {
+    console.log(`🌐 Trying CORS request to: ${service.url}`);
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 3000);
+    
+    response = await fetch(service.url, {
+        method: 'HEAD',
+        mode: 'cors',
+        cache: 'no-cache',
+        signal: controller.signal
+    });
+    
+    clearTimeout(timeoutId);
+    console.log(`📡 ${service.name} CORS responded: ${response.status} in ${Date.now() - serviceStartTime}ms`);
+    
+    if (response.ok || response.status === 403 || response.status === 405) {
+        serviceStatuses[index] = {
+            status: 'operational',
+            uptime: 100,
+            lastChecked: new Date(),
+            error: null
+        };
+        return;
+    } else if (response.status === 530) {
+        serviceStatuses[index] = {
+            status: 'outage',
+            uptime: 0,
+            lastChecked: new Date(),
+            error: 'Cloudflare Tunnel Error (Error 1033)'
+        };
+        return;
+    } else if (response.status >= 500) {
+        serviceStatuses[index] = {
+            status: 'outage',
+            uptime: 0,
+            lastChecked: new Date(),
+            error: `Server error: HTTP ${response.status}`
+        };
+        return;
+    } else {
+        serviceStatuses[index] = {
+            status: 'degraded',
+            uptime: 50,
+            lastChecked: new Date(),
+            error: `HTTP ${response.status}`
+        };
+        return;
+    }
+    
+} catch (corsErrorCaught) {
+    corsError = corsErrorCaught;
+    console.log(`⚠️ CORS failed for ${service.name}, error:`, corsErrorCaught.message || corsErrorCaught.name);
+    
+    // The browser console shows "Status code: 530" in CORS errors
+    // We need to check if this is a 530 error by looking at recent console activity
+    // Since we can't directly access the status code, we'll use a different approach
+    
+    // Check the current browser console for 530 status - this is a heuristic approach
+    const consoleMessage = corsErrorCaught.toString();
+    if (consoleMessage.includes('530') || 
+        (corsErrorCaught.message && corsErrorCaught.message.includes('530'))) {
+        serviceStatuses[index] = {
+            status: 'outage',
+            uptime: 0,
+            lastChecked: new Date(),
+            error: 'Cloudflare Tunnel Error (Error 1033)'
+        };
+        return;
+    }
+    
+    // For arc360hub.com services, if we get CORS error, it's likely 530
+    if (service.url.includes('arc360hub.com') && 
+        corsErrorCaught.message && 
+        corsErrorCaught.message.includes('Access-Control-Allow-Origin')) {
+        
+        console.log(`🚨 Assuming 530 error for arc360hub.com service: ${service.name}`);
+        serviceStatuses[index] = {
+            status: 'outage',
+            uptime: 0,
+            lastChecked: new Date(),
+            error: 'Cloudflare Tunnel Error (Error 1033)'
+        };
+        return;
+    }
+}
+
+// If we got here, the CORS error wasn't a 530, so skip no-cors fallback for arc360hub.com
+// because we already know these services have CORS issues when they're down
+if (service.url.includes('arc360hub.com')) {
+    console.log(`⚠️ Skipping no-cors fallback for arc360hub.com service (likely tunnel issue)`);
+    serviceStatuses[index] = {
+        status: 'outage',
+        uptime: 0,
+        lastChecked: new Date(),
+        error: 'Cloudflare Tunnel Error (Error 1033)'
+    };
+    return;
+}
+
+// Fallback: try no-cors mode for non-arc360hub services
+try {
+    console.log(`🔄 Trying no-cors fallback for: ${service.url}`);
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000);
+    
+    response = await fetch(service.url, {
+        method: 'GET',
+        mode: 'no-cors',
+        cache: 'no-cache',
+        signal: controller.signal
+    });
+    
+    clearTimeout(timeoutId);
+    console.log(`📡 ${service.name} no-cors responded in ${Date.now() - serviceStartTime}ms`);
+    
+    // If we reach here, assume operational
+    serviceStatuses[index] = {
+        status: 'operational',
+        uptime: 100,
+        lastChecked: new Date(),
+        error: null
+    };
+    
+} catch (noCorsError) {
+    console.error(`❌ ${service.name} failed completely in ${Date.now() - serviceStartTime}ms:`, noCorsError.name);
+    
+    let errorMessage;
+    if (noCorsError.name === 'AbortError') {
+        errorMessage = 'Request timeout (5s)';
+    } else if (noCorsError.message.includes('Failed to fetch') || noCorsError.message.includes('NetworkError')) {
+        // If original CORS error suggested Cloudflare issues, report that
+        if (corsError && corsError.message.includes('Access-Control-Allow-Origin')) {
+            errorMessage = 'Cloudflare Tunnel Error (Error 1033)';
+        } else {
+            errorMessage = 'Cannot connect to host';
+        }
+    } else {
+        errorMessage = `Network error: ${noCorsError.message}`;
+    }
+    
+    serviceStatuses[index] = {
+        status: 'outage',
+        uptime: 0,
+        lastChecked: new Date(),
+        error: errorMessage
+    };
+}
+            } catch (error) {
+                console.error(`💥 Unexpected error for ${service.name}:`, error.name);
+                serviceStatuses[index] = {
+                    status: 'outage',
+                    uptime: 0,
+                    lastChecked: new Date(),
+                    error: 'System error'
+                };
+            }
+            
+            console.log(`✅ COMPLETED ${service.name} in ${Date.now() - serviceStartTime}ms`);
+        }
+
+        // TRUE PARALLEL execution
+        async function checkAllServices() {
+            const refreshBtn = document.getElementById('refresh-btn');
+            refreshBtn.disabled = true;
+            refreshBtn.textContent = '🔄 Checking...';
+            
+            console.log('=== STARTING ALL SERVICES IN PARALLEL ===');
+            const totalStartTime = Date.now();
+            
+            // Initialize all as checking
+            services.forEach((service, index) => {
+                serviceStatuses[index] = {
+                    status: 'checking',
+                    uptime: 0,
+                    lastChecked: new Date(),
+                    error: 'Checking...'
+                };
+            });
+            
+            renderServices();
+            updateOverallStatus();
+            
+            // Start ALL checks at the exact same time
+            console.log('🚀 Launching all service checks NOW...');
+            const allPromises = services.map((service, index) => {
+                return checkServiceStatus(service, index).then(() => {
+                    console.log(`✓ Service ${index} (${service.name}) completed`);
+                    renderServices();
+                    updateOverallStatus();
+                });
+            });
+            
+            // Wait for ALL to finish
+            await Promise.all(allPromises);
+            
+            const totalTime = Date.now() - totalStartTime;
+            console.log(`=== ALL SERVICES COMPLETED IN ${totalTime}ms ===`);
+            
+            renderServices();
+            updateOverallStatus();
+            
+            refreshBtn.disabled = false;
+            refreshBtn.textContent = '🔄 Refresh Status';
+        }
+
+        function renderServices() {
+            const container = document.getElementById('services-container');
+            container.innerHTML = '';
+
+            services.forEach((service, index) => {
+                const status = serviceStatuses[index];
+                const statusClass = `status-${status.status}`;
+                let statusText = status.status.charAt(0).toUpperCase() + status.status.slice(1);
+                
+                if (status.status === 'checking') {
+                    statusText = 'Checking...';
+                }
+
+                const serviceCard = document.createElement('div');
+                serviceCard.className = 'service-card';
+                
+                let errorInfo = '';
+                if (status.error && status.status !== 'operational' && status.status !== 'checking') {
+                    errorInfo = `<div class="error-message">${status.error}</div>`;
+                }
+                
+                serviceCard.innerHTML = `
+                    <div class="service-header">
+                        <div class="service-name">${service.name}</div>
+                        <div class="service-status">
+                            <div class="status-indicator ${statusClass}"></div>
+                            ${statusText}
+                        </div>
+                    </div>
+                    <div class="service-url">${service.url}</div>
+                    ${errorInfo}
+                    <div class="service-uptime">
+                        <span>Uptime</span>
+                        <div class="uptime-bar">
+                            <div class="uptime-fill" style="width: ${status.uptime}%"></div>
+                        </div>
+                        <span>${status.uptime}%</span>
+                    </div>
+                `;
+                container.appendChild(serviceCard);
+            });
+        }
+
+        function updateOverallStatus() {
+            const statuses = Object.values(serviceStatuses);
+            const operational = statuses.filter(s => s.status === 'operational').length;
+            const degraded = statuses.filter(s => s.status === 'degraded').length;
+            const outages = statuses.filter(s => s.status === 'outage').length;
+            const checking = statuses.filter(s => s.status === 'checking').length;
+
+            const indicator = document.getElementById('overall-indicator');
+            const statusText = document.getElementById('overall-status-text');
+            const description = document.getElementById('status-description');
+
+            if (checking > 0) {
+                indicator.className = 'status-indicator status-checking';
+                statusText.textContent = 'Checking Services';
+                description.textContent = `Checking ${checking} service(s)...`;
+            } else if (outages === services.length) {
+                indicator.className = 'status-indicator status-outage';
+                statusText.textContent = 'All Services Down';
+                description.textContent = 'All services are currently unavailable.';
+            } else if (outages > 0) {
+                indicator.className = 'status-indicator status-outage';
+                statusText.textContent = 'Major Outage';
+                description.textContent = `${outages} of ${services.length} services are down.`;
+            } else if (degraded > 0) {
+                indicator.className = 'status-indicator status-degraded';
+                statusText.textContent = 'Partial Issues';
+                description.textContent = `${degraded} service(s) have issues.`;
+            } else if (operational > 0) {
+                indicator.className = 'status-indicator status-operational';
+                statusText.textContent = 'All Systems Operational';
+                description.textContent = 'All services are running smoothly.';
+            }
+        }
+
+        function toggleTheme() {
+            const body = document.body;
+            const themeIcon = document.getElementById('theme-icon');
+            const themeText = document.getElementById('theme-text');
+            
+            if (body.getAttribute('data-theme') === 'light') {
+                body.setAttribute('data-theme', 'dark');
+                themeIcon.textContent = '☀️';
+                themeText.textContent = 'Light Mode';
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.setAttribute('data-theme', 'light');
+                themeIcon.textContent = '🌙';
+                themeText.textContent = 'Dark Mode';
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const body = document.body;
+            const themeIcon = document.getElementById('theme-icon');
+            const themeText = document.getElementById('theme-text');
+            
+            if (savedTheme === 'dark') {
+                body.setAttribute('data-theme', 'dark');
+                themeIcon.textContent = '☀️';
+                themeText.textContent = 'Light Mode';
+            } else {
+                // Default to light mode
+                body.setAttribute('data-theme', 'light');
+                themeIcon.textContent = '🌙';
+                themeText.textContent = 'Dark Mode';
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load saved theme first
+            loadSavedTheme();
+            
+            document.getElementById('current-date').textContent = new Date().toLocaleDateString() + ' at ' + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            checkAllServices();
+            setInterval(checkAllServices, 30000); // Auto-refresh every 30 seconds
+        });
+    </script>
+</body>
+</html>
