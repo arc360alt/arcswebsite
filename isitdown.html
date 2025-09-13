@@ -396,16 +396,20 @@
     <script>
         // Global variables
         const services = [
-            { name: "Ark Network Survival", url: "arkmc.minecraft.party:25566", type: "minecraft", apiKey: "arkmc" },
-            { name: "Ark Network Prisons", url: "arkmc.minecraft.party:25567", type: "minecraft", apiKey: "prisons" },
-            { name: "Ark Network Skyblock", url: "arkmc.minecraft.party:25568", type: "minecraft", apiKey: "skyblock" },
-            { name: "Ark Network Hub", url: "arkmc.minecraft.party:25569", type: "minecraft", apiKey: "hub" },
-            { name: "Nostolgia SMP", url: "arkmc.minecraft.party:25570", type: "minecraft", apiKey: "nsmp" },
+            // Only keep the Minecraft servers that are actually monitored by your Velocity proxy
+            { name: "ArkMC Server", type: "minecraft", apiKey: "ArkMC" },
+            { name: "Hub Server", type: "minecraft", apiKey: "Hub" },
+            { name: "Nostolgia SMP", type: "minecraft", apiKey: "NostolgiaSMP" },
+            { name: "Prison Server", type: "minecraft", apiKey: "Prisons" },
+            { name: "Skyblock Server", type: "minecraft", apiKey: "Skyblock" },
+            // Add more servers here based on what's actually in your Velocity config
+            
+            // Keep these web services as they are (they don't use the new API)
             { name: "ArkFS", url: "https://arkfs.arc360hub.com", type: "web", apiKey: null },
             { name: "Notes App (WEB)", url: "https://loginapinote.arc360hub.com", type: "web", apiKey: null },
             { name: "ArkMC Map", url: "https://map.arc360hub.com", type: "web", apiKey: null },
             { name: "Stats API", url: "https://stats.arc360hub.com/servers.json", type: "api", apiKey: null },
-            { name: "Bedrock Joining IP", url: "playbr.arc360hub.com:4832", type: "minecraft", apiKey: null }
+            { name: "New Stats API", url: "https://mcstats.arc360hub.com/stats.json", type: "api", apiKey: null }
         ];
 
         let serviceStatuses = {};
@@ -415,7 +419,7 @@
         async function fetchMinecraftStatus() {
             try {
                 console.log('🎮 Fetching Minecraft server status...');
-                const response = await fetch('https://stats.arc360hub.com/servers.json', {
+                const response = await fetch('https://mcstats.arc360hub.com/stats.json', {
                     method: 'GET',
                     headers: { 'Accept': 'application/json' },
                     signal: AbortSignal.timeout ? AbortSignal.timeout(5000) : undefined
@@ -423,13 +427,13 @@
 
                 if (response.ok) {
                     minecraftApiData = await response.json();
-                    console.log('📊 Minecraft API data:', minecraftApiData);
+                    console.log('📊 Velocity API data:', minecraftApiData);
                 } else {
-                    console.error('❌ Minecraft API returned:', response.status);
+                    console.error('❌ Velocity API returned:', response.status);
                     minecraftApiData = null;
                 }
             } catch (error) {
-                console.error('❌ Failed to fetch Minecraft status:', error);
+                console.error('❌ Failed to fetch Velocity status:', error);
                 minecraftApiData = null;
             }
         }
@@ -519,12 +523,22 @@
         // Check individual service
         async function checkService(service) {
             if (service.type === 'minecraft') {
-                if (service.apiKey && minecraftApiData && minecraftApiData[service.apiKey] !== undefined) {
-                    const isOnline = minecraftApiData[service.apiKey] === 'on';
+                if (service.apiKey && minecraftApiData && minecraftApiData.servers && minecraftApiData.servers[service.apiKey] !== undefined) {
+                    const isOnline = minecraftApiData.servers[service.apiKey] === true;
+                    const networkOnline = minecraftApiData.network_status === 'online';
+                    
+                    if (!networkOnline) {
+                        return {
+                            status: 'outage',
+                            uptime: 0,
+                            error: 'Network offline'
+                        };
+                    }
+                    
                     return {
                         status: isOnline ? 'operational' : 'outage',
                         uptime: isOnline ? 100 : 0,
-                        error: isOnline ? null : 'Server offline (via API)'
+                        error: isOnline ? null : 'Server offline'
                     };
                 } else {
                     return {
