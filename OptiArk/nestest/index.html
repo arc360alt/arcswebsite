@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OptiArk - Minecraft Modpack</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="animated-background"></div>
+
+    <nav class="main-nav">
+        <ul>
+            <li><a href="index.html" class="active-nav">Home</a></li>
+            <li><a href="news.html">News</a></li>
+        </ul>
+    </nav>
+
+    <header id="hero">
+        <div class="hero-content nes-container with-title is-centered">
+            <p class="title">OptiArk</p>
+            <h1 class="mod-name">A Performance modpack for Minecraft 1.21.8</h1>
+            <p>Experience the ultimate optimization for your Minecraft gameplay!</p>
+            <a href="#features" class="nes-btn is-primary" id="read-more-btn">Read More</a>
+            <a href="https://arkmc.arc360hub.com/nes.html" class="nes-btn is-success" id="read-more-btn">Join Our Server!</a>
+            <a href="#download-section" class="nes-btn is-warning" id="download-scroll-link">Download</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="features" class="content-section">
+            <div class="nes-container with-title">
+                <p class="title">OptiArk Features</p>
+                <div class="features-grid">
+                    <div class="nes-container is-dark with-title">
+                        <p class="title">Performant Gameplay</p>
+                        <div class="feature-image-container">
+                            <img src="4090.png" alt="Performant Gameplay" id="feature-img-1">
+                        </div>
+                        <p class="smallertext">Experience high framerates on even weaker hardware. About 300-1000FPS depending on settings, but we do have some good premade settings that are the bare minimum to make your gameplay the smoothest it can be.</p>
+                    </div>
+                    <div class="nes-container is-dark with-title">
+                        <p class="title">Runs Great Everywhere</p>
+                        <div class="feature-image-container">
+                            <img src="680m.png" alt="Runs Great on Various Hardware" id="feature-img-2">
+                        </div>
+                        <p class="smallertext">OptiArk is created for efficiency and framerate. It runs pretty great on a wide spectrum of hardware (that can run java 21+), delivering high framerates and some qol mods without demanding top-tier specs.</p>
+                    </div>
+                    <div class="nes-container is-dark with-title">
+                        <p class="title">In Development</p>
+                        <div class="feature-image-container">
+                            <img src="cm.png" alt="Need feedback!" id="feature-img-3">
+                        </div>
+                        <p class="smallertext">If you have anything you think I should add to this pack, shoot me an email at voidyt16@gmail.com. You can give me some tips or mods that I should add or incorporate into this modpack!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="showoff" class="content-section">
+            <div class="nes-container with-title">
+                <p class="title">Showoff Gallery</p>
+                <div class="gallery-grid">
+                    <img src="680m.png" alt="OptiArk Screenshot 1" class="gallery-image nes-pointer" onclick="openModal('680m.png', '680M Performance ON LINUX')">
+                    <img src="4090.png" alt="OptiArk Screenshot 2" class="gallery-image nes-pointer" onclick="openModal('4090.png', 'RTX 4090 Performance ON LINUX')">
+                    <img src="6000fps.png" alt="OptiArk Screenshot 3" class="gallery-image nes-pointer" onclick="openModal('6000fps.png', 'My RTX 4090 can get 6000FPS+ on this pack')">
+                    <img src="optiark.png" alt="OptiArk Screenshot 4" class="gallery-image nes-pointer" onclick="openModal('optiark.png', 'Pack Icon')">
+                </div>
+            </div>
+        </section>
+
+        <section id="performance-comparison" class="content-section">
+            <div class="nes-container with-title">
+                <p class="title">Performance Benchmark</p>
+                <p class="benchmark-subtitle">See how OptiArk stacks up, Used a Thinkpad w/ a 680M GPU</p>
+                <div class="nes-container is-dark">
+                    <div class="bar-entry">
+                        <span class="bar-label">OptiArk VULKAN FPS</span>
+                        <div class="bar">
+                            <div class="bar-fill optiarkVK-bar" style="width: 85%;" data-value="820 FPS"></div>
+                        </div>
+                        <span class="bar-value">820 FPS</span>
+                    </div>
+                    <div class="bar-entry">
+                        <span class="bar-label">OptiArk FPS</span>
+                        <div class="bar">
+                            <div class="bar-fill optiark-bar" style="width: 60%;" data-value="560 FPS"></div>
+                        </div>
+                        <span class="bar-value">560 FPS</span>
+                    </div>
+                    <div class="bar-entry">
+                        <span class="bar-label">Competitor Pack FPS</span>
+                        <div class="bar">
+                            <div class="bar-fill competitor-bar" style="width: 40%;" data-value="430 FPS"></div>
+                        </div>
+                        <span class="bar-value">430 FPS</span>
+                    </div>
+                </div>
+                <p class="benchmark-note">*Benchmark results can vary based on hardware, game version, and specific in-game scenarios. This pack is also still in development, this could change at any time.</p>
+            </div>
+        </section>
+
+        <section id="download-section" class="content-section">
+            <div class="nes-container with-title">
+                <p class="title">Download OptiArk</p>
+                <p>Downloads in a .zip format</p>
+                <div class="download-dropdown-area">
+                    <div class="download-dropdown-group">
+                        <label for="technology-select" class="dropdown-label">Technology:</label>
+                        <div class="nes-select">
+                            <select id="technology-select" class="download-dropdown">
+                                <option value="">-- Select Technology --</option>
+                                <option value="Sodium">Sodium</option>
+                                <option value="VulkanMod">VulkanMod</option>
+                                <option value="Nividium">Nividium</option>
+                                <option value="Embeddium">Embeddium</option>
+                                <option value="Old">Old</option>
+                                <option value="Adventure Edition">Adventure Edition</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="download-dropdown-group">
+                        <label for="version-select" class="dropdown-label">Version:</label>
+                        <div class="nes-select">
+                            <select id="version-select" class="download-dropdown" disabled>
+                                <option value="" disabled selected>-- Select Version --</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="download-link-area" class="download-link-area">
+                        <p id="download-message">Please select a technology and version to get your download link. Sometimes ingame it will show an incorrect pack version, ignore that, go by the filename version.</p>
+                        <a id="dynamic-download-link" href="#" target="_blank" rel="noopener noreferrer"
+                           class="nes-btn is-success hidden">
+                            Download Now
+                            <i class="nes-icon trophy"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="update-log" class="content-section">
+            <div class="nes-container with-title">
+                <p class="title">Update Log</p>
+                <p class="current-version-text">Current General OptiArk Version: 1.8 (as of 2025-09-13)</p>
+                <div class="nes-container is-dark">
+                    <div class="log-entry">
+                        <h4>Pack Update - 1.21.8 <span class="log-date">(2025-09-13)</span></h4>
+                        <ul>
+                            <li>Adds 1.21.8 compatibility</li>
+                            <li>Note: 1.21.9 Compatibility will come out as soon as alot of mods are supported for it</li>
+                            <li>Benchmarking will start soon</li>
+                        </ul>
+                        <h4>OAAE - Update 0.2 <span class="log-date">(2025-09-04)</span></h4>
+                        <ul>
+                            <li>Add a bunch of new 3D items</li>
+                            <li>Re enable animations and biome colors</li>
+                            <li>Add a new update UI</li>
+                            <li>Benchmarking will take place as soon as my lapotp is repaired.</li>
+                            <li>New loading screen warning</li>
+                            <li>Add a small animation when UI's are opened</li>
+                            <li>Pre loading screen added</li>
+                        </ul>
+                        <h4>New Pack - OptiArk Adventure Edition <span class="log-date">(2025-08-12)</span></h4>
+                        <ul>
+                            <li>A New pack has been added to the lineup! OptiArk Adventure edition</li>
+                            <li>This is a 1.21.5 only pack, and it is currently in development, so expect bugs</li>
+                            <li>This pack is for the visuals and gameplay, not the preformance, expect less than optimal preformance.</li>
+                            <li>Benchmarking will take place as soon as my lapotp is repaired.</li>
+                        </ul>
+                        <h4>Pack Update - 1.20.1 <span class="log-date">(2025-08-06)</span></h4>
+                        <ul>
+                            <li>1.20.1 Nividium, Sodium, and Vulkanmod have been added to the linup</li>
+                            <li>These versions are automaticly discontinued though, their just for compatibility whith mods.</li>
+                            <li>All packs have now been switched to a .zip format (just import it into your launcher EX: Modrinth, PrismLauncher, Ect)</li>
+                            <li>Benchmarking will take place as soon as my lapotp is repaired.</li>
+                        </ul>
+                        <h4>Pack Update - 1.21.7 <span class="log-date">(2025-08-05)</span></h4>
+                        <ul>
+                            <li>1.21.7 Nividium and Sodium have been added to our lineup.</li>
+                            <li>I may make a 1.21.8 version to fill the gap if I have the time.</li>
+                            <li>All packs have now been switched to a .zip format (just import it into your launcher EX: Modrinth, PrismLauncher, Ect)</li>
+                            <li>Benchmarking will take place as soon as my lapotp is repaired.</li>
+                        </ul>
+                        <h4>Behind the scenes update - mrpack to .zip <span class="log-date">(2025-08-05)</span></h4>
+                        <ul>
+                            <li>I have now optimized the entire pipeline of updating and releasing OptiArk</li>
+                            <li>Source of the OptiArk Modpack is now avalible at: <a href="https://github.com/arc360alt/OptiArk" class="nes-text is-primary">Here</a></li>
+                            <li>Packs are now built via github actions by turning the MMC (Prism Launcher) Packs into zip files for you to download.</li>
+                            <li>NOTE: This does mean new versions of OptiArk will be coming out soon as soon as my laptop is repaired.</li>
+                        </ul>
+                        <h4>Pack Wide Update - MEGAUPDATE <span class="log-date">(2025-07-14)</span></h4>
+                        <ul>
+                            <li>All packs updated whith all spported versions</li>
+                            <li>Greatly improves preformance on lower end hardware, (Tested by HexyMC)</li>
+                            <li>Removes a bunch of mods that where impacting preformance in a bad way</li>
+                            <li>New and better version/naming scheme.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="imageModal" class="modal">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <img class="modal-content" id="modalImage" alt="Maximized Screenshot">
+        <div id="caption"></div>
+    </div>
+
+    <footer>
+        <div class="nes-container">
+            <p>&copy; Arc360 Studios 2020-2025 <a href="https://github.com/arc360alt/OptiArk" class="nes-text is-primary">View modpack source</a> | <a href="https://github.com/arc360alt/arcswebsite" class="nes-text is-primary">View Website source</a></p>
+            <p>Not an official Minecraft service. Not approved by or associated with Mojang or Microsoft.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
