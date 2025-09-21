@@ -16,6 +16,7 @@ Permission is hereby granted, free of charge, to any person obtaining a copy of 
 - Include the text: "Powered by [Original Project Name] - Created by [Your Name/Organization]" Or any iteration of whats mentioned that stil credits Arc360 Studios and github.com/arc360alt as being the original creator.
 - Include a link back to the original source repository (if applicable)
 - Be displayed in a location where users can reasonably find it (e.g., footer, about page, credits section)
+Comment: For pull requests on Github the credit is not fully needed. You can create a pull request and make changes with it, but if you are going to host/build your fork to the public in any way shape or form, thats when you need to add credit inside of the app/website.
 
 ### 3. Enforcement Rights
 The copyright holder reserves the right to:
