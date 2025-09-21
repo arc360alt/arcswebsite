@@ -1,0 +1,46 @@
+# Arc360's License (A360L)
+
+**Version 1.0**
+
+Copyright (c) 2025 Arc360 Studios (Waiting for LLC)
+
+## Terms and Conditions
+
+### 1. Grant of Rights
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, subject to the following conditions:
+
+### 2. Attribution Requirement
+**MANDATORY CREDIT**: Any use of this Software, in whole or in part, requires prominent attribution to the original author. This attribution must be:
+
+- **Visible to end users** in the application, website, or final product where the Software is used
+- Include the text: "Powered by [Original Project Name] - Created by [Your Name/Organization]" Or any iteration of whats mentioned that stil credits Arc360 Studios and github.com/arc360alt as being the original creator.
+- Include a link back to the original source repository (if applicable)
+- Be displayed in a location where users can reasonably find it (e.g., footer, about page, credits section)
+
+### 3. Enforcement Rights
+The copyright holder reserves the right to:
+
+- **Request compliance** by contacting violators directly to add proper attribution
+- **Report violations** to the hosting platform (GitHub, GitLab, web hosts, app stores, etc.)
+- **Demand removal** of the Software from projects that fail to comply with attribution requirements
+- **Pursue additional remedies** as available through platform policies or legal channels
+
+### 4. Compliance Process
+Upon discovery of non-compliant use, the copyright holder may:
+
+1. Send an initial warning requesting proper attribution within 7 days
+2. If unresolved, file a report with the hosting platform for license violation
+3. If still unresolved, demand complete removal of the Software from the violating project
+4. Pursue additional action through platform reporting systems or other available means
+
+### 5. Disclaimer
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+---
+
+**For questions about this license or to report violations, contact: voidyt16@gmail.com**
+
+---
+
+*This license is designed to protect the original creator's right to attribution while allowing broad use of the Software. Violation of the attribution requirement may result in legal action.*
