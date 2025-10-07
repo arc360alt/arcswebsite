@@ -20,6 +20,26 @@ body {
   margin: 0;
 }
 
+/* unvisited link */
+a:link {
+  color: rgb(58, 199, 255);
+}
+
+/* visited link */
+a:visited {
+  color: rgb(0, 102, 255);
+}
+
+/* mouse over link */
+a:hover {
+  color: rgb(0, 247, 255);
+}
+
+/* selected link */
+a:active {
+  color: rgb(48, 48, 255);
+}
+
 .a {
   color: #00ff00;
   text-decoration: none;
@@ -32,7 +52,7 @@ body {
 .container {
   background-color: #0f1b1c;
   border: 2px solid #ADD8E6;
-  width: 640px; /* Adjust this to your desired width */
+  width: 840px; /* Adjust this to your desired width */
   box-sizing: border-box;
   margin-top: 15px; /* Add spacing from the top */
 }
@@ -117,4 +137,15 @@ body {
 
 .center-me {
   text-align: center;
+}
+
+.banner {
+    background-color: #0f1b1c;
+    border: 2px solid #ADD8E6;
+    width: 640px;
+    box-sizing: border-box;
+    padding: 10px 20px;
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 25px;
 }
