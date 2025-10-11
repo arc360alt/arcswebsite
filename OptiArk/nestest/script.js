@@ -111,7 +111,8 @@ document.addEventListener('DOMContentLoaded', () => {
             "1.21.5-0.1 (Unsupported)": "https://github.com/arc360alt/arcswebsite/releases/download/oa-ae/OptiArk.Adventure.Edition.0.1.mrpack",
             "1.21.5-0.2 (Unsupported)": "https://github.com/arc360alt/arcswebsite/releases/download/oa-ae/OptiArk.Adventure.Edition.0.2.mrpack",
             "1.21.5-0.3 (Unsupported)": "https://github.com/arc360alt/arcswebsite/releases/download/oa-ae/OptiArk.Adventure.Edition.Test.0.3.0.mrpack",
-            "1.21.5-0.4": "https://github.com/arc360alt/arcswebsite/releases/download/oa-ae/OptiArk.Adventure.Edition.0.4.mrpack"
+            "1.21.5-0.4 (Unsupported)": "https://github.com/arc360alt/arcswebsite/releases/download/oa-ae/OptiArk.Adventure.Edition.0.4.mrpack",
+            "1.21.5-0.4.1": "https://github.com/arc360alt/arcswebsite/releases/download/oa-ae/OptiArk.Adventure.Edition.0.4.1.mrpack"
         }
     };
 
@@ -137,7 +138,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Helper function to check if version is Adventure Edition
     function isAdventureEdition(technology, version) {
-        return technology === 'Adventure Edition' && version === '1.21.5-0.4';
+        return technology === 'Adventure Edition' && version === '1.21.5-0.4.1';
     }
 
 // Function to show/hide unsupported version banner
