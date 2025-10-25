@@ -113,6 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
             "1.21.5-0.3 (Unsupported)": "https://github.com/arc360alt/arcswebsite/releases/download/oa-ae/OptiArk.Adventure.Edition.Test.0.3.0.mrpack",
             "1.21.5-0.4 (Unsupported)": "https://github.com/arc360alt/arcswebsite/releases/download/oa-ae/OptiArk.Adventure.Edition.0.4.mrpack",
             "1.21.5-0.4.1": "https://github.com/arc360alt/arcswebsite/releases/download/oa-ae/OptiArk.Adventure.Edition.0.4.1.mrpack"
+            "1.21.5-0.5 (TEST, UNSTABLE)": "https://github.com/arc360alt/arcswebsite/releases/download/oa-ae/OptiArk.Adventure.Edition.0.5-EARLYPR.mrpack"
         }
     };
 
