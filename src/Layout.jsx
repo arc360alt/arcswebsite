@@ -6,7 +6,7 @@ export default function Layout({ title, gifSrc, leftLinks, middleLinks, rightLin
   const messages = [
         'welcome to ts',
         'Check out this new project im working on: https://arkide.site',
-        'wow this is an anchent website',
+        'wow this is NOT an anchent website',
         'average linux user',
         'WAAAHH WAAAHH WAHHH WAAAAHHH',
         'Powered by duct tape and code that works somehow',
