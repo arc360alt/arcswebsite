@@ -15,13 +15,14 @@ export default function MoreLinks() {
   ];
 
   const rightLinks = [
+    { label: "Is it down?", href: "/isitdown.html" },
     { label: "Back", href: "/" },
   ];
 
   return (
     <Layout
       title="More Links"
-      gifSrc="https://www.arc360hub.com/bg.gif"
+      gifSrc="bg.gif"
       leftLinks={leftLinks}
       middleLinks={middleLinks}
       rightLinks={rightLinks}

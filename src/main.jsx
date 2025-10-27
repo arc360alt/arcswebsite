@@ -6,6 +6,8 @@ import MoreLinks from './MoreLinks';
 import LearnAboutMe from './LearnAboutMe';
 import ActiveProjects from './ActiveProjects';
 import WhatImDoing from './WhatImDoing';
+import Renders from './Renders';
+import Sitemap from './Sitemap';
 
 import './index.css';
 
@@ -18,6 +20,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/aboutme" element={<LearnAboutMe />} />
         <Route path="/active" element={<ActiveProjects />} />
         <Route path="/what-im-doing" element={<WhatImDoing />} />
+        <Route path="/renders" element={<Renders />} />
+        <Route path="/sitemap" element={<Sitemap />} />
       </Routes>
     </Router>
   </React.StrictMode>

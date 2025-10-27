@@ -29,7 +29,7 @@ export default function Homepage() {
   return (
     <Layout
       title="Hi I am a programmer and tech enthusiast"
-      gifSrc="https://www.arc360hub.com/bg.gif"
+      gifSrc="bg.gif"
       leftLinks={leftLinks}
       middleLinks={middleLinks}
       rightLinks={rightLinks}

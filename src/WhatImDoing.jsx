@@ -3,7 +3,7 @@ import LayoutNoLinks from "./LayoutNoLinks";
 
 export default function CustomHTMLPage() {
   return (
-    <LayoutNoLinks title="About Me!" gifSrc="https://www.arc360hub.com/bg.gif">
+    <LayoutNoLinks title="What I'm Doing" gifSrc="bg.gif">
       <div className="bg-slate-900/30 border border-slate-700 rounded p-4">
         <h2 className="text-xl text-cyan-400 mb-4">This is what im currently Doing:</h2>
         <iframe
