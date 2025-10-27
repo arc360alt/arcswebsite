@@ -4,11 +4,14 @@ export default function Layout({ title, gifSrc, leftLinks, middleLinks, rightLin
   const [messageIndex, setMessageIndex] = useState(0);
 
   const messages = [
-    "average linux user",
-    "passionate developer",
-    "tech enthusiast",
-    "code lover",
-    "always learning",
+        'welcome to ts',
+        'Check out this new project im working on: https://arkide.site',
+        'wow this is an anchent website',
+        'average linux user',
+        'WAAAHH WAAAHH WAHHH WAAAAHHH',
+        'Powered by duct tape and code that works somehow',
+        'This website is open source!',
+        "i also run a minecraft server, check out the website at https://arkmc.arc360hub.com",
   ];
 
   useEffect(() => {
