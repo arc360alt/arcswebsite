@@ -101,7 +101,7 @@ export default function Layout({ title, gifSrc, leftLinks, middleLinks, rightLin
             Website coded by me and Google Gemini
           </p>
           <a
-            href="#"
+            href="https://github.com/arc360alt/arcswebsite"
             className="text-cyan-400 hover:text-cyan-300 transition-colors text-xs md:text-sm"
           >
             View source
