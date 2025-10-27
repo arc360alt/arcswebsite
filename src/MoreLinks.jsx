@@ -3,15 +3,15 @@ import Layout from "./Layout";
 
 export default function MoreLinks() {
   const leftLinks = [
-    { label: "What I'm Currently Doing", href: "/what-im-doing" },
+    { label: "What I'm Currently Doing", href: "/#/what-im-doing" },
     { label: "Minecraft Website Recreation", href: "/mine/minecraft.html" },
     { label: "Custom Search Engine", href: "/search.html" },
   ];
 
   const middleLinks = [
-    { label: "Blender Renders", href: "/renders" },
+    { label: "Blender Renders", href: "/#/renders" },
     { label: "ArkIDE, Penguinmod Fork", href: "https://arkide.site" },
-    { label: "Sitemap", href: "/sitemap" },
+    { label: "Sitemap", href: "/#/sitemap" },
   ];
 
   const rightLinks = [
