@@ -101,7 +101,7 @@ export default function Layout({ title, gifSrc, leftLinks, middleLinks, rightLin
             I love coding and tech & stuff :D
           </p>
           <p className="text-slate-600 text-xs md:text-sm mb-2">
-            Website coded by me and Google Gemini
+            Website coded by me and Claude
           </p>
           <a
             href="https://github.com/arc360alt/arcswebsite"
