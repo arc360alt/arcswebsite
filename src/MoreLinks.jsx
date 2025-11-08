@@ -6,12 +6,14 @@ export default function MoreLinks() {
     { label: "What I'm Currently Doing", href: "/#/what-im-doing" },
     { label: "Minecraft Website Recreation", href: "/mine/minecraft.html" },
     { label: "Custom Search Engine", href: "/search.html" },
+    { label: "Video Destroyer", href: "https://ohgodwhat.arc360hub.com" },
   ];
 
   const middleLinks = [
     { label: "Blender Renders", href: "/#/renders" },
     { label: "ArkIDE, Penguinmod Fork", href: "https://arkide.site" },
     { label: "Sitemap", href: "/#/sitemap" },
+    { label: "WebXash", href: "https://hlweb.arc360hub.com" },
   ];
 
   const rightLinks = [
