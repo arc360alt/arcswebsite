@@ -13,7 +13,7 @@ export default function MoreLinks() {
     { label: "Blender Renders", href: "/#/renders" },
     { label: "ArkIDE, Penguinmod Fork", href: "https://arkide.site" },
     { label: "Sitemap", href: "/#/sitemap" },
-    { label: "WebXash", href: "https://hlweb.arc360hub.com" },
+    { label: "WebXash", href: "https://webhl.arc360hub.com/" },
   ];
 
   const rightLinks = [
