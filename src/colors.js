@@ -15,7 +15,7 @@ const colors = {
   gradient: {
     enabled: true,
     // Customize your gradient colors here (use any valid CSS colors)
-    colors: ['#0f172a', '#1e293b', '#334155'], // slate-950, slate-800, slate-700
+    colors: ['#0f172a', '#04002b', '#181538'], // slate-950, slate-800, slate-700
     // Animation settings
     animation: 'animate-gradient',
     // Gradient direction classes: 'bg-gradient-to-r', 'bg-gradient-to-br', 'bg-gradient-to-b', etc.
