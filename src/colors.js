@@ -5,8 +5,8 @@ const colors = {
   // Background colors
   bg: {
     primary: 'bg-slate-950',        // Main background (used as fallback)
-    secondary: 'bg-slate-900/50',   // Banner background
-    tertiary: 'bg-slate-900/30',    // Links box background
+    secondary: 'bg-slate-900/30',   // Banner background
+    tertiary: 'bg-slate-900/10',    // Links box background
     card: 'bg-slate-900/20',        // Image container background
   },
 
@@ -15,7 +15,7 @@ const colors = {
   gradient: {
     enabled: true,
     // Customize your gradient colors here (use any valid CSS colors)
-    colors: ['#0f172a', '#04002b', '#181538'], // slate-950, slate-800, slate-700
+    colors: ['#002729', '#001929', '#181538'], // slate-950, slate-800, slate-700
     // Animation settings
     animation: 'animate-gradient',
     // Gradient direction classes: 'bg-gradient-to-r', 'bg-gradient-to-br', 'bg-gradient-to-b', etc.

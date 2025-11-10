@@ -44,7 +44,7 @@ export default function LayoutNoLinks({ title, gifSrc, children }) {
           100% { background-position: 0% 50%; }
         }
         .animate-gradient {
-          animation: gradient 15s ease infinite;
+          animation: gradient 10s ease infinite;
         }
       `}</style>
       
