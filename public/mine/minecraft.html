@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+    <head>
+
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+        <title>Minecraft</title>
+        <meta name="description" content="OldButNew is a sieries of modpacks that turns new versions of minecraft into old verisons">
+        <meta name="author" content="Mojang AB">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <link rel="stylesheet" href="stylesheets/style.css?b=b_675">
+        <link rel="stylesheet" media="handheld" href="stylesheets/handheld.css?b=b_675">
+                <!--[if !IE 7]>
+        <style type="text/css">
+        #wrap {display:table;height:100%}
+        </style>
+        <![endif]-->
+        <script src="javascripts/libs/modernizr.min.js"></script>
+    </head>
+    <body>
+ 
+        <div id="wrap">
+            <header>
+                <div id="header_container" class="clearfix">
+                    <a id="logo" href="index.html">OldButNew</a>
+                    <ul id="menu">
+                        <li><a href="index.html">Home</a></li>
+                        <li>
+                            <a href="modpacks.html">Modpacks</a>
+                        </li>
+                        <li><a href="update.html">Recent Updates</a></li>
+                    </ul>
+                </div>
+            </header>
+
+            <noscript>
+            <div id="javascript-warning" class="warning warning-yellow">
+                Please, please enable JavaScript to use this site.
+            </div>
+            </noscript>
+
+            <div id="main" role="main" class="clearfix controller-Site action-community">
+                
+<section class="left">
+    <h1>A link has sent you to the old version of this page</h1>
+
+    <p>Go to the new page here: <a href="index.html">New Website</a></p>
+
+
+</section>
+            </div>
+        </div>
+
+        <footer>
+            Arc360 Studios &copy; 2020-2025 | Original Website by Mojang Studios
+        </footer>
+
+        <script src="javascripts/libs/json2.js"></script>
+        <script src="https://web.archive.org/web/20131120205446js_/https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+        <script>!window.jQuery && document.write(unescape('%3Cscript src="/javascripts/libs/jquery-1.5.1.min.js"%3E%3C/script%3E'))</script>
+        <script src="javascripts/libs/jquery.dataTables.min.js"></script>
+        <script src="javascripts/libs/jquery.timeago.js"></script>
+        <script src="javascripts/libs/sammy.js"></script>
+        <script type="text/javascript">
+            var app = $.sammy('#main', function() {
+
+                this.debug = true;
+
+                this.get('/', function() {
+                    var action = function(options) {var pattern = '/'; for(var key in options) { pattern = pattern.replace(':'+key, options[key] || ''); } return pattern }
+                    this.partial(action());
+                });
+
+                this.get('/game', function() {
+                    var action = function(options) {var pattern = '/game'; for(var key in options) { pattern = pattern.replace(':'+key, options[key] || ''); } return pattern }
+                    this.partial(action());
+                });
+
+                this.get('/login', function() {
+                    var action = function(options) {var pattern = '/login'; for(var key in options) { pattern = pattern.replace(':'+key, options[key] || ''); } return pattern }
+                    this.partial(action());
+                });
+
+                this.get('/register', function() {
+                    var action = function(options) {var pattern = '/register'; for(var key in options) { pattern = pattern.replace(':'+key, options[key] || ''); } return pattern }
+                    this.partial(action());
+                });
+
+            });
+
+            $(document).ready(function() {
+                if ($('html').is('.history') && false) {
+                    app.run(window.location.pathname);
+                } else {
+                    $(document).trigger('changed');
+                }
+            });
+        </script>
+        <script src="javascripts/plugins.js?b=b_672"></script>
+        <script src="javascripts/main.js?b=b_672"></script>
+            </body>
+</html>
