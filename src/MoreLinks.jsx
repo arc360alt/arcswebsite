@@ -4,7 +4,7 @@ import Layout from "./Layout";
 export default function MoreLinks() {
   const leftLinks = [
     { label: "What I'm Currently Doing", href: "/#/what-im-doing" },
-    { label: "Minecraft Website Recreation", href: "/mine/minecraft.html" },
+    { label: "Minecraft Website Recreation", href: "/mine/index.html" },
     { label: "Custom Search Engine", href: "/search.html" },
     { label: "Video Destroyer", href: "https://ohgodwhat.arc360hub.com" },
   ];
