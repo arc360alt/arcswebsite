@@ -20,6 +20,15 @@
         #wrap {display:table;height:100%}
         </style>
         <![endif]-->
+<style>
+        /* Style the iframe to crop out the header */
+        #updates-iframe {
+            margin-top: -0px; /* Adjust this value to hide the header */
+            height: 600px !important; /* Compensate for negative margin */
+            transform-origin: top left;
+            width: 125%; /* Compensate for the scale to fill space */
+        }
+</style>
         <script src="javascripts/libs/modernizr.min.js"></script>
     <script type="text/javascript" src="https://web.archive.org/web/20131124151211js_/https://apis.google.com/js/plusone.js"></script>
 	</head>
@@ -83,8 +92,9 @@
 <section class="mid three_col social" id="tumblr">
     <h2><a href="update.html" target="_blank">OldButNew Update News</a></h2>
 
-    <li>Nostolgia + 1.0 Released: A mod of Nostolgia Modpack</li>
-    <li>Nostolgia Modpack 2.6.0: A bunch of menu improvments</li>
+    <div style="overflow: hidden; height: 600px; width: 100%;">
+        <iframe id="updates-iframe" src="update.html" style="width: 100%; min-width: 800px; border: none; background: transparent;" frameborder="0" scrolling="yes"></iframe>
+    </div>
 
 </section>
 <section class="right three_col social" id="twitter">
@@ -143,6 +153,39 @@
                 } else {
                     $(document).trigger('changed');
                 }
+                
+                // Manipulate the embedded update page
+                var iframe = document.getElementById('updates-iframe');
+                iframe.onload = function() {
+                    try {
+                        var iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                        
+                        // Make backgrounds transparent
+                        var elements = iframeDoc.querySelectorAll('body, html, #wrap, #main, section, div');
+                        for (var i = 0; i < elements.length; i++) {
+                            elements[i].style.background = 'transparent';
+                            elements[i].style.backgroundColor = 'transparent';
+                        }
+                        
+                        // Hide header and footer
+                        var header = iframeDoc.querySelector('header');
+                        var footer = iframeDoc.querySelector('footer');
+                        var noscript = iframeDoc.querySelector('noscript');
+                        
+                        if (header) header.style.display = 'none';
+                        if (footer) footer.style.display = 'none';
+                        if (noscript) noscript.style.display = 'none';
+                        
+                        // Remove padding/margins from main content
+                        var main = iframeDoc.querySelector('#main');
+                        if (main) {
+                            main.style.padding = '0';
+                            main.style.margin = '0';
+                        }
+                    } catch (e) {
+                        console.log('Cannot access iframe content (likely cross-origin issue):', e);
+                    }
+                };
             });
         </script>
         <script src="javascripts/plugins.js?b=b_675"></script>
