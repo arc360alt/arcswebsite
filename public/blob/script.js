@@ -178,6 +178,35 @@ document.getElementById('randomizeBtn').addEventListener('click', () => {
   updateColors();
 });
 
+function randomizeColors() {
+  // Generate a random base hue (0-360)
+  const baseHue = Math.floor(Math.random() * 360);
+  
+  // Generate 4 similar colors by varying hue slightly, and saturation/lightness
+  const colors = [];
+  for (let i = 0; i < 4; i++) {
+    // Vary hue by ±30 degrees
+    const hue = (baseHue + (Math.random() * 60 - 30) + 360) % 360;
+    // Saturation between 40-70%
+    const saturation = 40 + Math.random() * 30;
+    // Lightness between 35-65%
+    const lightness = 35 + Math.random() * 30;
+    colors.push(hslToHex(hue, saturation, lightness));
+  }
+  
+  // Apply the colors
+  document.getElementById('color1').value = colors[0];
+  document.getElementById('color1-text').value = colors[0];
+  document.getElementById('color2').value = colors[1];
+  document.getElementById('color2-text').value = colors[1];
+  document.getElementById('color3').value = colors[2];
+  document.getElementById('color3-text').value = colors[2];
+  document.getElementById('color4').value = colors[3];
+  document.getElementById('color4-text').value = colors[3];
+  
+  updateColors();
+}
+
 // Helper function to convert HSL to Hex
 function hslToHex(h, s, l) {
   l /= 100;
@@ -263,5 +292,33 @@ document.addEventListener('keydown', (e) => {
       color4: document.getElementById('color4').value
     };
     updateURLWithHide(colors, hideButtonState);
+  }
+});
+
+let lastRandomize = 0;
+let isKeyDown = false;
+const COOLDOWN = 1000; // 2 seconds in milliseconds
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'r' || e.key === 'R') {
+    const now = Date.now();
+    
+    // If key was released and pressed again, allow immediate execution
+    if (!isKeyDown) {
+      randomizeColors();
+      lastRandomize = now;
+      isKeyDown = true;
+    } 
+    // If key is being held down, apply cooldown
+    else if (now - lastRandomize >= COOLDOWN) {
+      randomizeColors();
+      lastRandomize = now;
+    }
+  }
+});
+
+document.addEventListener('keyup', (e) => {
+  if (e.key === 'r' || e.key === 'R') {
+    isKeyDown = false;
   }
 });
