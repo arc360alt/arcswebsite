@@ -19,13 +19,16 @@ function getColorsFromURL() {
   };
 }
 
-// Update URL with current colors
 function updateURL(colors) {
+  const hideButton = settingsBtn.classList.contains('hidden') && settingsPanel.classList.contains('hidden');
   const params = new URLSearchParams();
   params.set('c1', colors.color1);
   params.set('c2', colors.color2);
   params.set('c3', colors.color3);
   params.set('c4', colors.color4);
+  if (hideButton) {
+    params.set('hide', 'true');
+  }
   
   const newURL = `${window.location.pathname}?${params.toString()}`;
   window.history.replaceState({}, '', newURL);
@@ -209,3 +212,56 @@ function updateMetaTags(colors) {
     themeColor.setAttribute('content', colors.color1);
   }
 }
+
+// Get hide button state from URL
+function getHideButtonFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get('hide') === 'true';
+}
+
+// Update URL with hide state
+function updateURLWithHide(colors, hideButton) {
+  const params = new URLSearchParams();
+  params.set('c1', colors.color1);
+  params.set('c2', colors.color2);
+  params.set('c3', colors.color3);
+  params.set('c4', colors.color4);
+  if (hideButton) {
+    params.set('hide', 'true');
+  }
+  
+  const newURL = `${window.location.pathname}?${params.toString()}`;
+  window.history.replaceState({}, '', newURL);
+}
+
+// Keyboard shortcut to hide/show settings button
+let hideButtonState = getHideButtonFromURL();
+
+// Apply initial hide state
+if (hideButtonState) {
+  settingsBtn.classList.add('hidden');
+}
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'h' || e.key === 'H') {
+    hideButtonState = !hideButtonState;
+    
+    if (hideButtonState) {
+      // Hide everything
+      settingsBtn.classList.add('hidden');
+      settingsPanel.classList.add('hidden');
+    } else {
+      // Show settings button
+      settingsBtn.classList.remove('hidden');
+    }
+    
+    // Update URL with current colors and hide state
+    const colors = {
+      color1: document.getElementById('color1').value,
+      color2: document.getElementById('color2').value,
+      color3: document.getElementById('color3').value,
+      color4: document.getElementById('color4').value
+    };
+    updateURLWithHide(colors, hideButtonState);
+  }
+});
