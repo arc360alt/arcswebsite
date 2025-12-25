@@ -12,7 +12,8 @@ export default function Layout({ title, gifSrc, leftLinks, middleLinks, rightLin
     'WAAAHH WAAAHH WAHHH WAAAAHHH',
     'Powered by duct tape and code that works somehow',
     'This website is open source!',
-    "i also run a minecraft server, check out the website at https://arkmc.arc360hub.com",
+    "i also run a minecraft modpack website, check it out here: https://optiark.arc360hub.com",
+    "i am feeling chrismasy"
   ];
 
   useEffect(() => {

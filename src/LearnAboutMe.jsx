@@ -15,7 +15,7 @@ export default function CustomHTMLPage() {
       <p>Mouse: Logitech G pro</p>
       <p>Speakers: Creative: Pebble X Plus</p>
       <p>Headphones: Skullcandy crusher evo or raycon everyday earbuds</p>
-      <p>I also own 3 rasbperry pi's, 2 being rpi5's and one being an rpi3b+ if you wanted to know that for some reason, one of them is running an mc server! (arkmc.arc360hub.com)</p>
+      <p>I also own 3 rasbperry pi's, 2 being rpi5's and one being an rpi3b+ if you wanted to know that for some reason, one of them is NOT running an mc server anymore. I also now have a lattepanda 3 delta wich is pretty cool!</p>
       <p>But yeah thats basicly it, if you want a setup like mine just drop over 4000 dollars to get it ig (i did not need this expensive of a setup for what im doing😭😭)</p>
       <p>Current Main Operating System: Linux Mint / Windows 11 24H2</p>
 <a href="/" className="text-cyan-400 hover:text-cyan-300">Back To Home</a>
