@@ -19,6 +19,7 @@ export default function MoreLinks() {
   const rightLinks = [
     { label: "Is it down?", href: "/isitdown.html" },
     { label: "Cool Gradient Blobs", href: "/blob/index.html" },
+    { label: "Sorting Algorithms", href: "https://sortingapp.arc360hub.com/" },
     { label: "Back", href: "/" },
   ];
 
