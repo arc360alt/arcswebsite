@@ -5,7 +5,7 @@ export default function MoreLinks() {
   const leftLinks = [
     { label: "What I'm Currently Doing", href: "/#/what-im-doing" },
     { label: "Minecraft Website Recreation", href: "/mine/index.html" },
-    { label: "Custom Search Engine", href: "/search.html" },
+    { label: "Custom Search Engine", href: "https://search.arc360hub.com" },
     { label: "Video Destroyer", href: "https://ohgodwhat.arc360hub.com" },
   ];
 
