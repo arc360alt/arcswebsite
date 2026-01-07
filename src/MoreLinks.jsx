@@ -14,6 +14,7 @@ export default function MoreLinks() {
     { label: "ArkIDE, Penguinmod Fork", href: "https://arkide.site" },
     { label: "Sitemap", href: "/#/sitemap" },
     { label: "WebXash", href: "https://webhl.arc360hub.com/" },
+    { label: "Studio Website", href: "https://arc360hub.com/#/studio" },
   ];
 
   const rightLinks = [

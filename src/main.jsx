@@ -8,6 +8,7 @@ import ActiveProjects from './ActiveProjects';
 import WhatImDoing from './WhatImDoing';
 import Renders from './Renders';
 import Sitemap from './Sitemap';
+import Studio from './Studio';
 
 import './index.css';
 
@@ -22,6 +23,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/what-im-doing" element={<WhatImDoing />} />
         <Route path="/renders" element={<Renders />} />
         <Route path="/sitemap" element={<Sitemap />} />
+        <Route path="/studio" element={<Studio />} />
       </Routes>
     </Router>
   </React.StrictMode>
