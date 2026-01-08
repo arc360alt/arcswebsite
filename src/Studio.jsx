@@ -6,7 +6,7 @@ export default function Ark360Studios() {
   // Employee data - easily customizable
   const employees = [
     {
-      name: "Ark (snowyyy)",
+      name: "Ark (snowyy)",
       role: "Owner of ArkIDE, Main developer and admin.",
       pfpUrl: "https://arkideapi.arc360hub.com/api/v1/users/getpfp?username=snowyy", // Set your image path
       profileUrl: "https://arkide.site/profile?user=ark" // Set profile link
@@ -28,7 +28,7 @@ export default function Ark360Studios() {
   // Other projects data
   const otherProjects = [
     {
-      name: "Ark (snowyyy)",
+      name: "Ark (snowyy)",
       role: "The soul developer and maintainer of all the other projects.",
       pfpUrl: "https://avatars.githubusercontent.com/u/155182753?v=4&size=64",
       profileUrl: "https://github.com/arc360alt"
@@ -220,7 +220,7 @@ export default function Ark360Studios() {
       {/* Call to Action Section */}
       <section className="py-20 px-4 text-center">
         <p className="text-xl mb-6 max-w-5xl mx-auto">
-          If you think you can help out, Join our discord to get a spot in our team!
+          If you think you can help out, Join our discord to get a spot in our team! You can still contribute to our code for free though.
         </p>
         
         <a
