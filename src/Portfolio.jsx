@@ -46,6 +46,44 @@ useEffect(() => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    // Set page title
+    document.title = "Ark - Portfolio";
+    
+    // Set meta tags for embeds
+    const setMetaTag = (property, content) => {
+      let element = document.querySelector(`meta[property="${property}"]`) || 
+                    document.querySelector(`meta[name="${property}"]`);
+      
+      if (!element) {
+        element = document.createElement('meta');
+        if (property.startsWith('og:') || property.startsWith('twitter:')) {
+          element.setAttribute('property', property);
+        } else {
+          element.setAttribute('name', property);
+        }
+        document.head.appendChild(element);
+      }
+      element.setAttribute('content', content);
+    };
+
+    // Open Graph / Discord embeds
+    setMetaTag('og:title', 'Ark - Portfolio');
+    setMetaTag('og:description', "i'm a self-taught developer that just makes random things");
+    setMetaTag('og:image', 'https://arc360hub.com/favicon.ico');
+    setMetaTag('og:url', 'https://arc360hub.com/#/portfolio');
+    setMetaTag('og:type', 'website');
+    
+    // Twitter Card
+    setMetaTag('twitter:card', 'summary_large_image');
+    setMetaTag('twitter:title', 'Ark - Portfolio');
+    setMetaTag('twitter:description', "i'm a self-taught developer that just makes random things");
+    setMetaTag('twitter:image', 'https://arc360hub.com/favicon.ico');
+    
+    // Theme color
+    setMetaTag('theme-color', '#3b82f6');
+  }, []);
+
   const fetchGitHubRepos = async () => {
     try {
       const response = await fetch('https://api.github.com/users/arc360alt/repos?sort=updated&per_page=100');
