@@ -136,7 +136,7 @@ const scrollToSection = (sectionRef, sectionName) => {
     <div className="min-h-screen text-gray-100" style={{ background: 'linear-gradient(to bottom right, #331e00ff, #2d1100ff, #2c1900ff)' }}>
       {/* Navigation Bar with Glassmorphism */}
       <nav className="fixed top-6 left-1/2 transform -translate-x-1/2 z-50">
-        <div className="backdrop-blur-xl bg-slate-900/40 border border-slate-700/50 rounded-full px-2 py-2 shadow-2xl relative">
+        <div className="backdrop-blur-xl bg-orange-900/40 border border-amber-700/50 rounded-full px-2 py-2 shadow-2xl relative">
           {/* White glowing indicator bar OUTSIDE at top - rounded only on top */}
           <div 
             className={`absolute -top-1 h-1 w-8 bg-white transition-all duration-300 ease-out`}
@@ -292,7 +292,7 @@ const scrollToSection = (sectionRef, sectionName) => {
                 alt="Discord Avatar"
                 className="w-24 h-24 rounded-full border-4 border-amber-800"
               />
-              <div className={`absolute bottom-1 right-1 w-6 h-6 rounded-full border-4 border-slate-800 ${
+              <div className={`absolute bottom-1 right-1 w-6 h-6 rounded-full border-4 border-amber-800 ${
                 discordData?.discord_status === 'online' ? 'bg-green-500' :
                 discordData?.discord_status === 'idle' ? 'bg-yellow-500' :
                 discordData?.discord_status === 'dnd' ? 'bg-red-500' : 'bg-gray-500'
