@@ -211,7 +211,7 @@ const scrollToSection = (sectionRef, sectionName) => {
         
         <div className="grid md:grid-cols-3 gap-6">
           {/* Programming Languages */}
-          <div className="bg-slate-800/40 backdrop-blur border border-slate-700/50 rounded-xl p-6">
+          <div className="bg-yellow-950/40 backdrop-blur border border-amber-700/50 rounded-xl p-6">
             <h3 className="text-xl font-semibold mb-4">Programming Languages</h3>
             <div className="space-y-3">
               <div className="flex items-center justify-between">
@@ -230,7 +230,7 @@ const scrollToSection = (sectionRef, sectionName) => {
           </div>
 
           {/* Frontend Technologies */}
-          <div className="bg-slate-800/40 backdrop-blur border border-slate-700/50 rounded-xl p-6">
+          <div className="bg-yellow-950/40 backdrop-blur border border-amber-700/50 rounded-xl p-6">
             <h3 className="text-xl font-semibold mb-4">Frontend Technologies</h3>
             <div className="space-y-3">
               <div className="flex items-center justify-between">
@@ -249,12 +249,12 @@ const scrollToSection = (sectionRef, sectionName) => {
           </div>
 
           {/* Backend Technologies */}
-          <div className="bg-slate-800/40 backdrop-blur border border-slate-700/50 rounded-xl p-6">
+          <div className="bg-yellow-950/40 backdrop-blur border border-amber-700/50 rounded-xl p-6">
             <h3 className="text-xl font-semibold mb-4">Backend Technologies</h3>
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <span>Node.js</span>
-                <span className="text-xs bg-orange-500/20 text-blue-300 px-3 py-1 rounded-full">Intermediate</span>
+                <span className="text-xs bg-orange-500/20 text-orange-300 px-3 py-1 rounded-full">Intermediate</span>
               </div>
               <div className="flex items-center justify-between">
                 <span>MongoDB</span>
@@ -290,7 +290,7 @@ const scrollToSection = (sectionRef, sectionName) => {
                   : "https://cdn.discordapp.com/embed/avatars/0.png"
                 }
                 alt="Discord Avatar"
-                className="w-24 h-24 rounded-full border-4 border-slate-800"
+                className="w-24 h-24 rounded-full border-4 border-amber-800"
               />
               <div className={`absolute bottom-1 right-1 w-6 h-6 rounded-full border-4 border-slate-800 ${
                 discordData?.discord_status === 'online' ? 'bg-green-500' :
