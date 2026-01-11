@@ -530,7 +530,7 @@ const scrollToSection = (sectionRef, sectionName) => {
                     <Github size={20} />
                     {repo.name}
                     {isCurrentSite && (
-                      <span className="text-xs bg-blue-500/20 text-blue-300 px-2 py-1 rounded-full">Current Site</span>
+                      <span className="text-xs bg-orange-500/20 text-orange-300 px-2 py-1 rounded-full">Current Site</span>
                     )}
                   </h3>
                   {repo.fork && (
