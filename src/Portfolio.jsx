@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Github, MessageCircle, Mail } from 'lucide-react';
+import { Github, MessageCircle, Youtube } from 'lucide-react';
 
 const Portfolio = () => {
   const [repos, setRepos] = useState([]);
@@ -9,6 +9,7 @@ const Portfolio = () => {
   const [activeSection, setActiveSection] = useState('about');
   const [showArkIDE, setShowArkIDE] = useState(false);
   const [arkIDERepos, setArkIDERepos] = useState([]);
+  const [showYouTubeTooltip, setShowYouTubeTooltip] = useState(false);
   
   const aboutRef = useRef(null);
   const workRef = useRef(null);
@@ -532,14 +533,28 @@ const scrollToSection = (sectionRef, sectionName) => {
                className="text-gray-400 hover:text-white transition-colors">
               <Github size={24} />
             </a>
-            <a href="https://discord.com" target="_blank" rel="noopener noreferrer"
+            <a href="https://discord.gg/YtZwYTBMDH" target="_blank" rel="noopener noreferrer"
                className="text-gray-400 hover:text-white transition-colors">
               <MessageCircle size={24} />
             </a>
-            <a href="mailto:contact@example.com"
-               className="text-gray-400 hover:text-white transition-colors">
-              <Mail size={24} />
+            <div className="relative">
+            <a 
+                href="https://youtube.com/@arc360"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-gray-400 hover:text-red-500 transition-colors block"
+                onMouseEnter={() => setShowYouTubeTooltip(true)}
+                onMouseLeave={() => setShowYouTubeTooltip(false)}
+            >
+                <Youtube size={24} />
             </a>
+            {showYouTubeTooltip && (
+                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-sm text-gray-300 whitespace-nowrap">
+                This channel is abandoned, I may come back to it at some point
+                <div className="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1 border-4 border-transparent border-t-slate-800"></div>
+                </div>
+            )}
+            </div>
           </div>
           <p className="text-center text-gray-400 text-sm">
             &copy;2020-2026 Ark360 Studios
