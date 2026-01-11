@@ -21,6 +21,7 @@ export default function MoreLinks() {
     { label: "Is it down?", href: "/isitdown.html" },
     { label: "Cool Gradient Blobs", href: "/blob/index.html" },
     { label: "Sorting Algorithms", href: "https://sortingapp.arc360hub.com/" },
+    { label: "My Portfolio", href: "/#/portfolio" },
     { label: "Back", href: "/" },
   ];
 

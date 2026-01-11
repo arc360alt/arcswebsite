@@ -9,6 +9,7 @@ import WhatImDoing from './WhatImDoing';
 import Renders from './Renders';
 import Sitemap from './Sitemap';
 import Studio from './Studio';
+import Portfolio from './Portfolio';
 
 import './index.css';
 
@@ -24,6 +25,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/renders" element={<Renders />} />
         <Route path="/sitemap" element={<Sitemap />} />
         <Route path="/studio" element={<Studio />} />
+        <Route path="/portfolio" element={<Portfolio />} />
       </Routes>
     </Router>
   </React.StrictMode>
