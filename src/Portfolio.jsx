@@ -133,7 +133,31 @@ const scrollToSection = (sectionRef, sectionName) => {
   const filteredRepos = showForks ? currentRepos : currentRepos.filter(repo => !repo.fork);
 
   return (
-    <div className="min-h-screen text-gray-100" style={{ background: 'linear-gradient(to bottom right, #331e00ff, #2d1100ff, #2c1900ff)' }}>
+    
+      <div className="min-h-screen text-gray-100" style={{ background: 'linear-gradient(to bottom right, #331e00ff, #2d1100ff, #2c1900ff)' }}>
+    <style>
+      {`
+        .arkide-logo-container {
+          position: relative;
+          width: 20px;
+          height: 20px;
+        }
+        .arkide-logo-base, .arkide-logo-hover {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 20px;
+          height: 20px;
+        }
+        .arkide-logo-hover {
+          clip-path: circle(0% at center);
+          transition: clip-path 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .arkide-logo-container:hover .arkide-logo-hover {
+          clip-path: circle(100% at center);
+        }
+      `}
+    </style>
       {/* Navigation Bar with Glassmorphism */}
       <nav className="fixed top-6 left-1/2 transform -translate-x-1/2 z-50">
         <div className="backdrop-blur-xl bg-orange-900/40 border border-amber-700/50 rounded-full px-2 py-2 shadow-2xl relative">
@@ -179,9 +203,12 @@ const scrollToSection = (sectionRef, sectionName) => {
               href="https://arkide.site" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="relative z-10 px-3 py-2 text-white hover:text-gray-300 transition-colors rounded-full flex items-center"
+              className="relative z-10 px-3 py-2 text-white transition-colors rounded-full flex items-center"
             >
-              <img src="/arkide.png" alt="ArkIDE" className="w-[20px] h-[20px]" />
+              <div className="arkide-logo-container">
+                <img src="/arkide.png" alt="ArkIDE" className="arkide-logo-base" />
+                <img src="/arkide-normal.png" alt="ArkIDE" className="arkide-logo-hover" />
+              </div>
             </a>
           </div>
         </div>
@@ -200,7 +227,7 @@ const scrollToSection = (sectionRef, sectionName) => {
         <h2 className="text-3xl font-bold mb-4">About me</h2>
         <p className="text-gray-400 leading-relaxed">
           i'm a self-taught developer that just makes random things when I'm not doing school work.
-          I also work on a Penguinmod fork called ArkIDE that is quite broken right now as the server has died.
+          I also work on a Penguinmod fork called ArkIDE that is basicly just my vison on a modern scratch that I have always wanted to make.
         </p>
       </div>
 
