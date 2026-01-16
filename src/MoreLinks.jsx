@@ -7,6 +7,7 @@ export default function MoreLinks() {
     { label: "Minecraft Website Recreation", href: "/mine/index.html" },
     { label: "Custom Search Engine", href: "https://search.arc360hub.com" },
     { label: "Video Destroyer", href: "https://ohgodwhat.arc360hub.com" },
+    { label: "cube", href: "/#/3d" },
   ];
 
   const middleLinks = [
