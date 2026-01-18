@@ -6,9 +6,9 @@ export default function Ark360Studios() {
   // Employee data - easily customizable
   const employees = [
     {
-      name: "Ark (snowyy)",
+      name: "Ark (zenith)",
       role: "Owner of ArkIDE, Main developer and admin.",
-      pfpUrl: "https://arkideapi.arc360hub.com/api/v1/users/getpfp?username=snowyy", // Set your image path
+      pfpUrl: "https://arkideapi.arc360hub.com/api/v1/users/getpfp?username=zenith", // Set your image path
       profileUrl: "https://arkide.site/profile?user=ark" // Set profile link
     },
     {
