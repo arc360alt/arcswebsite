@@ -165,7 +165,7 @@ const scrollToSection = (sectionRef, sectionName) => {
           <div 
             className={`absolute -top-1 h-1 w-8 bg-white transition-all duration-300 ease-out`}
             style={{
-              left: activeSection === 'about' ? '28px' : '112px',
+              left: activeSection === 'about' ? '28px' : '118px',
               borderTopLeftRadius: '4px',
               borderTopRightRadius: '4px',
               borderBottomLeftRadius: '0',
@@ -587,6 +587,90 @@ const scrollToSection = (sectionRef, sectionName) => {
               </a>
             );
           })}
+        </div>
+      </div>
+
+      {/* Minecraft Packs Section */}
+      <div className="max-w-6xl mx-auto px-8 mb-20">
+        <h2 className="text-3xl font-bold mb-4 text-center">Personal Minecraft Packs</h2>
+        <p className="text-gray-400 text-center mb-12">some random modpacks ive made for minecraft that i am sharing becuase i can</p>
+        
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+          {/* Modpack 1 */}
+          <div className="bg-yellow-950/40 backdrop-blur border border-amber-700/50 rounded-xl p-6 hover:border-orange-500/60 transition-all duration-300">
+            <div className="mb-4">
+              <h3 className="text-xl font-bold mb-2">Old Gaming</h3>
+              <div className="flex gap-2 mb-3">
+                <span className="text-xs bg-red-500/20 text-red-300 px-2 py-1 rounded-full">Forge</span>
+                <span className="text-xs bg-blue-500/20 text-blue-300 px-2 py-1 rounded-full">1.7.10</span>
+              </div>
+              <p className="text-gray-400 text-sm">
+                A modpack based on 1.7.10 with a bunch of classic mods.
+              </p>
+            </div>
+            <button 
+              onClick={() => {
+                window.open('https://drive.google.com/file/d/1kimB7Rg0O8lHekDSJiZQMpqXWWxWoK4r/view?usp=sharing', '_blank');
+              }}
+              className="w-full bg-gradient-to-r from-orange-600 to-yellow-600 hover:from-orange-500 hover:to-yellow-500 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              Download Pack
+            </button>
+          </div>
+
+          {/* Modpack 2 */}
+          <div className="bg-yellow-950/40 backdrop-blur border border-amber-700/50 rounded-xl p-6 hover:border-orange-500/60 transition-all duration-300">
+            <div className="mb-4">
+              <h3 className="text-xl font-bold mb-2">Create Pack</h3>
+              <div className="flex gap-2 mb-3">
+                <span className="text-xs bg-red-500/20 text-red-300 px-2 py-1 rounded-full">Forge</span>
+                <span className="text-xs bg-blue-500/20 text-blue-300 px-2 py-1 rounded-full">1.20.1</span>
+              </div>
+              <p className="text-gray-400 text-sm">
+                Just a normal create pack that I made for survival fun I guess.
+              </p>
+            </div>
+            <button 
+              onClick={() => {
+                window.open('https://drive.google.com/file/d/1u7lTEJmbwpGQo_0xvlmkO6nBQbNQ8Cjv/view?usp=sharing', '_blank');
+              }}
+              className="w-full bg-gradient-to-r from-orange-600 to-yellow-600 hover:from-orange-500 hover:to-yellow-500 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              Download Pack
+            </button>
+          </div>
+
+          {/* Modpack 3 */}
+          <div className="bg-yellow-950/40 backdrop-blur border border-amber-700/50 rounded-xl p-6 hover:border-orange-500/60 transition-all duration-300">
+            <div className="mb-4">
+              <h3 className="text-xl font-bold mb-2">Person-al modpack</h3>
+              <div className="flex gap-2 mb-3">
+                <span className="text-xs bg-green-500/20 text-green-300 px-2 py-1 rounded-full">Fabric</span>
+                <span className="text-xs bg-blue-500/20 text-blue-300 px-2 py-1 rounded-full">1.21.11</span>
+              </div>
+              <p className="text-gray-400 text-sm">
+                My main personal modpack with an insane amount of mods (72)
+              </p>
+            </div>
+            <button 
+              onClick={() => {
+                window.open('https://drive.google.com/file/d/11zxYdA_lQ8rFgTWezVDqQOoPfPcl2D0a/view?usp=sharing', '_blank');
+              }}
+              className="w-full bg-gradient-to-r from-orange-600 to-yellow-600 hover:from-orange-500 hover:to-yellow-500 text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              Download Pack
+            </button>
+          </div>
         </div>
       </div>
 
