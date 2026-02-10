@@ -303,7 +303,7 @@ const scrollToSection = (sectionRef, sectionName) => {
           <div 
             className="h-24"
             style={{
-              backgroundImage: `url(https://cdn.discordapp.com/banners/719973177954140210/${discordData?.discord_user?.banner || '71cef92b319cfba28a7c251a63653ebe'}.${discordData?.discord_user?.banner?.startsWith('a_') ? 'gif' : 'png'}?size=600)`,
+              backgroundImage: `url(https://cdn.discordapp.com/banners/719973177954140210/${discordData?.discord_user?.banner || 'dbf4e3ca8ff7529bf8d643e955faf293'}.${discordData?.discord_user?.banner?.startsWith('a_') ? 'gif' : 'png'}?size=600)`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
               backgroundColor: '#5865F2'
