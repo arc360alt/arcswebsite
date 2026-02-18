@@ -6,9 +6,9 @@ export default function Ark360Studios() {
   // Employee data - easily customizable
   const employees = [
     {
-      name: "Ark (Zenith)",
+      name: "Ark (Cosmic)",
       role: "Owner of ArkIDE, Main developer and admin.",
-      pfpUrl: "https://arkideapi.arc360hub.com/api/v1/users/getpfp?username=zenith", // Set your image path
+      pfpUrl: "https://arkideapi.arc360hub.com/api/v1/users/getpfp?username=cosmic", // Set your image path
       profileUrl: "https://arkide.site/profile?user=ark" // Set profile link
     },
     {
@@ -28,7 +28,7 @@ export default function Ark360Studios() {
   // Other projects data
   const otherProjects = [
     {
-      name: "Ark (Zenith)",
+      name: "Ark (Cosmic)",
       role: "The soul developer and maintainer of all the other projects.",
       pfpUrl: "https://avatars.githubusercontent.com/u/155182753?v=4&size=64",
       profileUrl: "https://github.com/arc360alt"
@@ -326,7 +326,7 @@ export default function Ark360Studios() {
           
           {/* Copyright */}
           <div className="border-t border-gray-800 pt-8 text-center text-gray-500 text-sm">
-            <p>&copy; 2020-2025 ARK360 Studios. All rights reserved. We are not a real regristerd company.</p>
+            <p>&copy; 2020-2026 ARK360 Studios. All rights reserved. We are not a real regristerd company.</p>
           </div>
         </div>
       </footer>
