@@ -13,7 +13,7 @@ export default function Homepage() {
   const middleLinks = [
     { label: "Main website", href: "#" },
     { label: "Modrinth page", href: "https://modrinth.com/user/arc360" },
-    { label: "Minecraft Server", href: "https://arkmc.arc360hub.com" },
+    { label: "Fastfetch Config Generator", href: "https://arc360hub.com/fastfetch.html" },
     { label: "SyntaxAI", href: "https://syntaxai.arc360hub.com" },
     { label: "Active projects", href: "/#/active" },
   ];

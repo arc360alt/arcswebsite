@@ -1,0 +1,1890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fastfetch Theme Builder</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0c10;
+    --bg2: #0f1117;
+    --bg3: #161b24;
+    --bg4: #1d2535;
+    --border: #2a3547;
+    --border2: #3a4a62;
+    --accent: #00d4ff;
+    --accent2: #7c3aed;
+    --accent3: #10b981;
+    --accent4: #f59e0b;
+    --red: #ef4444;
+    --text: #e2e8f0;
+    --text2: #94a3b8;
+    --text3: #64748b;
+    --glow: 0 0 20px rgba(0,212,255,0.3);
+    --glow2: 0 0 20px rgba(124,58,237,0.3);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Grid background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(0,212,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,212,255,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .app {
+    position: relative;
+    z-index: 1;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 24px;
+  }
+
+  /* Header */
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0 32px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 32px;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .logo-icon {
+    width: 44px;
+    height: 44px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    box-shadow: var(--glow);
+  }
+  .logo-text h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .logo-text p {
+    font-size: 0.7rem;
+    color: var(--text3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .header-actions {
+    display: flex;
+    gap: 10px;
+  }
+
+  /* Buttons */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 9px 18px;
+    border-radius: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: none;
+    text-decoration: none;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent), #0099bb);
+    color: #000;
+    box-shadow: var(--glow);
+  }
+  .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 0 30px rgba(0,212,255,0.5); }
+  .btn-secondary {
+    background: var(--bg3);
+    color: var(--text);
+    border: 1px solid var(--border2);
+  }
+  .btn-secondary:hover { background: var(--bg4); border-color: var(--accent); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--text2);
+    border: 1px solid var(--border);
+  }
+  .btn-ghost:hover { color: var(--text); border-color: var(--border2); }
+  .btn-danger {
+    background: rgba(239,68,68,0.15);
+    color: var(--red);
+    border: 1px solid rgba(239,68,68,0.3);
+  }
+  .btn-danger:hover { background: rgba(239,68,68,0.25); }
+  .btn-sm { padding: 6px 12px; font-size: 0.72rem; }
+  .btn-xs { padding: 4px 8px; font-size: 0.68rem; }
+  .btn-success {
+    background: linear-gradient(135deg, var(--accent3), #059669);
+    color: #000;
+    font-weight: 700;
+  }
+  .btn-success:hover { transform: translateY(-1px); box-shadow: 0 0 20px rgba(16,185,129,0.4); }
+
+  /* Layout */
+  .main-grid {
+    display: grid;
+    grid-template-columns: 340px 1fr 340px;
+    gap: 20px;
+    align-items: start;
+  }
+
+  /* Panels */
+  .panel {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+  .panel-header {
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--bg3);
+  }
+  .panel-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .panel-body {
+    padding: 18px;
+  }
+
+  /* Module list */
+  .module-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    max-height: 500px;
+    overflow-y: auto;
+  }
+  .module-list::-webkit-scrollbar { width: 4px; }
+  .module-list::-webkit-scrollbar-track { background: var(--bg3); }
+  .module-list::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+  .module-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: var(--bg3);
+    border: 1px solid transparent;
+    cursor: grab;
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .module-item:hover { border-color: var(--border2); background: var(--bg4); }
+  .module-item.dragging { opacity: 0.4; border-color: var(--accent); }
+  .module-item.drag-over { border-color: var(--accent); background: rgba(0,212,255,0.08); }
+  .module-item.selected { border-color: var(--accent); background: rgba(0,212,255,0.07); }
+  .module-drag { color: var(--text3); font-size: 0.9rem; cursor: grab; }
+  .module-icon { font-size: 1rem; width: 24px; text-align: center; }
+  .module-name { flex: 1; font-size: 0.8rem; color: var(--text); }
+  .module-type { font-size: 0.65rem; color: var(--text3); }
+  .module-actions { display: flex; gap: 4px; opacity: 0; transition: opacity 0.15s; }
+  .module-item:hover .module-actions { opacity: 1; }
+
+  .separator-item {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--border2), transparent);
+    border-radius: 1px;
+    margin: 4px 0;
+    position: relative;
+  }
+  .separator-item::before {
+    content: '── separator ──';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--bg2);
+    padding: 0 8px;
+    font-size: 0.6rem;
+    color: var(--text3);
+    letter-spacing: 0.05em;
+  }
+
+  /* Add module area */
+  .add-section { margin-top: 14px; }
+  .add-section-title {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text3);
+    margin-bottom: 8px;
+  }
+  .module-chips {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .module-chip {
+    padding: 5px 10px;
+    border-radius: 6px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    font-size: 0.7rem;
+    color: var(--text2);
+    cursor: pointer;
+    transition: all 0.15s;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .module-chip:hover { border-color: var(--accent); color: var(--accent); background: rgba(0,212,255,0.07); }
+
+  .chip-category { margin-top: 12px; }
+  .chip-category-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 2px;
+    cursor: pointer;
+    user-select: none;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 6px;
+  }
+  .chip-category-header:hover .chip-cat-label { color: var(--accent); }
+  .chip-cat-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text3);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.15s;
+  }
+  .chip-cat-arrow {
+    font-size: 0.6rem;
+    color: var(--text3);
+    transition: transform 0.2s;
+  }
+  .chip-cat-arrow.open { transform: rotate(90deg); }
+  .chip-category-body {
+    display: none;
+  }
+  .chip-category-body.open {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding-bottom: 4px;
+  }
+
+  /* Preview */
+  .preview-panel {
+  }
+  .terminal-window {
+    background: #020408;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border2);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+  .terminal-titlebar {
+    background: var(--bg3);
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 1px solid var(--border);
+  }
+  .traffic-lights { display: flex; gap: 6px; }
+  .tl { width: 12px; height: 12px; border-radius: 50%; }
+  .tl-red { background: #ff5f57; }
+  .tl-yellow { background: #febc2e; }
+  .tl-green { background: #28c840; }
+  .terminal-title {
+    font-size: 0.7rem;
+    color: var(--text3);
+    flex: 1;
+    text-align: center;
+  }
+  .terminal-body {
+    padding: 16px;
+    min-height: 300px;
+    font-size: 0.78rem;
+    line-height: 1.5;
+    overflow-x: auto;
+    font-family: 'JetBrains Mono', monospace;
+    white-space: pre;
+  }
+  /* Side-by-side layout: art col + info col */
+  .term-layout {
+    display: flex;
+    align-items: flex-start;
+    gap: 0;
+    white-space: pre;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .term-art-col {
+    flex-shrink: 0;
+    white-space: pre;
+    line-height: 1.5;
+  }
+  .term-info-col {
+    flex: 1;
+    white-space: pre;
+    line-height: 1.5;
+  }
+  .term-line {
+    display: block;
+    white-space: pre;
+  }
+  .terminal-body::-webkit-scrollbar { height: 4px; }
+  .terminal-body::-webkit-scrollbar-track { background: transparent; }
+  .terminal-body::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+  /* ASCII colors */
+  .c-reset { color: var(--text2); }
+  .c-accent { color: var(--accent); }
+  .c-purple { color: #a855f7; }
+  .c-green { color: var(--accent3); }
+  .c-yellow { color: var(--accent4); }
+  .c-red { color: var(--red); }
+  .c-cyan { color: #22d3ee; }
+  .c-white { color: #f8fafc; }
+  .c-dim { color: var(--text3); }
+  .c-bold { font-weight: 700; }
+
+  /* Settings panel */
+  .settings-section { margin-bottom: 20px; }
+  .settings-section-title {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text3);
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 12px;
+  }
+  .form-row label {
+    font-size: 0.72rem;
+    color: var(--text2);
+  }
+  .form-input {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 7px;
+    padding: 8px 12px;
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    outline: none;
+    transition: border-color 0.2s;
+    width: 100%;
+  }
+  .form-input:focus { border-color: var(--accent); }
+  select.form-input { cursor: pointer; }
+
+  /* Color picker row */
+  .color-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .color-swatch {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    border: 1px solid var(--border2);
+    cursor: pointer;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .color-swatch input[type=color] {
+    width: 200%;
+    height: 200%;
+    border: none;
+    cursor: pointer;
+    transform: translate(-25%, -25%);
+    padding: 0;
+  }
+  .color-label { font-size: 0.72rem; color: var(--text2); flex: 1; }
+  .color-value { font-size: 0.68rem; color: var(--text3); }
+
+  /* Color palette presets */
+  .color-presets { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 12px; }
+  .preset-btn {
+    width: 24px;
+    height: 24px;
+    border-radius: 5px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: transform 0.15s, border-color 0.15s;
+  }
+  .preset-btn:hover { transform: scale(1.2); }
+  .preset-btn.active { border-color: white; }
+
+  /* ASCII art section */
+  .ascii-section { margin-bottom: 16px; }
+  .ascii-tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 12px;
+  }
+  .ascii-tab {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: var(--bg3);
+    color: var(--text3);
+    transition: all 0.15s;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .ascii-tab.active { border-color: var(--accent); color: var(--accent); background: rgba(0,212,255,0.08); }
+
+  .ascii-preview {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 0.55rem;
+    line-height: 1.2;
+    white-space: pre;
+    color: var(--accent);
+    max-height: 120px;
+    overflow: auto;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .distro-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+  .distro-btn {
+    padding: 7px 5px;
+    border-radius: 7px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    font-size: 0.68rem;
+    cursor: pointer;
+    text-align: center;
+    color: var(--text2);
+    transition: all 0.15s;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .distro-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .distro-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(0,212,255,0.08); }
+
+  /* Image upload */
+  .image-upload-zone {
+    border: 2px dashed var(--border2);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+  }
+  .image-upload-zone:hover { border-color: var(--accent); background: rgba(0,212,255,0.04); }
+  .image-upload-zone input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+  .upload-icon { font-size: 1.8rem; margin-bottom: 8px; }
+  .upload-text { font-size: 0.73rem; color: var(--text3); }
+
+  /* Warning banner */
+  .warning-banner {
+    background: rgba(245,158,11,0.1);
+    border: 1px solid rgba(245,158,11,0.3);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.72rem;
+    color: var(--accent4);
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    margin-top: 10px;
+  }
+  .warning-banner .warn-icon { flex-shrink: 0; }
+
+  /* Info banner */
+  .info-banner {
+    background: rgba(0,212,255,0.07);
+    border: 1px solid rgba(0,212,255,0.2);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.72rem;
+    color: var(--accent);
+    margin-top: 10px;
+  }
+
+  /* Path input modal */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(4px);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+  }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
+  .modal {
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    border-radius: 16px;
+    padding: 28px;
+    width: 460px;
+    max-width: 90vw;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.8);
+    transform: translateY(20px);
+    transition: transform 0.2s;
+  }
+  .modal-overlay.open .modal { transform: translateY(0); }
+  .modal-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+  .modal-subtitle { font-size: 0.75rem; color: var(--text3); margin-bottom: 20px; line-height: 1.6; }
+  .modal-actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px; }
+
+  /* Copy output */
+  .output-section {
+    position: relative;
+  }
+  .config-output {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    font-size: 0.73rem;
+    color: var(--accent3);
+    white-space: pre;
+    overflow: auto;
+    max-height: 300px;
+    line-height: 1.7;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .config-output::-webkit-scrollbar { width: 4px; height: 4px; }
+  .config-output::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 2px; }
+
+  .copy-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(16,185,129,0.15);
+    border-radius: 10px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+    font-size: 1.2rem;
+    color: var(--accent3);
+    font-weight: 700;
+  }
+  .copy-overlay.show { opacity: 1; }
+
+  /* Tabs */
+  .tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 20px;
+    background: var(--bg3);
+    padding: 4px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+  }
+  .tab {
+    flex: 1;
+    padding: 8px;
+    border-radius: 7px;
+    font-size: 0.72rem;
+    cursor: pointer;
+    text-align: center;
+    color: var(--text3);
+    transition: all 0.15s;
+    font-family: 'JetBrains Mono', monospace;
+    border: none;
+    background: transparent;
+  }
+  .tab.active { background: var(--bg4); color: var(--text); border: 1px solid var(--border2); }
+
+  /* Module editor */
+  .module-editor {
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    border-radius: 10px;
+    padding: 16px;
+    margin-top: 10px;
+  }
+  .module-editor-title {
+    font-size: 0.72rem;
+    color: var(--accent);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* Toggle switch */
+  .toggle-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .toggle-row:last-child { border-bottom: none; }
+  .toggle-label { font-size: 0.75rem; color: var(--text2); }
+  .toggle {
+    position: relative;
+    width: 36px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+  .toggle input { opacity: 0; width: 0; height: 0; }
+  .toggle-slider {
+    position: absolute;
+    inset: 0;
+    background: var(--border2);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .toggle-slider::before {
+    content: '';
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    left: 3px;
+    top: 3px;
+    background: var(--text3);
+    border-radius: 50%;
+    transition: all 0.2s;
+  }
+  .toggle input:checked + .toggle-slider { background: var(--accent); }
+  .toggle input:checked + .toggle-slider::before { transform: translateX(16px); background: #000; }
+
+  /* Tag pills */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.62rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  .tag-cyan { background: rgba(0,212,255,0.15); color: var(--accent); }
+  .tag-purple { background: rgba(124,58,237,0.2); color: #a78bfa; }
+  .tag-green { background: rgba(16,185,129,0.15); color: var(--accent3); }
+
+  /* Scrollbar global */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: var(--bg2); }
+  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+
+  /* Responsive */
+  @media (max-width: 1100px) {
+    .main-grid { grid-template-columns: 1fr 1fr; }
+    .main-grid > :nth-child(3) { grid-column: 1 / -1; }
+  }
+  @media (max-width: 700px) {
+    .main-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Pulse dot */
+  .pulse-dot {
+    width: 7px; height: 7px;
+    background: var(--accent3);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+    display: inline-block;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.85); }
+  }
+
+  /* Fade in */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .panel { animation: fadeIn 0.3s ease both; }
+  .panel:nth-child(2) { animation-delay: 0.05s; }
+  .panel:nth-child(3) { animation-delay: 0.1s; }
+
+  .section-hidden { display: none; }
+
+  /* Inline edit */
+  .format-input {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 10px;
+    color: var(--accent3);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.73rem;
+    outline: none;
+  }
+  .format-input:focus { border-color: var(--accent); }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="logo">
+      <div class="logo-icon">⚡</div>
+      <div class="logo-text">
+        <h1>Fastfetch Builder</h1>
+        <p>Theme Configuration Studio</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-ghost" onclick="resetConfig()">↺ Reset</button>
+      <button class="btn btn-success" onclick="showOutput()">⬇ Export Config</button>
+    </div>
+  </header>
+
+  <div class="main-grid">
+
+    <!-- Left: Module List -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">📦 Modules <span class="tag tag-cyan" id="module-count">0</span></div>
+        <button class="btn btn-primary btn-sm" onclick="addSeparator()">+ Separator</button>
+      </div>
+      <div class="panel-body">
+        <div class="module-list" id="moduleList" ondragover="onDragOver(event)" ondrop="onDrop(event)"></div>
+
+        <div class="add-section">
+          <div class="add-section-title">➕ Add Module</div>
+          <div class="module-chips" id="moduleChips"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Center: Preview + Output -->
+    <div>
+      <!-- Preview -->
+      <div class="panel preview-panel" style="margin-bottom:20px">
+        <div class="panel-header">
+          <div class="panel-title">🖥 Live Preview</div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="pulse-dot"></span>
+            <span style="font-size:0.65rem;color:var(--text3)">live</span>
+          </div>
+        </div>
+        <div class="panel-body" style="padding:12px">
+          <div class="terminal-window">
+            <div class="terminal-titlebar">
+              <div class="traffic-lights">
+                <div class="tl tl-red"></div>
+                <div class="tl tl-yellow"></div>
+                <div class="tl tl-green"></div>
+              </div>
+              <div class="terminal-title">user@hostname ~ fastfetch</div>
+            </div>
+            <div class="terminal-body" id="terminalPreview"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Module Editor (shows when module selected) -->
+      <div class="panel" id="moduleEditorPanel" style="display:none;margin-bottom:20px">
+        <div class="panel-header">
+          <div class="panel-title" id="editorTitle">✏️ Edit Module</div>
+          <button class="btn btn-ghost btn-sm" onclick="closeEditor()">✕ Close</button>
+        </div>
+        <div class="panel-body" id="moduleEditorBody"></div>
+      </div>
+
+    </div>
+
+    <!-- Right: Settings -->
+    <div class="panel">
+      <div class="panel-header">
+        <div class="panel-title">🎨 Theme Settings</div>
+      </div>
+      <div class="panel-body">
+        <div class="tabs">
+          <button class="tab active" onclick="switchTab('ascii',this)">ASCII Art</button>
+          <button class="tab" onclick="switchTab('colors',this)">Colors</button>
+          <button class="tab" onclick="switchTab('layout',this)">Layout</button>
+        </div>
+
+        <!-- ASCII Tab -->
+        <div id="tab-ascii">
+          <div class="settings-section">
+            <div class="settings-section-title">Logo / ASCII Art</div>
+            <div class="ascii-tabs">
+              <div class="ascii-tab active" onclick="switchAsciiMode('distro',this)">Distro</div>
+              <div class="ascii-tab" onclick="switchAsciiMode('custom',this)">Custom</div>
+              <div class="ascii-tab" onclick="switchAsciiMode('image',this)">Image</div>
+              <div class="ascii-tab" onclick="switchAsciiMode('none',this)">None</div>
+            </div>
+
+            <!-- Distro mode -->
+            <div id="ascii-distro">
+              <div class="distro-grid" id="distroGrid"></div>
+            </div>
+
+            <!-- Custom ASCII mode -->
+            <div id="ascii-custom" class="section-hidden">
+              <textarea class="form-input" rows="6" id="customAsciiInput" placeholder="Paste your ASCII art here..." style="resize:vertical" oninput="updatePreview()"></textarea>
+            </div>
+
+            <!-- Image mode -->
+            <div id="ascii-image" class="section-hidden">
+              <div class="image-upload-zone" onclick="triggerImageUpload()">
+                <div class="upload-icon">🖼</div>
+                <div class="upload-text">Click to set image path</div>
+                <div style="font-size:0.65rem;color:var(--text3);margin-top:4px">PNG, JPG supported</div>
+              </div>
+              <div id="imagePathDisplay" style="display:none"></div>
+
+              <div style="margin-top:12px">
+                <div class="form-row">
+                  <label>Graphics protocol</label>
+                  <select class="form-input" id="imgProtocol" onchange="updatePreview()">
+                    <option value="kitty-direct">kitty-direct — Kitty, Ghostty, Warp ✓ fastest</option>
+                    <option value="kitty">kitty — Kitty (tmux-safe), WezTerm</option>
+                    <option value="iterm">iterm — iTerm2, WezTerm</option>
+                    <option value="sixel">sixel — foot, xterm, many others</option>
+                  </select>
+                </div>
+                <div style="display:flex;gap:8px">
+                  <div class="form-row" style="flex:1">
+                    <label>Width (chars)</label>
+                    <input class="form-input" type="number" id="imgWidth" value="30" min="5" max="80" onchange="updatePreview()">
+                  </div>
+                  <div class="form-row" style="flex:1">
+                    <label>Height (chars)</label>
+                    <input class="form-input" type="number" id="imgHeight" value="15" min="3" max="50" onchange="updatePreview()">
+                  </div>
+                </div>
+              </div>
+
+              <div class="warning-banner">
+                <span class="warn-icon">⚠️</span>
+                <div>
+                  <strong>width + height must match the actual rendered size</strong> — wrong values cause broken layout or silent fallback to the default distro logo.<br>
+                  <span style="margin-top:4px;display:block">Check imagemagick support: <code>fastfetch --list-features | grep imagemagick</code></span>
+                  <span style="margin-top:4px;display:block">Debug missing image: <code>fastfetch --show-errors</code></span>
+                </div>
+              </div>
+            </div>
+
+            <!-- None mode -->
+            <div id="ascii-none" class="section-hidden">
+              <div class="info-banner">Logo will be hidden. Only module info will be shown.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Colors Tab -->
+        <div id="tab-colors" class="section-hidden">
+          <div class="settings-section">
+            <div class="settings-section-title">Color Theme</div>
+            <div class="add-section-title">Presets</div>
+            <div class="color-presets" id="colorPresets"></div>
+
+            <div id="colorRows"></div>
+          </div>
+        </div>
+
+        <!-- Layout Tab -->
+        <div id="tab-layout" class="section-hidden">
+          <div class="settings-section">
+            <div class="settings-section-title">Display Options</div>
+            <div class="toggle-row">
+              <span class="toggle-label">Show separator lines</span>
+              <label class="toggle">
+                <input type="checkbox" id="showSep" checked onchange="updatePreview()">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="toggle-row">
+              <span class="toggle-label">Use Nerd Font icons</span>
+              <label class="toggle">
+                <input type="checkbox" id="useIcons" checked onchange="toggleIconsWarning()">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div id="nfWarning" class="warning-banner" style="margin-bottom:10px">
+              <span class="warn-icon">⚠️</span>
+              <div>
+                Icons use <strong>Nerd Fonts glyphs</strong> — these only render correctly if your terminal font is a <a href="https://www.nerdfonts.com/font-downloads" target="_blank" style="color:var(--accent);text-decoration:underline">Nerd Font patched font</a>.<br>
+                <span style="margin-top:4px;display:block;color:var(--text3)">Popular choices: JetBrainsMono Nerd Font, FiraCode Nerd Font, Hack Nerd Font. Without one, icons will show as boxes or question marks.</span>
+              </div>
+            </div>
+            <div class="toggle-row">
+              <span class="toggle-label">Colorize values</span>
+              <label class="toggle">
+                <input type="checkbox" id="colorizeVals" checked onchange="updatePreview()">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="toggle-row">
+              <span class="toggle-label">Show title (user@host)</span>
+              <label class="toggle">
+                <input type="checkbox" id="showTitle" checked onchange="updatePreview()">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+          </div>
+
+          <div class="settings-section">
+            <div class="settings-section-title">Separators</div>
+            <div class="form-row">
+              <label>Key-value separator</label>
+              <input class="form-input" id="kvSep" value=": " onchange="updatePreview()">
+            </div>
+            <div class="form-row">
+              <label>Title separator char</label>
+              <input class="form-input" id="titleSep" value="─" onchange="updatePreview()">
+            </div>
+          </div>
+
+          <div class="settings-section">
+            <div class="settings-section-title">Logo Position</div>
+            <div class="form-row">
+              <label>Logo side</label>
+              <select class="form-input" id="logoSide" onchange="updatePreview()">
+                <option value="left">Left</option>
+                <option value="right">Right</option>
+                <option value="top">Top</option>
+                <option value="bottom">Bottom</option>
+                <option value="none">None</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <label>Padding (chars)</label>
+              <input class="form-input" type="number" id="logoPadding" value="2" min="0" max="10" onchange="updatePreview()">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- Image Path Modal -->
+<div class="modal-overlay" id="imageModal">
+  <div class="modal">
+    <div class="modal-title">🖼 Set Image Path</div>
+    <div class="modal-subtitle">
+      Enter the absolute path to your image file on your system.<br>
+      Example: <code style="color:var(--accent3)">/home/user/Pictures/avatar.png</code>
+      <div class="warning-banner" style="margin-top:12px">
+        ⚠️ Image display requires a terminal with <strong>Kitty graphics protocol</strong> or <strong>Sixel</strong> support. This includes: Kitty, WezTerm, foot, iTerm2 (macOS). Standard terminals like GNOME Terminal will not display the image.
+      </div>
+    </div>
+    <div class="form-row">
+      <label>Image path on your system</label>
+      <input class="form-input" id="imagePathInput" placeholder="/home/user/Pictures/logo.png">
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" onclick="closeImageModal()">Cancel</button>
+      <button class="btn btn-primary" onclick="confirmImagePath()">Set Path</button>
+    </div>
+  </div>
+</div>
+
+<!-- Config Output Modal -->
+<div class="modal-overlay" id="outputModal">
+  <div class="modal" style="width:700px;max-width:92vw">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+      <div class="modal-title" style="margin:0">📋 Config Output</div>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-success btn-sm" onclick="copyConfig()">⎘ Copy to clipboard</button>
+        <button class="btn btn-ghost btn-sm" onclick="toggleOutput()">✕</button>
+      </div>
+    </div>
+    <div class="output-section">
+      <div class="config-output" id="configOutput" style="max-height:55vh"></div>
+      <div class="copy-overlay" id="copyOverlay">✓ Copied!</div>
+    </div>
+    <div class="info-banner" style="margin-top:12px">
+      💡 Save as <strong>~/.config/fastfetch/config.jsonc</strong> then run <strong>fastfetch</strong>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── State ───────────────────────────────────────────────────────────────────
+const state = {
+  modules: [],
+  asciiMode: 'distro',
+  selectedDistro: 'arch',
+  customAscii: '',
+  imagePath: '',
+  colors: {
+    key:    '#00d4ff',
+    value:  '#e2e8f0',
+    title:  '#a855f7',
+    logo:   '#00d4ff',
+    sep:    '#3a4a62',
+  },
+  selectedModule: null,
+  dragIdx: null,
+};
+
+// ─── Module definitions ───────────────────────────────────────────────────────
+// nfIcon = Nerd Font glyph (renders in terminal with NF patched font)
+// uiIcon = emoji used only in the builder UI sidebar (never sent to config)
+const MODULE_DEFS = {
+  title:        { uiIcon: '👤', nfIcon: '',  label: 'Title',        defaultKey: '' },
+  separator:    { uiIcon: '─',  nfIcon: '─',  label: 'Separator' },
+  os:           { uiIcon: '🐧', nfIcon: '',  label: 'OS',           sampleVal: 'Arch Linux x86_64' },
+  host:         { uiIcon: '🖥', nfIcon: '',  label: 'Host',         sampleVal: 'ThinkPad X1 Carbon' },
+  kernel:       { uiIcon: '🔧', nfIcon: '',  label: 'Kernel',       sampleVal: '6.6.1-arch1' },
+  uptime:       { uiIcon: '⏱', nfIcon: '',  label: 'Uptime',       sampleVal: '3 hours, 42 mins' },
+  packages:     { uiIcon: '📦', nfIcon: '',  label: 'Packages',     sampleVal: '1337 (pacman)' },
+  shell:        { uiIcon: '🐚', nfIcon: '',  label: 'Shell',        sampleVal: 'zsh 5.9' },
+  display:      { uiIcon: '📺', nfIcon: '',  label: 'Display',      sampleVal: '2560x1600 @ 120Hz' },
+  de:           { uiIcon: '🪟', nfIcon: '',  label: 'DE/WM',        sampleVal: 'Hyprland' },
+  theme:        { uiIcon: '🎨', nfIcon: '',  label: 'Theme',        sampleVal: 'Catppuccin-Mocha' },
+  icons:        { uiIcon: '✨', nfIcon: '',  label: 'Icons',        sampleVal: 'Papirus-Dark' },
+  terminal:     { uiIcon: '💻', nfIcon: '',  label: 'Terminal',     sampleVal: 'Kitty' },
+  font:         { uiIcon: '🔤', nfIcon: '',  label: 'Font',         sampleVal: 'JetBrainsMono 12' },
+  cpu:          { uiIcon: '⚡', nfIcon: '',  label: 'CPU',          sampleVal: 'AMD Ryzen 9 7950X (32)' },
+  gpu:          { uiIcon: '🎮', nfIcon: '',  label: 'GPU',          sampleVal: 'NVIDIA RTX 4090' },
+  memory:       { uiIcon: '🧠', nfIcon: '',  label: 'Memory',       sampleVal: '16.2 GiB / 64 GiB' },
+  disk:         { uiIcon: '💾', nfIcon: '',  label: 'Disk',         sampleVal: '420 GiB / 2 TiB (21%)' },
+  battery:      { uiIcon: '🔋', nfIcon: '',  label: 'Battery',      sampleVal: '87% [Charging]' },
+  locale:       { uiIcon: '🌐', nfIcon: '',  label: 'Locale',       sampleVal: 'en_US.UTF-8' },
+  datetime:     { uiIcon: '📅', nfIcon: '',  label: 'Date/Time',    sampleVal: 'Sat 28 Feb 2026, 14:22' },
+  break:        { uiIcon: '↵',  nfIcon: '',  label: 'Break',        sampleVal: '' },
+
+  // Network & connectivity
+  localip:      { uiIcon: '📡', nfIcon: '',  label: 'Local IP',     sampleVal: '192.168.1.42/24 (eth0)' },
+  publicip:     { uiIcon: '🌍', nfIcon: '',  label: 'Public IP',    sampleVal: '93.184.216.34' },
+  wifi:         { uiIcon: '📶', nfIcon: '󰖩',  label: 'Wifi',         sampleVal: 'HomeNetwork (802.11ax)' },
+  bluetooth:    { uiIcon: '🔵', nfIcon: '󰂯',  label: 'Bluetooth',    sampleVal: 'Enabled — 2 devices' },
+  dns:          { uiIcon: '🔍', nfIcon: '',  label: 'DNS',          sampleVal: '1.1.1.1, 8.8.8.8' },
+
+  // Hardware
+  bios:         { uiIcon: '🔩', nfIcon: '',  label: 'BIOS',         sampleVal: 'American Megatrends v3.4' },
+  board:        { uiIcon: '🖧', nfIcon: '',  label: 'Motherboard',  sampleVal: 'ASUS ROG STRIX B650E-F' },
+  chassis:      { uiIcon: '🗄', nfIcon: '',  label: 'Chassis',      sampleVal: 'Desktop' },
+  cpu_usage:    { uiIcon: '📊', nfIcon: '',  label: 'CPU Usage',    sampleVal: '12% (all cores)' },
+  gpu_usage:    { uiIcon: '📈', nfIcon: '',  label: 'GPU Usage',    sampleVal: '34%' },
+  memory_usage: { uiIcon: '📉', nfIcon: '',  label: 'Swap',         sampleVal: '512 MiB / 8 GiB' },
+  disk_io:      { uiIcon: '💿', nfIcon: '󰋊',  label: 'Disk I/O',    sampleVal: 'R: 1.2 GB/s W: 0.8 GB/s' },
+  temps:        { uiIcon: '🌡', nfIcon: '',  label: 'Temperature',  sampleVal: 'CPU: 45°C  GPU: 52°C' },
+  brightness:   { uiIcon: '☀', nfIcon: '',  label: 'Brightness',   sampleVal: '80%' },
+  sound:        { uiIcon: '🔊', nfIcon: '󰕾',  label: 'Sound',        sampleVal: 'PipeWire 1.0.3' },
+  power:        { uiIcon: '⚡', nfIcon: '',  label: 'Power',        sampleVal: '65W (AC)' },
+  camera:       { uiIcon: '📷', nfIcon: '',  label: 'Camera',       sampleVal: 'Logitech BRIO 4K' },
+
+  // Software & system
+  users:        { uiIcon: '👥', nfIcon: '',  label: 'Users',        sampleVal: 'alice (tty1, pts/0)' },
+  processes:    { uiIcon: '⚙', nfIcon: '',  label: 'Processes',    sampleVal: '312 (running: 2)' },
+  openfiles:    { uiIcon: '📂', nfIcon: '',  label: 'Open Files',   sampleVal: '1024 / 524288' },
+  initsystem:   { uiIcon: '🚀', nfIcon: '',  label: 'Init System',  sampleVal: 'systemd 255' },
+  bootmgr:      { uiIcon: '🥾', nfIcon: '',  label: 'Boot Manager', sampleVal: 'systemd-boot' },
+  swap:         { uiIcon: '🔄', nfIcon: '',  label: 'Swap',         sampleVal: '0 B / 8 GiB' },
+  zpool:        { uiIcon: '🗃', nfIcon: '󰋊',  label: 'ZFS Pool',    sampleVal: 'tank — ONLINE 3.6T / 7.2T' },
+  lvm:          { uiIcon: '🗂', nfIcon: '',  label: 'LVM',          sampleVal: 'ubuntu-vg/root 49G' },
+  container:    { uiIcon: '📦', nfIcon: '',  label: 'Container',    sampleVal: 'Docker 26.1.4' },
+  vm:           { uiIcon: '🖥', nfIcon: '',  label: 'VM Platform',  sampleVal: 'VMware Workstation' },
+  terminalfont: { uiIcon: '🔤', nfIcon: '',  label: 'Term. Font',   sampleVal: 'JetBrainsMono NF 13' },
+  cursor:       { uiIcon: '🖱', nfIcon: '󰳽',  label: 'Cursor',       sampleVal: 'Bibata-Modern-Ice 24' },
+  wmtheme:      { uiIcon: '🎨', nfIcon: '',  label: 'WM Theme',     sampleVal: 'Catppuccin-Mocha-Blue' },
+  colors_block: { uiIcon: '🎨', nfIcon: '',  label: 'Colors',       sampleVal: '███████████' },
+
+  // Misc
+  player:       { uiIcon: '🎵', nfIcon: '',  label: 'Media',        sampleVal: 'Spotify — Daft Punk' },
+  weather:      { uiIcon: '🌤', nfIcon: '',  label: 'Weather',      sampleVal: '18°C Partly Cloudy' },
+  version:      { uiIcon: 'ℹ', nfIcon: '',  label: 'FF Version',   sampleVal: 'fastfetch 2.26.1' },
+};
+
+// ─── Distros ─────────────────────────────────────────────────────────────────
+const DISTROS = {
+  arch: {
+    name: 'Arch',
+    art: `      /\\
+     /  \\
+    / /\\ \\
+   / ____ \\
+  /_/    \\_\\`,
+    color: '#1793d1',
+  },
+  ubuntu: {
+    name: 'Ubuntu',
+    art: `          _
+      ---(_)
+  _/  ---  \\
+ (_) |   |
+  \\  --- _/
+      ---(_)`,
+    color: '#e95420',
+  },
+  debian: {
+    name: 'Debian',
+    art: `  _____
+ /  __ \\
+|  /    |
+|  \\___-
+-_
+  --_`,
+    color: '#d70a53',
+  },
+  fedora: {
+    name: 'Fedora',
+    art: ` ______
+|      \\
+|   ---|
+|  |
+|_____|`,
+    color: '#51a2da',
+  },
+  nixos: {
+    name: 'NixOS',
+    art: `  \\  \\ /
+   \\ v /
+   / . \\
+  / . v \\
+ / . . . \\`,
+    color: '#7ebae4',
+  },
+  gentoo: {
+    name: 'Gentoo',
+    art: `  .-----.
+ /  .-.  )
+(  |   ' |
+ \\  '-'/
+  '----'`,
+    color: '#54487a',
+  },
+  mint: {
+    name: 'Mint',
+    art: ` ___________
+|_          \\
+  | | ----\ |
+  | | | | | |
+  \\ |_____/ |
+   \\________|`,
+    color: '#87cf3e',
+  },
+  windows: {
+    name: 'Windows',
+    art: `####  ####
+####  ####
+
+####  ####
+####  ####`,
+    color: '#0078d7',
+  },
+  macos: {
+    name: 'macOS',
+    art: `        .:'
+    __ :'__
+ .'  '-  '-. 
+/ .. \\  / .. \\
+\\    '  '    /
+ '- .__. -'`,
+    color: '#999999',
+  },
+};
+
+// ─── Color presets ─────────────────────────────────────────────────────────
+const COLOR_PRESETS = [
+  { name:'Catppuccin', key:'#89dceb', value:'#cdd6f4', title:'#cba6f7', logo:'#89dceb', sep:'#45475a' },
+  { name:'Dracula',    key:'#8be9fd', value:'#f8f8f2', title:'#ff79c6', logo:'#bd93f9', sep:'#44475a' },
+  { name:'Gruvbox',    key:'#83a598', value:'#ebdbb2', title:'#b8bb26', logo:'#fabd2f', sep:'#504945' },
+  { name:'Nord',       key:'#88c0d0', value:'#d8dee9', title:'#81a1c1', logo:'#5e81ac', sep:'#434c5e' },
+  { name:'Tokyo',      key:'#7aa2f7', value:'#c0caf5', title:'#bb9af7', logo:'#7dcfff', sep:'#3b4261' },
+  { name:'Monokai',    key:'#66d9e8', value:'#f8f8f2', title:'#a6e22e', logo:'#fd971f', sep:'#3e3d32' },
+  { name:'Cyber',      key:'#00d4ff', value:'#e2e8f0', title:'#a855f7', logo:'#00d4ff', sep:'#3a4a62' },
+  { name:'Sakura',     key:'#f5a7bd', value:'#fdf4f8', title:'#cc6fa8', logo:'#e879a0', sep:'#4a2d3b' },
+];
+
+// ─── Default modules ───────────────────────────────────────────────────────
+function initDefault() {
+  state.modules = [
+    { type:'title', id:uid(), custom:{} },
+    { type:'break', id:uid(), custom:{} },
+    { type:'os', id:uid(), custom:{} },
+    { type:'host', id:uid(), custom:{} },
+    { type:'kernel', id:uid(), custom:{} },
+    { type:'uptime', id:uid(), custom:{} },
+    { type:'packages', id:uid(), custom:{} },
+    { type:'shell', id:uid(), custom:{} },
+    { type:'break', id:uid(), custom:{} },
+    { type:'display', id:uid(), custom:{} },
+    { type:'de', id:uid(), custom:{} },
+    { type:'terminal', id:uid(), custom:{} },
+    { type:'font', id:uid(), custom:{} },
+    { type:'break', id:uid(), custom:{} },
+    { type:'cpu', id:uid(), custom:{} },
+    { type:'gpu', id:uid(), custom:{} },
+    { type:'memory', id:uid(), custom:{} },
+    { type:'disk', id:uid(), custom:{} },
+    { type:'break', id:uid(), custom:{} },
+    { type:'colors_block', id:uid(), custom:{} },
+  ];
+}
+
+let uidCounter = 0;
+function uid() { return 'mod_' + (++uidCounter); }
+
+// ─── Init ─────────────────────────────────────────────────────────────────
+function init() {
+  initDefault();
+  renderDistroGrid();
+  renderModuleChips();
+  renderColorPresets();
+  renderColorRows();
+  renderModuleList();
+  updatePreview();
+}
+
+// ─── Distro grid ─────────────────────────────────────────────────────────
+function renderDistroGrid() {
+  const g = document.getElementById('distroGrid');
+  g.innerHTML = Object.entries(DISTROS).map(([k,v]) => `
+    <div class="distro-btn ${k===state.selectedDistro?'active':''}" onclick="selectDistro('${k}')" title="${v.name}">
+      ${v.name}
+    </div>
+  `).join('');
+}
+
+function selectDistro(k) {
+  state.selectedDistro = k;
+  renderDistroGrid();
+  updatePreview();
+}
+
+// ─── Module chips ─────────────────────────────────────────────────────────
+const MODULE_CATEGORIES = [
+  {
+    label: 'System Info',
+    icon: '🖥',
+    keys: ['os','host','kernel','uptime','bios','board','chassis','initsystem','bootmgr','version','vm','container'],
+  },
+  {
+    label: 'Hardware',
+    icon: '⚙',
+    keys: ['cpu','gpu','memory','disk','battery','temps','brightness','power','cpu_usage','gpu_usage','memory_usage','disk_io','camera','sound'],
+  },
+  {
+    label: 'Software',
+    icon: '📦',
+    keys: ['packages','shell','terminal','terminalfont','font','de','theme','icons','wmtheme','cursor'],
+  },
+  {
+    label: 'Display',
+    icon: '📺',
+    keys: ['display'],
+  },
+  {
+    label: 'Network',
+    icon: '📡',
+    keys: ['localip','publicip','wifi','bluetooth','dns'],
+  },
+  {
+    label: 'Storage',
+    icon: '💾',
+    keys: ['disk','swap','zpool','lvm'],
+  },
+  {
+    label: 'User & Session',
+    icon: '👤',
+    keys: ['users','processes','openfiles','locale','datetime'],
+  },
+  {
+    label: 'Misc',
+    icon: '✨',
+    keys: ['player','weather','colors_block'],
+  },
+  {
+    label: 'Layout',
+    icon: '📐',
+    keys: ['title','break','separator'],
+  },
+];
+
+function renderModuleChips() {
+  const c = document.getElementById('moduleChips');
+  // track which cats are open in state
+  if (!state.openCategories) state.openCategories = new Set(['System Info','Hardware','Software']);
+
+  c.innerHTML = MODULE_CATEGORIES.map(cat => {
+    const chips = cat.keys
+      .filter(k => MODULE_DEFS[k])
+      .map(k => {
+        const v = MODULE_DEFS[k];
+        return `<div class="module-chip" onclick="addModule('${k}')" title="Add ${v.label}">${v.uiIcon} ${v.label}</div>`;
+      }).join('');
+    if (!chips) return '';
+    const isOpen = state.openCategories.has(cat.label);
+    return `
+      <div class="chip-category">
+        <div class="chip-category-header" onclick="toggleCategory('${cat.label}')">
+          <span class="chip-cat-label">${cat.icon} ${cat.label}</span>
+          <span class="chip-cat-arrow ${isOpen ? 'open' : ''}">▶</span>
+        </div>
+        <div class="chip-category-body ${isOpen ? 'open' : ''}" id="cat-${cat.label.replace(/[^a-z]/gi,'_')}">
+          ${chips}
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function toggleCategory(label) {
+  if (!state.openCategories) state.openCategories = new Set();
+  const id = 'cat-' + label.replace(/[^a-z]/gi,'_');
+  const body = document.getElementById(id);
+  const header = body?.previousElementSibling;
+  const arrow = header?.querySelector('.chip-cat-arrow');
+  if (state.openCategories.has(label)) {
+    state.openCategories.delete(label);
+    body?.classList.remove('open');
+    arrow?.classList.remove('open');
+  } else {
+    state.openCategories.add(label);
+    body?.classList.add('open');
+    arrow?.classList.add('open');
+  }
+}
+
+// ─── Module list ─────────────────────────────────────────────────────────
+function renderModuleList() {
+  const list = document.getElementById('moduleList');
+  document.getElementById('module-count').textContent = state.modules.length;
+
+  list.innerHTML = state.modules.map((m, i) => {
+    const def = MODULE_DEFS[m.type] || {};
+    if (m.type === 'break') {
+      return `<div class="separator-item" data-idx="${i}"></div>`;
+    }
+    return `
+      <div class="module-item ${state.selectedModule===m.id?'selected':''}"
+           data-idx="${i}" draggable="true"
+           ondragstart="onDragStart(event,${i})"
+           ondragend="onDragEnd(event)"
+           onclick="selectModule('${m.id}')">
+        <span class="module-drag">⠿</span>
+        <span class="module-icon">${def.uiIcon||'•'}</span>
+        <span class="module-name">${m.custom.label || def.label || m.type}</span>
+        <span class="module-type tag tag-cyan">${m.type}</span>
+        <div class="module-actions">
+          <button class="btn btn-xs btn-ghost" onclick="event.stopPropagation(); moveModule(${i},-1)" title="Move up">↑</button>
+          <button class="btn btn-xs btn-ghost" onclick="event.stopPropagation(); moveModule(${i},1)" title="Move down">↓</button>
+          <button class="btn btn-xs btn-danger" onclick="event.stopPropagation(); removeModule(${i})" title="Remove">✕</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+// ─── Module actions ───────────────────────────────────────────────────────
+function addModule(type) {
+  state.modules.push({ type, id: uid(), custom: {} });
+  renderModuleList();
+  updatePreview();
+}
+
+function addSeparator() {
+  state.modules.push({ type: 'break', id: uid(), custom: {} });
+  renderModuleList();
+  updatePreview();
+}
+
+function removeModule(idx) {
+  if (state.modules[idx] && state.modules[idx].id === state.selectedModule) {
+    state.selectedModule = null;
+    document.getElementById('moduleEditorPanel').style.display = 'none';
+  }
+  state.modules.splice(idx, 1);
+  renderModuleList();
+  updatePreview();
+}
+
+function moveModule(idx, dir) {
+  const newIdx = idx + dir;
+  if (newIdx < 0 || newIdx >= state.modules.length) return;
+  [state.modules[idx], state.modules[newIdx]] = [state.modules[newIdx], state.modules[idx]];
+  renderModuleList();
+  updatePreview();
+}
+
+// ─── Drag & Drop ──────────────────────────────────────────────────────────
+function onDragStart(e, idx) {
+  state.dragIdx = idx;
+  e.currentTarget.classList.add('dragging');
+  e.dataTransfer.effectAllowed = 'move';
+}
+function onDragEnd(e) {
+  e.currentTarget.classList.remove('dragging');
+  document.querySelectorAll('.module-item').forEach(el => el.classList.remove('drag-over'));
+}
+function onDragOver(e) {
+  e.preventDefault();
+  const item = e.target.closest('[data-idx]');
+  document.querySelectorAll('.module-item').forEach(el => el.classList.remove('drag-over'));
+  if (item) item.classList.add('drag-over');
+}
+function onDrop(e) {
+  e.preventDefault();
+  const item = e.target.closest('[data-idx]');
+  if (!item || state.dragIdx === null) return;
+  const targetIdx = parseInt(item.dataset.idx);
+  if (targetIdx === state.dragIdx) return;
+  const dragged = state.modules.splice(state.dragIdx, 1)[0];
+  state.modules.splice(targetIdx, 0, dragged);
+  state.dragIdx = null;
+  renderModuleList();
+  updatePreview();
+}
+
+// ─── Module Editor ────────────────────────────────────────────────────────
+function selectModule(id) {
+  state.selectedModule = id;
+  renderModuleList();
+  const m = state.modules.find(x => x.id === id);
+  if (!m) return;
+  const def = MODULE_DEFS[m.type] || {};
+  const panel = document.getElementById('moduleEditorPanel');
+  const body = document.getElementById('moduleEditorBody');
+  const title = document.getElementById('editorTitle');
+  title.textContent = `✏️ Edit: ${def.uiIcon||''} ${def.label||m.type}`;
+  panel.style.display = 'block';
+
+  body.innerHTML = `
+    <div class="form-row">
+      <label>Custom label (leave blank for default)</label>
+      <input class="form-input" id="edit-label" value="${m.custom.label||''}" placeholder="${def.label||''}" oninput="updateModuleField('${id}','label',this.value)">
+    </div>
+    ${m.type !== 'break' && m.type !== 'title' && m.type !== 'colors_block' ? `
+    <div class="form-row">
+      <label>Custom key text</label>
+      <input class="form-input" id="edit-key" value="${m.custom.key||''}" placeholder="${def.label||m.type}" oninput="updateModuleField('${id}','key',this.value)">
+    </div>
+    <div class="form-row">
+      <label>Format string</label>
+      <input class="format-input" id="edit-format" value="${m.custom.format||''}" placeholder="{value}" oninput="updateModuleField('${id}','format',this.value)">
+    </div>` : ''}
+    <div class="toggle-row">
+      <span class="toggle-label">Hide this module</span>
+      <label class="toggle">
+        <input type="checkbox" id="edit-hidden" ${m.custom.hidden?'checked':''} onchange="updateModuleField('${id}','hidden',this.checked)">
+        <span class="toggle-slider"></span>
+      </label>
+    </div>
+  `;
+}
+
+function closeEditor() {
+  state.selectedModule = null;
+  document.getElementById('moduleEditorPanel').style.display = 'none';
+  renderModuleList();
+}
+
+function updateModuleField(id, field, val) {
+  const m = state.modules.find(x => x.id === id);
+  if (!m) return;
+  m.custom[field] = val;
+  renderModuleList();
+  updatePreview();
+}
+
+// ─── Color presets ────────────────────────────────────────────────────────
+function renderColorPresets() {
+  const c = document.getElementById('colorPresets');
+  c.innerHTML = COLOR_PRESETS.map((p,i) => `
+    <div class="preset-btn" style="background:${p.key}" title="${p.name}" onclick="applyPreset(${i})"></div>
+  `).join('');
+}
+
+function applyPreset(i) {
+  const p = COLOR_PRESETS[i];
+  Object.assign(state.colors, p);
+  renderColorRows();
+  updatePreview();
+}
+
+function renderColorRows() {
+  const colorLabels = { key: 'Key color', value: 'Value color', title: 'Title color', logo: 'Logo color', sep: 'Separator color' };
+  document.getElementById('colorRows').innerHTML = Object.entries(state.colors).map(([k,v]) => `
+    <div class="color-row">
+      <div class="color-swatch">
+        <input type="color" value="${v}" oninput="updateColor('${k}',this.value)">
+      </div>
+      <span class="color-label">${colorLabels[k]||k}</span>
+      <span class="color-value">${v}</span>
+    </div>
+  `).join('');
+}
+
+function updateColor(key, val) {
+  state.colors[key] = val;
+  renderColorRows();
+  updatePreview();
+}
+
+// ─── Tabs ─────────────────────────────────────────────────────────────────
+function switchTab(name, el) {
+  ['ascii','colors','layout'].forEach(t => {
+    document.getElementById('tab-'+t).classList.toggle('section-hidden', t !== name);
+  });
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+}
+
+function switchAsciiMode(mode, el) {
+  state.asciiMode = mode;
+  ['distro','custom','image','none'].forEach(m => {
+    const el = document.getElementById('ascii-'+m);
+    if (el) el.classList.toggle('section-hidden', m !== mode);
+  });
+  document.querySelectorAll('.ascii-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+
+  if (mode === 'image') {
+    document.getElementById('imageModal').classList.add('open');
+  }
+  updatePreview();
+}
+
+// ─── Image handling ───────────────────────────────────────────────────────
+function triggerImageUpload() {
+  document.getElementById('imageModal').classList.add('open');
+}
+
+function closeImageModal() {
+  document.getElementById('imageModal').classList.remove('open');
+  if (!state.imagePath) {
+    // revert to distro
+    state.asciiMode = 'distro';
+    document.querySelectorAll('.ascii-tab').forEach((t,i) => t.classList.toggle('active', i===0));
+    document.getElementById('ascii-distro').classList.remove('section-hidden');
+    document.getElementById('ascii-image').classList.add('section-hidden');
+  }
+}
+
+function confirmImagePath() {
+  const val = document.getElementById('imagePathInput').value.trim();
+  if (!val) return;
+  state.imagePath = val;
+  document.getElementById('imageModal').classList.remove('open');
+  const d = document.getElementById('imagePathDisplay');
+  d.style.display = 'block';
+  d.innerHTML = `<div class="info-banner" style="margin-top:10px">
+    📁 Path: <strong>${val}</strong>
+    <br><span style="font-size:0.65rem;margin-top:4px;display:block;color:var(--text3)">Click the upload zone to change</span>
+  </div>`;
+  updatePreview();
+}
+
+// ─── Nerd Font warning toggle ─────────────────────────────────────────────
+function toggleIconsWarning() {
+  const checked = document.getElementById('useIcons').checked;
+  const warn = document.getElementById('nfWarning');
+  if (warn) warn.style.display = checked ? 'flex' : 'none';
+  updatePreview();
+}
+
+// ─── Preview ──────────────────────────────────────────────────────────────
+function titleLine(s) {
+  return `<span style="color:${state.colors.title};font-weight:700">user</span><span style="color:var(--text3)">@</span><span style="color:${state.colors.title};font-weight:700">hostname</span>`;
+}
+
+function colorize(text, color) {
+  return `<span style="color:${color}">${text}</span>`;
+}
+
+function updatePreview() {
+  const useIcons = document.getElementById('useIcons')?.checked ?? true;
+  const colorize_vals = document.getElementById('colorizeVals')?.checked ?? true;
+  const showTitle = document.getElementById('showTitle')?.checked ?? true;
+  const showSep = document.getElementById('showSep')?.checked ?? true;
+  const kvSep = document.getElementById('kvSep')?.value ?? ': ';
+  const logoSide = document.getElementById('logoSide')?.value ?? 'left';
+  const logoPadding = parseInt(document.getElementById('logoPadding')?.value ?? '2');
+
+  const pad = ' '.repeat(logoPadding);
+
+  // Build info lines
+  const infoLines = [];
+  state.modules.forEach(m => {
+    if (m.custom.hidden) return;
+    const def = MODULE_DEFS[m.type];
+    if (!def) return;
+
+    if (m.type === 'break') {
+      infoLines.push('');
+      return;
+    }
+    if (m.type === 'separator') {
+      if (showSep) infoLines.push(`<span style="color:${state.colors.sep}">──────────────────────</span>`);
+      return;
+    }
+    if (m.type === 'title') {
+      if (showTitle) infoLines.push(titleLine());
+      return;
+    }
+    if (m.type === 'colors_block') {
+      const blocks = ['#ff5f57','#febc2e','#28c840','#00d4ff','#a855f7','#7aa2f7','#f8f8f2'];
+      infoLines.push(blocks.map(c => `<span style="color:${c}">███</span>`).join(''));
+      return;
+    }
+
+    const keyText = m.custom.key || def.label || m.type;
+    const icon = useIcons ? (def.nfIcon ? def.nfIcon + ' ' : '') : '';
+    const val = colorize_vals ? `<span style="color:${state.colors.value}">${def.sampleVal||''}</span>` : (def.sampleVal||'');
+    const keyHtml = `<span style="color:${state.colors.key}">${icon}${keyText}</span>`;
+    infoLines.push(`${keyHtml}${colorize(kvSep, state.colors.sep)}${val}`);
+  });
+
+  // Build ASCII art
+  let artLines = [];
+  if (state.asciiMode === 'distro') {
+    const d = DISTROS[state.selectedDistro];
+    artLines = d.art.split('\n').map(l => `<span style="color:${d.color}">${escHtml(l)}</span>`);
+  } else if (state.asciiMode === 'custom') {
+    const txt = document.getElementById('customAsciiInput')?.value || '';
+    artLines = txt.split('\n').map(l => `<span style="color:${state.colors.logo}">${escHtml(l)}</span>`);
+  } else if (state.asciiMode === 'image') {
+    artLines = [
+      `<span style="color:${state.colors.logo}">┌─────────────┐</span>`,
+      `<span style="color:${state.colors.logo}">│  </span><span style="color:var(--text3)">[ image ]  </span><span style="color:${state.colors.logo}">│</span>`,
+      `<span style="color:${state.colors.logo}">│  </span><span style="color:var(--accent4)">⚠ terminal  </span><span style="color:${state.colors.logo}">│</span>`,
+      `<span style="color:${state.colors.logo}">│  </span><span style="color:var(--accent4)">  support   </span><span style="color:${state.colors.logo}">│</span>`,
+      `<span style="color:${state.colors.logo}">│  </span><span style="color:var(--accent4)">  required  </span><span style="color:${state.colors.logo}">│</span>`,
+      `<span style="color:${state.colors.logo}">└─────────────┘</span>`,
+    ];
+    if (state.imagePath) {
+      artLines.push(`<span style="color:var(--text3);font-size:0.65em">${escHtml(state.imagePath.split('/').pop())}</span>`);
+    }
+  }
+
+  let html = '';
+  if (logoSide === 'left' || logoSide === 'right') {
+    const maxLines = Math.max(artLines.length, infoLines.length);
+    // Measure the true plain-text width of the widest art line
+    const artWidth = Math.max(...artLines.map(l => stripTags(l).length), 0);
+
+    // Build art column: each line padded with spaces to artWidth so the column is fixed-width
+    const artColLines = Array.from({ length: maxLines }, (_, i) => {
+      const plain = stripTags(artLines[i] || '');
+      const trailing = ' '.repeat(Math.max(0, artWidth - plain.length));
+      return (artLines[i] || ' '.repeat(artWidth)) + trailing;
+    });
+
+    // Build info column lines
+    const infoColLines = Array.from({ length: maxLines }, (_, i) => infoLines[i] || '');
+
+    if (logoSide === 'left') {
+      html = `<div class="term-layout">` +
+        `<div class="term-art-col">${artColLines.join('\n')}</div>` +
+        `<div style="width:${pad.length}ch;flex-shrink:0"></div>` +
+        `<div class="term-info-col">${infoColLines.join('\n')}</div>` +
+        `</div>`;
+    } else {
+      html = `<div class="term-layout">` +
+        `<div class="term-info-col">${infoColLines.join('\n')}</div>` +
+        `<div style="width:${pad.length}ch;flex-shrink:0"></div>` +
+        `<div class="term-art-col">${artColLines.join('\n')}</div>` +
+        `</div>`;
+    }
+  } else if (logoSide === 'top') {
+    html += artLines.join('\n') + '\n\n';
+    html += infoLines.join('\n') + '\n';
+  } else if (logoSide === 'bottom') {
+    html += infoLines.join('\n') + '\n\n';
+    html += artLines.join('\n') + '\n';
+  } else {
+    html += infoLines.join('\n') + '\n';
+  }
+
+  document.getElementById('terminalPreview').innerHTML = html;
+}
+
+function escHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function stripTags(str) {
+  return str.replace(/<[^>]+>/g, '');
+}
+
+// ─── Config generation ────────────────────────────────────────────────────
+function generateConfig() {
+  const useIcons = document.getElementById('useIcons')?.checked;
+  const kvSep = document.getElementById('kvSep')?.value ?? ': ';
+  const logoSide = document.getElementById('logoSide')?.value ?? 'left';
+
+  const modulesList = state.modules
+    .filter(m => !m.custom.hidden)
+    .map(m => {
+      if (m.type === 'break') return '    { "type": "break" }';
+      if (m.type === 'separator') return '    { "type": "separator" }';
+      const def = MODULE_DEFS[m.type] || {};
+      const obj = { type: m.type };
+      // Build key: custom label > nerd font icon + default label > just default label
+      if (m.custom.key) {
+        obj.key = m.custom.key;
+      } else if (useIcons && def.nfIcon) {
+        obj.key = def.nfIcon + ' ' + (def.label || m.type);
+      }
+      if (m.custom.format) obj.format = m.custom.format;
+      return '    ' + JSON.stringify(obj);
+    }).join(',\n');
+
+  let logoSection = '';
+  if (state.asciiMode === 'distro') {
+    logoSection = `  "logo": {
+    "type": "auto",
+    "source": "${state.selectedDistro}",
+    "color": { "1": "${DISTROS[state.selectedDistro].color}" },
+    "padding": { "right": 2 }
+  },`;
+  } else if (state.asciiMode === 'custom') {
+    const art = (document.getElementById('customAsciiInput')?.value||'').replace(/\n/g,'\\n').replace(/"/g,'\\"');
+    logoSection = `  "logo": {
+    "type": "data",
+    "source": "${art}",
+    "color": { "1": "${state.colors.logo}" }
+  },`;
+  } else if (state.asciiMode === 'image') {
+    const imgW = parseInt(document.getElementById('imgWidth')?.value || '30');
+    const imgH = parseInt(document.getElementById('imgHeight')?.value || '15');
+    const imgType = document.getElementById('imgProtocol')?.value || 'kitty-direct';
+    logoSection = `  // ⚠️  IMAGE LOGO — requires terminal support for graphics protocol
+  // "kitty-direct" works on: Kitty (native), Ghostty (png only), Warp
+  // "kitty"        works on: Kitty (outside tmux), WezTerm
+  // "iterm"        works on: iTerm2, WezTerm
+  // "sixel"        works on: foot, xterm -ti vt340, many others
+  // fastfetch must be compiled with imagemagick support (check: fastfetch --list-features | grep imagemagick)
+  // ⚠️  width + height MUST match the actual rendered size — wrong values = layout broken or fallback to default logo
+  "logo": {
+    "type": "${imgType}",
+    "source": "${state.imagePath || '/path/to/your/image.png'}",
+    "width": ${imgW},
+    "height": ${imgH},
+    "padding": { "right": 2 }
+  },`;
+  } else {
+    logoSection = `  "logo": {
+    "type": "none"
+  },`;
+  }
+
+  return `// Fastfetch Configuration
+// Generated by Fastfetch Theme Builder
+// Save to: ~/.config/fastfetch/config.jsonc
+
+{
+  "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/dev/doc/json_schema.json",
+  
+${logoSection}
+
+  "display": {
+    "separator": "${kvSep.trim()}",
+    "color": {
+      "keys": "${state.colors.key}",
+      "title": "${state.colors.title}",
+      "output": "${state.colors.value}"
+    }
+  },
+
+  "modules": [
+${modulesList}
+  ]
+}`;
+}
+
+function showOutput() {
+  const config = generateConfig();
+  document.getElementById('configOutput').textContent = config;
+  document.getElementById('outputModal').classList.add('open');
+}
+
+function toggleOutput() {
+  document.getElementById('outputModal').classList.remove('open');
+}
+
+function copyConfig() {
+  const txt = document.getElementById('configOutput').textContent;
+  navigator.clipboard.writeText(txt).then(() => {
+    const ov = document.getElementById('copyOverlay');
+    ov.classList.add('show');
+    setTimeout(() => ov.classList.remove('show'), 1500);
+  });
+}
+
+function resetConfig() {
+  if (!confirm('Reset to default configuration?')) return;
+  initDefault();
+  state.asciiMode = 'distro';
+  state.selectedDistro = 'arch';
+  state.colors = { key:'#00d4ff', value:'#e2e8f0', title:'#a855f7', logo:'#00d4ff', sep:'#3a4a62' };
+  state.selectedModule = null;
+  document.getElementById('moduleEditorPanel').style.display = 'none';
+  document.getElementById('outputPanel').style.display = 'none';
+  renderDistroGrid();
+  renderColorRows();
+  renderModuleList();
+  updatePreview();
+  // reset ascii tab
+  ['distro','custom','image','none'].forEach(m => {
+    document.getElementById('ascii-'+m).classList.toggle('section-hidden', m !== 'distro');
+  });
+  document.querySelectorAll('.ascii-tab').forEach((t,i) => t.classList.toggle('active', i===0));
+}
+
+init();
+</script>
+</body>
+</html>
