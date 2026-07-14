@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/gh/:repo",
+      "destination": "https://github.com/arc360alt/:repo",
+      "permanent": false
+    }
+  ]
+}
