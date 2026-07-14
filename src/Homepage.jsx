@@ -152,7 +152,7 @@ export default function Homepage() {
     { label: 'Blender Renders', href: '/renders' },
     { label: 'My portfolio', href: '/portfolio' },
     { label: 'Sitemap', href: '/sitemap' },
-    { label: 'View Source', href: 'https://github.com/arc360alt/arcswebsite' },
+    { label: 'View Source', href: 'https://nyxdev.app/gh/arcswebsite' },
   ];
 
   return (

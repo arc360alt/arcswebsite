@@ -9,20 +9,20 @@ export default function ActiveProjects() {
   }, []);
 
   const leftLinks = [
-    { label: 'SyntaxAI', href: 'https://github.com/arc360alt/syntaxai-app' },
-    { label: 'Pronouns.sbs Source', href: 'https://github.com/arc360alt/pronouns' },
+    { label: 'SyntaxAI', href: 'https://nyxdev.app/gh/syntaxai-app' },
+    { label: 'Pronouns.sbs Source', href: 'https://nyxdev.app/gh/pronouns' },
   ];
 
   const middleLinks = [
     { label: 'Vertex Linux (Orginisation)', href: 'https://github.com/Vertex-Linux' },
-    { label: 'OptiArk (Modpack Source)', href: 'https://github.com/arc360alt/OptiArk-New' },
-    { label: 'OptiArk (Website)', href: 'https://github.com/arc360alt/oa-web-new' },
-    { label: 'ArcsWebsite (This Website)', href: 'https://github.com/arc360alt/arcswebsite' },
+    { label: 'OptiArk (Modpack Source)', href: 'https://nyxdev.app/gh/OptiArk-New' },
+    { label: 'OptiArk (Website)', href: 'https://nyxdev.app/gh/oa-web-new' },
+    { label: 'ArcsWebsite (This Website)', href: 'https://nyxdev.app/gh/arcswebsite' },
   ];
 
   const rightLinks = [
-    { label: 'ArkIDE (Project Archived Indefiniatly)', href: 'https://github.com/arc360alt/arkide-new' },
-    { label: 'ArkRinth (Broken)', href: 'https://github.com/arc360alt/ArkRinthTesting' },
+    { label: 'ArkIDE (Project Archived Indefiniatly)', href: 'https://nyxdev.app/gh/arkide-new' },
+    { label: 'ArkRinth (Broken)', href: 'https://nyxdev.app/gh/ArkRinthTesting' },
   ];
 
   return (

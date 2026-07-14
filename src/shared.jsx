@@ -142,7 +142,7 @@ export function SiteFooter() {
   return (
     <footer className={`text-center border-t ${colors.border.primary} pt-8 pb-6 px-4`}>
       <p className={`${colors.text.muted} text-xs mb-1`}>I love coding and tech & stuff :D</p>
-      <a href="https://github.com/arc360alt/arcswebsite"
+      <a href="https://nyxdev.app/gh/arcswebsite"
         className={`${colors.text.accent} ${colors.text.accentHover} ${colors.transition.colors} text-xs`}>View source</a>
       <p className={`${colors.text.subtle} text-xs mt-4`}>&copy;2020-2026 Nyx Studios</p>
     </footer>
