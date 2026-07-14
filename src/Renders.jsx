@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { Sparkles, X } from 'lucide-react';
+import colors from './colors';
 import { RotatingBanner, PageShell, SiteFooter, PageHero, BackButton, useInView } from './shared';
 
 const renderImages = [
@@ -9,6 +10,7 @@ const renderImages = [
   { src: '/renders/kittydarkandmistirious.png', alt: 'Dark kitty render' },
   { src: '/renders/mc char.png', alt: 'Minecraft character render' },
   { src: '/renders/Untitled.png', alt: 'Untitled render' },
+  { src: '/renders/1440render.png', alt: 'Protogen Guy Render' },
 ];
 
 function Lightbox({ src, alt, onClose }) {
@@ -52,7 +54,7 @@ function RenderImage({ src, alt, delay, onClick }) {
     <div
       ref={ref}
       onClick={onClick}
-      className={`bg-slate-900/40 backdrop-blur-sm border border-slate-700/50 rounded-xl overflow-hidden hover:border-cyan-500/30 transition-colors duration-300 cursor-pointer group ${inView ? 'animate-fade-in-up' : 'opacity-0'}`}
+      className={`${colors.bg.card} backdrop-blur-sm border ${colors.border.primary} rounded-xl overflow-hidden ${colors.border.accentHover} ${colors.transition.colors} duration-300 cursor-pointer group ${inView ? 'animate-fade-in-up' : 'opacity-0'}`}
       style={{ animationDelay: `${delay}ms` }}
     >
       <img

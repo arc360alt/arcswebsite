@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Sparkles } from 'lucide-react';
+import colors from './colors';
 import { RotatingBanner, PageShell, SiteFooter, PageHero, BackButton, useInView } from './shared';
 
 function LanyardCard() {
@@ -8,7 +9,7 @@ function LanyardCard() {
   return (
     <div
       ref={ref}
-      className={`bg-slate-900/40 backdrop-blur-sm border border-slate-700/50 rounded-xl overflow-hidden hover:border-cyan-500/30 transition-colors duration-300 ${inView ? 'animate-fade-in-up' : 'opacity-0'}`}
+      className={`${colors.bg.card} backdrop-blur-sm border ${colors.border.primary} rounded-xl overflow-hidden ${colors.border.accentHover} ${colors.transition.colors} duration-300 ${inView ? 'animate-fade-in-up' : 'opacity-0'}`}
     >
       <iframe
         src="https://lanyard.cnrad.dev/api/719973177954140210"

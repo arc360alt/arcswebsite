@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-export default function Ark360Studios() {
+export default function NyxStudios() {
   // Employee data - easily customizable
   const employees = [
     {
@@ -77,12 +77,12 @@ export default function Ark360Studios() {
             textShadow: 'none'
             }}
         >
-            ARK360
+            NYX
         </span>
         <span 
             className="relative text-blue-600"
         >
-            ARK360
+            NYX
         </span>
         </h1>
         <h2 className="text-4xl md:text-6xl font-bold mb-4 relative">
@@ -161,7 +161,7 @@ export default function Ark360Studios() {
       {/* Employees Section */}
       <section className="py-20 px-4 bg-gradient-to-b from-black to-gray-900">
         <h2 className="text-4xl font-bold text-center mb-4">
-          Employees of Ark360 Studios:
+          Employees of Nyx Studios:
         </h2>
         
         <h3 className="text-2xl font-bold mb-8 px-4 max-w-6xl mx-auto">ArkIDE:</h3>
@@ -267,7 +267,7 @@ export default function Ark360Studios() {
             {/* Logo Section */}
             <div className="col-span-1 md:col-span-1">
               <h3 className="text-2xl font-bold mb-2">
-                <span className="text-blue-600">ARK360 Studios</span>
+                <span className="text-blue-600">NYX Studios</span>
               </h3>
               <p className="text-sm text-gray-400">We make things</p>
             </div>
@@ -326,7 +326,7 @@ export default function Ark360Studios() {
           
           {/* Copyright */}
           <div className="border-t border-gray-800 pt-8 text-center text-gray-500 text-sm">
-            <p>&copy; 2020-2026 ARK360 Studios. All rights reserved. We are not a real regristerd company.</p>
+            <p>&copy; 2020-2026 NYX Studios. All rights reserved. We are not a real regristerd company.</p>
           </div>
         </div>
       </footer>

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Puzzle, Code, Globe, Sparkles } from 'lucide-react';
+import colors from './colors';
 import { RotatingBanner, PageShell, SiteFooter, LinkCard, PageHero, BackButton } from './shared';
 
 export default function MoreLinks() {
@@ -34,11 +35,11 @@ export default function MoreLinks() {
         <section className="max-w-4xl mx-auto px-4 mb-16">
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <LinkCard title="Tools & Fun" icon={Puzzle} links={toolsLinks} delay={100}
-              gradient="bg-gradient-to-br from-cyan-500/20 to-blue-500/20" />
+              gradient={colors.accents[0]} />
             <LinkCard title="Projects" icon={Code} links={projectsLinks} delay={200}
-              gradient="bg-gradient-to-br from-purple-500/20 to-pink-500/20" />
+              gradient={colors.accents[1]} />
             <LinkCard title="Browse" icon={Globe} links={browseLinks} delay={300}
-              gradient="bg-gradient-to-br from-amber-500/20 to-orange-500/20" />
+              gradient={colors.accents[2]} />
           </div>
         </section>
 

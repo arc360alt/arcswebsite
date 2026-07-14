@@ -5,5 +5,11 @@
       "destination": "https://github.com/arc360alt/:repo",
       "permanent": false
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
   ]
 }
