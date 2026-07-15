@@ -20,7 +20,7 @@ function StatCard({ icon: Icon, label, value, delay = 0, href }) {
       style={{ animationDelay: `${delay}ms` }}
     >
       <div className="flex items-center gap-3">
-        <div className="p-2 bg-cyan-500/10 rounded-lg flex-shrink-0">
+        <div className={`p-2 ${colors.bg.iconAccent} rounded-lg flex-shrink-0`}>
           <Icon className={`w-4 h-4 ${colors.text.accent}`} />
         </div>
         <div className="min-w-0">
@@ -35,10 +35,10 @@ function StatCard({ icon: Icon, label, value, delay = 0, href }) {
 function PresenceCard({ data, bannerSrc }) {
   const [ref, inView] = useInView();
 
-  const statusColor = !data ? 'bg-gray-500' :
-    data.discord_status === 'online' ? 'bg-green-500' :
-    data.discord_status === 'idle' ? 'bg-yellow-500' :
-    data.discord_status === 'dnd' ? 'bg-red-500' : 'bg-gray-500';
+  const statusColor = !data ? colors.status.offline :
+    data.discord_status === 'online' ? colors.status.online :
+    data.discord_status === 'idle' ? colors.status.idle :
+    data.discord_status === 'dnd' ? colors.status.dnd : colors.status.offline;
 
   const customStatus = data?.activities?.find(a => a.type === 4)?.state;
   const activities = data?.activities?.filter(a => a.type !== 4) || [];
@@ -48,13 +48,9 @@ function PresenceCard({ data, bannerSrc }) {
       ref={ref}
       className={`${colors.bg.card} backdrop-blur-sm border ${colors.border.primary} rounded-xl overflow-hidden ${colors.border.accentHover} ${colors.transition.colors} duration-300 opacity-0 ${inView ? 'animate-fade-in-up' : ''}`}
     >
-      {bannerSrc ? (
-        <div className="h-15 overflow-hidden">
-          <img src={bannerSrc} alt="" className="w-full h-full object-cover" />
-        </div>
-      ) : (
-        <div className="h-14 bg-gradient-to-r from-cyan-600/20 via-blue-600/20 to-purple-600/20" />
-      )}
+      <div className="h-16 overflow-hidden">
+        <img src={bannerSrc} alt="" className="w-full h-full object-cover" />
+      </div>
       <div className="p-4 -mt-7">
         <div className="flex items-end gap-3 mb-3">
           <div className="relative flex-shrink-0">
@@ -63,8 +59,8 @@ function PresenceCard({ data, bannerSrc }) {
                 ? `https://cdn.discordapp.com/avatars/${data.discord_user.id}/${data.discord_user.avatar}.${data.discord_user.avatar.startsWith('a_') ? 'gif' : 'png'}?size=64`
                 : 'https://cdn.discordapp.com/embed/avatars/0.png'
               }
-              alt="" className="w-12 h-12 rounded-full border-2 border-slate-800" />
-            <div className={`absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full border-2 border-slate-800 ${statusColor}`} />
+              alt="" className={`w-12 h-12 rounded-full border-2 ${colors.border.avatar}`} />
+            <div className={`absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full border-2 ${colors.border.avatar} ${statusColor}`} />
           </div>
           <div className="pb-0.5 min-w-0">
             <p className={`${colors.text.primary} font-semibold text-sm truncate`}>
@@ -101,7 +97,7 @@ function PresenceCard({ data, bannerSrc }) {
 
         {!data && (
           <div className="text-center py-4">
-            <div className="w-5 h-5 border-2 border-cyan-400/30 border-t-cyan-400 rounded-full animate-spin mx-auto" />
+            <div className={`w-5 h-5 border-2 ${colors.spinner} rounded-full animate-spin mx-auto`} />
           </div>
         )}
       </div>
@@ -109,7 +105,7 @@ function PresenceCard({ data, bannerSrc }) {
   );
 }
 
-const discordBanner = 'https://cdn.discordapp.com/banners/719973177954140210/7f73a8f4ea069e555dcb77aa748b62a8.png?size=300';
+const discordBanner = '/banner.png';
 
 export default function Homepage() {
   const [discord, setDiscord] = useState(null);
@@ -161,7 +157,7 @@ export default function Homepage() {
       <PageShell>
         <section className="pt-20 pb-6 text-center px-4">
           <div className="animate-fade-in">
-            <div className="w-20 h-20 mx-auto mb-5 rounded-full overflow-hidden border-2 border-cyan-400/30 shadow-lg shadow-cyan-500/10">
+            <div className={`w-20 h-20 mx-auto mb-5 rounded-full overflow-hidden border-2 ${colors.heroRing.border} shadow-lg ${colors.heroRing.shadow}`}>
               <img src="/pfp.png" alt="Ark" className="w-full h-full object-cover" />
             </div>
             <h1 className="text-4xl md:text-5xl font-bold mb-2">
@@ -174,10 +170,10 @@ export default function Homepage() {
 
           <div className="flex items-center justify-center gap-3 mt-8">
             {[
-              { icon: Github, href: 'https://github.com/arc360alt', hover: 'hover:text-cyan-300 hover:border-cyan-500/30' },
-              { icon: Youtube, href: 'https://youtube.com/@arc360', hover: 'hover:text-red-400 hover:border-red-500/30' },
-              { icon: MessageCircle, href: 'https://discord.gg/TRMPdA8acF', hover: 'hover:text-indigo-400 hover:border-indigo-500/30' },
-              { icon: Gamepad2, href: 'https://modrinth.com/user/arc360', hover: 'hover:text-green-400 hover:border-green-500/30' },
+              { icon: Github, href: 'https://github.com/arc360alt', hover: colors.social.github },
+              { icon: Youtube, href: 'https://youtube.com/@arc360', hover: colors.social.youtube },
+              { icon: MessageCircle, href: 'https://discord.gg/TRMPdA8acF', hover: colors.social.discord },
+              { icon: Gamepad2, href: 'https://modrinth.com/user/arc360', hover: colors.social.modrinth },
             ].map((item, i) => (
               <a key={i} href={item.href} target="_blank" rel="noopener noreferrer"
                 className={`p-2.5 ${colors.bg.well} rounded-full border ${colors.border.primary} ${colors.text.tertiary} ${colors.transition.colors} duration-200 ${item.hover}`}>

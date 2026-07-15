@@ -64,7 +64,7 @@ export function LinkCard({ title, icon: Icon, links, delay = 0, gradient = '' })
     >
       <div className="flex items-center gap-2.5 mb-4">
         <div className={`p-2 rounded-lg ${gradient}`}>
-          <Icon className="w-4 h-4 text-white" />
+          <Icon className={`w-4 h-4 ${colors.text.onAccent}`} />
         </div>
         <h3 className={`${colors.text.secondary} font-semibold text-sm`}>{title}</h3>
       </div>

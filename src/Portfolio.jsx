@@ -91,7 +91,7 @@ useEffect(() => {
 
   useEffect(() => {
     // Set page title
-    document.title = "Ark - Portfolio";
+    document.title = "Nyx - Portfolio";
     
     // Set meta tags for embeds
     const setMetaTag = (property, content) => {
@@ -111,7 +111,7 @@ useEffect(() => {
     };
 
     // Open Graph / Discord embeds
-    setMetaTag('og:title', 'Ark - Portfolio');
+    setMetaTag('og:title', 'Nyx - Portfolio');
     setMetaTag('og:description', "i'm a self-taught developer that just makes random things");
     setMetaTag('og:image', 'https://arc360hub.com/favicon.ico');
     setMetaTag('og:url', 'https://arc360hub.com/portfolio');
@@ -119,12 +119,12 @@ useEffect(() => {
     
     // Twitter Card
     setMetaTag('twitter:card', 'summary_large_image');
-    setMetaTag('twitter:title', 'Ark - Portfolio');
+    setMetaTag('twitter:title', 'Nyx - Portfolio');
     setMetaTag('twitter:description', "i'm a self-taught developer that just makes random things");
     setMetaTag('twitter:image', 'https://arc360hub.com/favicon.ico');
     
     // Theme color
-    setMetaTag('theme-color', '#3b82f6');
+    setMetaTag('theme-color', pc.themeColor);
   }, []);
 
   const fetchGitHubRepos = async () => {
@@ -166,45 +166,45 @@ const scrollToSection = (sectionRef, sectionName) => {
 
   return (
     
-      <div className="min-h-screen text-gray-100" style={{ background: `linear-gradient(${pc.background.direction}, ${pc.background.colors.join(', ')})` }}>
+      <div className={`min-h-screen ${pc.text.base}`} style={{ background: `linear-gradient(${pc.background.direction}, ${pc.background.colors.join(', ')})` }}>
       {/* Navigation Bar with Glassmorphism */}
       <nav className="fixed top-6 left-1/2 transform -translate-x-1/2 z-50">
         <div className={`backdrop-blur-xl ${pc.nav.bg} border ${pc.nav.border} rounded-full px-2 py-2 shadow-2xl relative`}>
           {/* White glowing indicator bar OUTSIDE at top - rounded only on top */}
-          <div 
-            className={`absolute -top-1 h-1 w-8 bg-white transition-all duration-300 ease-out`}
+          <div
+            className={`absolute -top-1 h-1 w-8 ${pc.nav.indicator} transition-all duration-300 ease-out`}
             style={{
               left: activeSection === 'about' ? '28px' : '118px',
               borderTopLeftRadius: '4px',
               borderTopRightRadius: '4px',
               borderBottomLeftRadius: '0',
               borderBottomRightRadius: '0',
-              boxShadow: '0 0 10px rgba(255,255,255,0.8), 0 0 20px rgba(255,255,255,0.4)'
+              boxShadow: pc.nav.indicatorShadow
             }}
           />
           
           <div className="flex items-center gap-2 relative">
-            <button 
+            <button
               onClick={() => scrollToSection(aboutRef, 'about')}
-              className={`relative z-10 px-4 py-2 text-sm font-medium transition-all rounded-full text-white ${
-                activeSection === 'about' ? 'bg-white/20' : ''
+              className={`relative z-10 px-4 py-2 text-sm font-medium transition-all rounded-full ${pc.nav.text} ${
+                activeSection === 'about' ? pc.nav.activeBg : ''
               }`}
             >
               About
             </button>
-            <button 
+            <button
               onClick={() => scrollToSection(workRef, 'work')}
-              className={`relative z-10 px-4 py-2 text-sm font-medium transition-all rounded-full text-white ${
-                activeSection === 'work' ? 'bg-white/20' : ''
+              className={`relative z-10 px-4 py-2 text-sm font-medium transition-all rounded-full ${pc.nav.text} ${
+                activeSection === 'work' ? pc.nav.activeBg : ''
               }`}
             >
               Stuff
             </button>
-            <a 
-              href="https://github.com/arc360alt" 
-              target="_blank" 
+            <a
+              href="https://github.com/arc360alt"
+              target="_blank"
               rel="noopener noreferrer"
-              className="relative z-10 px-3 py-2 text-white hover:text-gray-300 transition-colors rounded-full flex items-center"
+              className={`relative z-10 px-3 py-2 ${pc.nav.text} ${pc.nav.iconHover} transition-colors rounded-full flex items-center`}
             >
               <Github size={18} />
             </a>
@@ -217,13 +217,13 @@ const scrollToSection = (sectionRef, sectionName) => {
         <h1 className="text-5xl font-bold mb-3">
           hi! i'm <span className={`${pc.heroGradient} bg-clip-text text-transparent`}>Ark</span>
         </h1>
-        <p className="text-gray-400 text-lg">a protogen that codes stuff</p>
+        <p className={`${pc.text.body} text-lg`}>a protogen that codes stuff</p>
       </div>
 
       {/* About Section */}
       <div className="max-w-4xl mx-auto px-8 mb-20">
         <h2 className="text-3xl font-bold mb-4">About me</h2>
-        <p className="text-gray-400 leading-relaxed">
+        <p className={`${pc.text.body} leading-relaxed`}>
           i'm a self-taught developer that just makes random things when I'm not doing school work.
           I bounce between a bunch of side projects, from full websites to Minecraft modpacks to random tools nobody asked for.
         </p>
@@ -237,7 +237,7 @@ const scrollToSection = (sectionRef, sectionName) => {
             {nowItems.map((item, i) => {
               const Icon = item.icon;
               return (
-                <li key={i} className="flex items-center gap-3 text-gray-300">
+                <li key={i} className={`flex items-center gap-3 ${pc.text.bodyLight}`}>
                   <span className={`flex items-center justify-center w-9 h-9 rounded-lg ${pc.badge.accentBg} ${pc.badge.accentText} shrink-0`}>
                     <Icon size={18} />
                   </span>
@@ -252,7 +252,7 @@ const scrollToSection = (sectionRef, sectionName) => {
       {/* Tech Skills */}
       <div className="max-w-6xl mx-auto px-8 mb-20">
         <h2 className="text-3xl font-bold text-center mb-4">My Tech Skills</h2>
-        <p className="text-gray-400 text-center mb-12">I probably left a few out but heres most of the languages I know</p>
+        <p className={`${pc.text.body} text-center mb-12`}>I probably left a few out but heres most of the languages I know</p>
         
         <div className="grid md:grid-cols-3 gap-6">
           {/* Programming Languages */}
@@ -317,7 +317,7 @@ const scrollToSection = (sectionRef, sectionName) => {
       {/* Featured Projects */}
       <div className="max-w-6xl mx-auto px-8 mb-20">
         <h2 className="text-3xl font-bold text-center mb-4">Featured Projects</h2>
-        <p className="text-gray-400 text-center mb-12">a few of the bigger things I've built</p>
+        <p className={`${pc.text.body} text-center mb-12`}>a few of the bigger things I've built</p>
 
         <div className="grid md:grid-cols-2 gap-6">
           {featuredProjects.map((project) => (
@@ -326,7 +326,7 @@ const scrollToSection = (sectionRef, sectionName) => {
               className={`${pc.card.bg} backdrop-blur border ${pc.card.border} rounded-xl p-6 ${pc.card.hoverBorder} transition-all duration-300`}
             >
               <h3 className="text-xl font-semibold mb-2">{project.name}</h3>
-              <p className="text-gray-400 text-sm mb-4">{project.description}</p>
+              <p className={`${pc.text.body} text-sm mb-4`}>{project.description}</p>
               <div className="flex gap-2 mb-4 flex-wrap">
                 {project.tags.map((tag) => (
                   <span key={tag} className={`text-xs ${pc.badge.accentBg} ${pc.badge.accentText} px-2 py-1 rounded-full`}>
@@ -339,7 +339,7 @@ const scrollToSection = (sectionRef, sectionName) => {
                   href={project.liveUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-1 text-gray-300 hover:text-white transition-colors"
+                  className={`flex items-center gap-1 ${pc.text.bodyLight} ${pc.text.hoverWhite} transition-colors`}
                 >
                   <ExternalLink size={14} /> Visit
                 </a>
@@ -348,7 +348,7 @@ const scrollToSection = (sectionRef, sectionName) => {
                     href={project.sourceUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-1 text-gray-300 hover:text-white transition-colors"
+                    className={`flex items-center gap-1 ${pc.text.bodyLight} ${pc.text.hoverWhite} transition-colors`}
                   >
                     <Github size={14} /> Source
                   </a>
@@ -364,9 +364,9 @@ const scrollToSection = (sectionRef, sectionName) => {
         <div className="flex justify-between items-center mb-8 flex-wrap gap-4">
           <div>
             <h2 className="text-3xl font-bold">Renders</h2>
-            <p className="text-gray-400 mt-1">some stuff I've made in Blender</p>
+            <p className={`${pc.text.body} mt-1`}>some stuff I've made in Blender</p>
           </div>
-          <a href="/renders" className="flex items-center gap-1 text-sm text-gray-300 hover:text-white transition-colors">
+          <a href="/renders" className={`flex items-center gap-1 text-sm ${pc.text.bodyLight} ${pc.text.hoverWhite} transition-colors`}>
             View all <ArrowRight size={16} />
           </a>
         </div>
@@ -386,13 +386,13 @@ const scrollToSection = (sectionRef, sectionName) => {
       <div className="mx-auto px-8 mb-20" style={{ maxWidth: '620px' }}>
         <div className={`${pc.discordCard.bg} backdrop-blur border ${pc.discordCard.border} rounded-2xl overflow-hidden`}>
           {/* Discord Banner */}
-          <div 
+          <div
             className="h-24"
             style={{
-              backgroundImage: `url(https://cdn.discordapp.com/banners/719973177954140210/${discordData?.discord_user?.banner || 'dbf4e3ca8ff7529bf8d643e955faf293'}.${discordData?.discord_user?.banner?.startsWith('a_') ? 'gif' : 'png'}?size=600)`,
+              backgroundImage: 'url(/banner.png)',
               backgroundSize: 'cover',
               backgroundPosition: 'center',
-              backgroundColor: '#5865F2'
+              backgroundColor: pc.discordCard.bannerFallback
             }}
           />
           <div className="px-6 pb-6 -mt-12">
@@ -403,12 +403,12 @@ const scrollToSection = (sectionRef, sectionName) => {
                   : "https://cdn.discordapp.com/embed/avatars/0.png"
                 }
                 alt="Discord Avatar"
-                className="w-24 h-24 rounded-full border-4 border-amber-800"
+                className={`w-24 h-24 rounded-full border-4 ${pc.discordCard.avatarRing}`}
               />
-              <div className={`absolute bottom-1 right-1 w-6 h-6 rounded-full border-4 border-amber-800 ${
-                discordData?.discord_status === 'online' ? 'bg-green-500' :
-                discordData?.discord_status === 'idle' ? 'bg-yellow-500' :
-                discordData?.discord_status === 'dnd' ? 'bg-red-500' : 'bg-gray-500'
+              <div className={`absolute bottom-1 right-1 w-6 h-6 rounded-full border-4 ${pc.discordCard.avatarRing} ${
+                discordData?.discord_status === 'online' ? pc.status.online :
+                discordData?.discord_status === 'idle' ? pc.status.idle :
+                discordData?.discord_status === 'dnd' ? pc.status.dnd : pc.status.offline
               }`}></div>
             </div>
             <div className="mt-4">
@@ -474,13 +474,13 @@ const scrollToSection = (sectionRef, sectionName) => {
                   )}
                 </div>
               </div>
-              <p className="text-gray-400 text-sm">@{discordData?.discord_user?.username || 'ark'}</p>
+              <p className={`${pc.text.body} text-sm`}>@{discordData?.discord_user?.username || 'ark'}</p>
             </div>
-            
+
 {/* Status - Only show if there's a custom status */}
             {discordData?.activities?.find(a => a.type === 4)?.state && (
-              <div className="mt-4 bg-yellow-900/50 rounded-lg p-3">
-                <p className="text-sm text-gray-400">Status</p>
+              <div className={`mt-4 ${pc.discordCard.statusBox} rounded-lg p-3`}>
+                <p className={`text-sm ${pc.text.body}`}>Status</p>
                 <p className="text-sm mt-1">
                   {discordData.activities.find(a => a.type === 4).state}
                 </p>
@@ -489,7 +489,7 @@ const scrollToSection = (sectionRef, sectionName) => {
 
             {/* Current Activity - Only show if there are non-custom-status activities */}
             {discordData?.activities && discordData.activities.filter(activity => activity.type !== 4).length > 0 && (
-              <div className="mt-3 bg-slate-900/50 rounded-lg p-3">
+              <div className={`mt-3 ${pc.discordCard.activityBox} rounded-lg p-3`}>
                 {discordData.activities
                   .filter(activity => activity.type !== 4) // Filter out custom status
                   .map((activity, index) => (
@@ -505,9 +505,9 @@ const scrollToSection = (sectionRef, sectionName) => {
                             />
                           )}
                           <div className="flex-1 min-w-0">
-                            <p className="text-xs text-gray-400">Listening to Spotify</p>
+                            <p className={`text-xs ${pc.text.body}`}>Listening to Spotify</p>
                             <p className="text-sm font-semibold truncate">{activity.details}</p>
-                            <p className="text-xs text-gray-400 truncate">{activity.state}</p>
+                            <p className={`text-xs ${pc.text.body} truncate`}>{activity.state}</p>
                           </div>
                         </div>
                       )}
@@ -525,27 +525,27 @@ const scrollToSection = (sectionRef, sectionName) => {
                             />
                           )}
                           <div className="flex-1 min-w-0">
-                            <p className="text-xs text-gray-400">Playing a game</p>
+                            <p className={`text-xs ${pc.text.body}`}>Playing a game</p>
                             <p className="text-sm font-semibold truncate">{activity.name}</p>
-                            {activity.details && <p className="text-xs text-gray-400 truncate">{activity.details}</p>}
-                            {activity.state && <p className="text-xs text-gray-400 truncate">{activity.state}</p>}
+                            {activity.details && <p className={`text-xs ${pc.text.body} truncate`}>{activity.details}</p>}
+                            {activity.state && <p className={`text-xs ${pc.text.body} truncate`}>{activity.state}</p>}
                           </div>
                         </div>
                       )}
                       {activity.type === 1 && (
                         // Streaming
                         <div>
-                          <p className="text-xs text-gray-400">Streaming</p>
+                          <p className={`text-xs ${pc.text.body}`}>Streaming</p>
                           <p className="text-sm font-semibold">{activity.name}</p>
-                          {activity.details && <p className="text-xs text-gray-400">{activity.details}</p>}
+                          {activity.details && <p className={`text-xs ${pc.text.body}`}>{activity.details}</p>}
                         </div>
                       )}
                       {activity.type === 3 && (
                         // Watching
                         <div>
-                          <p className="text-xs text-gray-400">Watching</p>
+                          <p className={`text-xs ${pc.text.body}`}>Watching</p>
                           <p className="text-sm font-semibold">{activity.name}</p>
-                          {activity.details && <p className="text-xs text-gray-400">{activity.details}</p>}
+                          {activity.details && <p className={`text-xs ${pc.text.body}`}>{activity.details}</p>}
                         </div>
                       )}
                     </div>
@@ -562,7 +562,7 @@ const scrollToSection = (sectionRef, sectionName) => {
           <h2 className="text-3xl font-bold">My Stuff</h2>
           <div className="flex gap-6">
             <label className="flex items-center gap-3 cursor-pointer">
-              <span className="text-gray-400">Show Forks</span>
+              <span className={pc.text.body}>Show Forks</span>
               <div className="relative">
                 <input
                   type="checkbox"
@@ -570,7 +570,7 @@ const scrollToSection = (sectionRef, sectionName) => {
                   onChange={(e) => setShowForks(e.target.checked)}
                   className="sr-only peer"
                 />
-                <div className={`w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:rounded-full after:h-5 after:w-5 after:transition-all ${pc.toggle.checkedBg}`}></div>
+                <div className={`w-11 h-6 ${pc.toggle.track} peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:${pc.toggle.knobBorder} after:content-[''] after:absolute after:top-[2px] after:left-[2px] ${pc.toggle.knobBg} after:rounded-full after:h-5 after:w-5 after:transition-all ${pc.toggle.checkedBg}`}></div>
               </div>
             </label>
           </div>
@@ -578,40 +578,7 @@ const scrollToSection = (sectionRef, sectionName) => {
 
 <div className="grid md:grid-cols-2 gap-4">
           {filteredRepos.map((repo) => {
-            // Language color mapping
-            const languageColors = {
-              'JavaScript': '#f1e05a',
-              'TypeScript': '#3178c6',
-              'Python': '#3572A5',
-              'Java': '#b07219',
-              'C': '#555555',
-              'C++': '#f34b7d',
-              'C#': '#178600',
-              'Ruby': '#701516',
-              'Go': '#00ADD8',
-              'Rust': '#dea584',
-              'PHP': '#4F5D95',
-              'Swift': '#ffac45',
-              'Kotlin': '#A97BFF',
-              'Dart': '#00B4AB',
-              'HTML': '#e34c26',
-              'CSS': '#563d7c',
-              'Shell': '#89e051',
-              'Vue': '#41b883',
-              'React': '#61dafb',
-              'Svelte': '#ff3e00',
-              'Lua': '#000080',
-              'R': '#198CE7',
-              'Scala': '#c22d40',
-              'Haskell': '#5e5086',
-              'Elixir': '#6e4a7e',
-              'Clojure': '#db5855',
-              'Objective-C': '#438eff',
-              'Perl': '#0298c3',
-              'Markdown': '#083fa1',
-            };
-            
-            const languageColor = repo.language ? (languageColors[repo.language] || '#3b82f6') : '#3b82f6';
+            const languageColor = repo.language ? (pc.languageColors[repo.language] || pc.languageColors.default) : pc.languageColors.default;
             const isCurrentSite = repo.name.toLowerCase() === 'arcswebsite';
             
             return (
@@ -635,13 +602,13 @@ const scrollToSection = (sectionRef, sectionName) => {
                     )}
                   </h3>
                   {repo.fork && (
-                    <span className="text-xs bg-slate-600/50 px-2 py-1 rounded">Fork</span>
+                    <span className={`text-xs ${pc.badge.neutralBg} px-2 py-1 rounded`}>Fork</span>
                   )}
                 </div>
-                <p className="text-gray-400 text-sm mb-4 line-clamp-2">
+                <p className={`${pc.text.body} text-sm mb-4 line-clamp-2`}>
                   {repo.description || 'No description available'}
                 </p>
-                <div className="flex items-center gap-4 text-sm text-gray-400">
+                <div className={`flex items-center gap-4 text-sm ${pc.text.body}`}>
                   <span className="flex items-center gap-1">
                     ⭐ {repo.stargazers_count}
                   </span>
@@ -667,7 +634,7 @@ const scrollToSection = (sectionRef, sectionName) => {
       {/* Minecraft Packs Section */}
       <div className="max-w-6xl mx-auto px-8 mb-20">
         <h2 className="text-3xl font-bold mb-4 text-center">Personal Minecraft Packs</h2>
-        <p className="text-gray-400 text-center mb-12">some random modpacks ive made for minecraft that i am sharing becuase i can</p>
+        <p className={`${pc.text.body} text-center mb-12`}>some random modpacks ive made for minecraft that i am sharing becuase i can</p>
         
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 
@@ -676,10 +643,10 @@ const scrollToSection = (sectionRef, sectionName) => {
             <div className="mb-4">
               <h3 className="text-xl font-bold mb-2">Old Gaming</h3>
               <div className="flex gap-2 mb-3">
-                <span className="text-xs bg-red-500/20 text-red-300 px-2 py-1 rounded-full">Forge</span>
-                <span className="text-xs bg-blue-500/20 text-blue-300 px-2 py-1 rounded-full">1.7.10</span>
+                <span className={`text-xs ${pc.tags.forge} px-2 py-1 rounded-full`}>Forge</span>
+                <span className={`text-xs ${pc.tags.version} px-2 py-1 rounded-full`}>1.7.10</span>
               </div>
-              <p className="text-gray-400 text-sm">
+              <p className={`${pc.text.body} text-sm`}>
                 A modpack based on 1.7.10 with a bunch of classic mods.
               </p>
             </div>
@@ -687,7 +654,7 @@ const scrollToSection = (sectionRef, sectionName) => {
               onClick={() => {
                 window.open('https://drive.google.com/file/d/1kimB7Rg0O8lHekDSJiZQMpqXWWxWoK4r/view?usp=sharing', '_blank');
               }}
-              className={`w-full ${pc.button.gradient} ${pc.button.gradientHover} text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2`}
+              className={`w-full ${pc.button.gradient} ${pc.button.gradientHover} ${pc.button.text} font-semibold py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2`}
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -701,10 +668,10 @@ const scrollToSection = (sectionRef, sectionName) => {
             <div className="mb-4">
               <h3 className="text-xl font-bold mb-2">Create Pack</h3>
               <div className="flex gap-2 mb-3">
-                <span className="text-xs bg-red-500/20 text-red-300 px-2 py-1 rounded-full">Forge</span>
-                <span className="text-xs bg-blue-500/20 text-blue-300 px-2 py-1 rounded-full">1.20.1</span>
+                <span className={`text-xs ${pc.tags.forge} px-2 py-1 rounded-full`}>Forge</span>
+                <span className={`text-xs ${pc.tags.version} px-2 py-1 rounded-full`}>1.20.1</span>
               </div>
-              <p className="text-gray-400 text-sm">
+              <p className={`${pc.text.body} text-sm`}>
                 Just a normal create pack that I made for survival fun I guess.
               </p>
             </div>
@@ -712,7 +679,7 @@ const scrollToSection = (sectionRef, sectionName) => {
               onClick={() => {
                 window.open('https://drive.google.com/file/d/1u7lTEJmbwpGQo_0xvlmkO6nBQbNQ8Cjv/view?usp=sharing', '_blank');
               }}
-              className={`w-full ${pc.button.gradient} ${pc.button.gradientHover} text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2`}
+              className={`w-full ${pc.button.gradient} ${pc.button.gradientHover} ${pc.button.text} font-semibold py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2`}
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -726,10 +693,10 @@ const scrollToSection = (sectionRef, sectionName) => {
             <div className="mb-4">
               <h3 className="text-xl font-bold mb-2">Person-al modpack</h3>
               <div className="flex gap-2 mb-3">
-                <span className="text-xs bg-green-500/20 text-green-300 px-2 py-1 rounded-full">Fabric</span>
-                <span className="text-xs bg-blue-500/20 text-blue-300 px-2 py-1 rounded-full">1.21.11</span>
+                <span className={`text-xs ${pc.tags.fabric} px-2 py-1 rounded-full`}>Fabric</span>
+                <span className={`text-xs ${pc.tags.version} px-2 py-1 rounded-full`}>1.21.11</span>
               </div>
-              <p className="text-gray-400 text-sm">
+              <p className={`${pc.text.body} text-sm`}>
                 My main personal modpack with an insane amount of mods (72)
               </p>
             </div>
@@ -737,7 +704,7 @@ const scrollToSection = (sectionRef, sectionName) => {
               onClick={() => {
                 window.open('https://drive.google.com/file/d/11zxYdA_lQ8rFgTWezVDqQOoPfPcl2D0a/view?usp=sharing', '_blank');
               }}
-              className={`w-full ${pc.button.gradient} ${pc.button.gradientHover} text-white font-semibold py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2`}
+              className={`w-full ${pc.button.gradient} ${pc.button.gradientHover} ${pc.button.text} font-semibold py-3 px-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2`}
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -749,37 +716,37 @@ const scrollToSection = (sectionRef, sectionName) => {
       </div>
 
       {/* Footer */}
-      <footer className="border-t border-slate-800 py-8">
+      <footer className={`border-t ${pc.footer.border} py-8`}>
         <div className="max-w-6xl mx-auto px-8">
           <div className="flex justify-center items-center gap-6 mb-4">
-            <a href="https://github.com/arc360alt" target="_blank" rel="noopener noreferrer" 
-               className="text-gray-400 hover:text-white transition-colors">
+            <a href="https://github.com/arc360alt" target="_blank" rel="noopener noreferrer"
+               className={`${pc.footer.iconDefault} ${pc.footer.iconHover} transition-colors`}>
               <Github size={24} />
             </a>
             <a href="https://discord.gg/YtZwYTBMDH" target="_blank" rel="noopener noreferrer"
-               className="text-gray-400 hover:text-white transition-colors">
+               className={`${pc.footer.iconDefault} ${pc.footer.iconHover} transition-colors`}>
               <MessageCircle size={24} />
             </a>
             <div className="relative">
-            <a 
+            <a
                 href="https://youtube.com/@arc360"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-red-500 transition-colors block"
+                className={`${pc.footer.iconDefault} ${pc.footer.youtubeHover} transition-colors block`}
                 onMouseEnter={() => setShowYouTubeTooltip(true)}
                 onMouseLeave={() => setShowYouTubeTooltip(false)}
             >
                 <Youtube size={24} />
             </a>
             {showYouTubeTooltip && (
-                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-orange-950 border border-amber-700/50 rounded-lg text-sm text-gray-300 whitespace-nowrap">
+                <div className={`absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 ${pc.tooltip.bg} border ${pc.tooltip.border} rounded-lg text-sm ${pc.tooltip.text} whitespace-nowrap`}>
                 This channel is abandoned, I may come back to it at some point
-                <div className="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1 border-4 border-transparent border-t-slate-800"></div>
+                <div className={`absolute top-full left-1/2 transform -translate-x-1/2 -mt-1 border-4 border-transparent ${pc.tooltip.arrow}`}></div>
                 </div>
             )}
             </div>
           </div>
-          <p className="text-center text-gray-400 text-sm">
+          <p className={`text-center ${pc.text.body} text-sm`}>
             &copy;2020-2026 Nyx Studios
           </p>
         </div>
