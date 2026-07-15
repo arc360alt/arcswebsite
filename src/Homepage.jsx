@@ -162,7 +162,7 @@ export default function Homepage() {
             </div>
             <h1 className="text-4xl md:text-5xl font-bold mb-2">
               <span className={`${colors.heroGradient} bg-clip-text text-transparent`}>
-                Hi, I'm Ark
+                Hi, I'm Nyx
               </span>
             </h1>
             <p className={`${colors.text.tertiary} text-base md:text-lg`}>a protogen that codes stuff</p>
