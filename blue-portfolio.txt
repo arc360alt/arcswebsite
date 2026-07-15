@@ -72,7 +72,7 @@ useEffect(() => {
     // Open Graph / Discord embeds
     setMetaTag('og:title', 'Nyx - Portfolio');
     setMetaTag('og:description', "i'm a self-taught developer that just makes random things");
-    setMetaTag('og:image', 'https://arc360hub.com/favicon.ico');
+    setMetaTag('og:image', 'https://arc360hub.com/favicon.png');
     setMetaTag('og:url', 'https://arc360hub.com/#/portfolio');
     setMetaTag('og:type', 'website');
     
@@ -80,7 +80,7 @@ useEffect(() => {
     setMetaTag('twitter:card', 'summary_large_image');
     setMetaTag('twitter:title', 'Nyx - Portfolio');
     setMetaTag('twitter:description', "i'm a self-taught developer that just makes random things");
-    setMetaTag('twitter:image', 'https://arc360hub.com/favicon.ico');
+    setMetaTag('twitter:image', 'https://arc360hub.com/favicon.png');
     
     // Theme color
     setMetaTag('theme-color', '#3b82f6');
